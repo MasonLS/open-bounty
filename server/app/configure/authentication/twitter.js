@@ -15,7 +15,7 @@ module.exports = function (app, db) {
         callbackUrl: twitterConfig.callbackUrl
     };
 
-    var createNewUser = function (token, tokenSecret, profile) {
+    var createNewUser = (token, tokenSecret, profile) => {
         return User.create({
             twitter_id: profile.id
         });
@@ -35,7 +35,7 @@ module.exports = function (app, db) {
                     return createNewUser(token, tokenSecret, profile);
                 }
             })
-            .then(function (user) {
+            .then(user => {
                 done(null, user);
             })
             .catch(function (err) {
@@ -51,7 +51,7 @@ module.exports = function (app, db) {
 
     app.get('/auth/twitter/callback',
         passport.authenticate('twitter', {failureRedirect: '/login'}),
-        function (req, res) {
+        (req, res) => {
             res.redirect('/');
         });
 

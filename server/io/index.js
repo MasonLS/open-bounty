@@ -2,13 +2,13 @@
 var socketio = require('socket.io');
 var io = null;
 
-module.exports = function (server) {
+module.exports = server => {
 
     if (io) return io;
 
     io = socketio(server);
 
-    io.on('connection', function () {
+    io.on('connection', () => {
         // Now have access to socket, wowzers!
     });
 

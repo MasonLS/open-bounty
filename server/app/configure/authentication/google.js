@@ -15,14 +15,14 @@ module.exports = function (app, db) {
         callbackURL: googleConfig.callbackURL
     };
 
-    var verifyCallback = function (accessToken, refreshToken, profile, done) {
+    var verifyCallback = (accessToken, refreshToken, profile, done) => {
 
         User.findOne({
                 where: {
                     google_id: profile.id
                 }
             })
-            .then(function (user) {
+            .then(user => {
                 if (user) {
                     return user;
                 } else {
@@ -31,10 +31,10 @@ module.exports = function (app, db) {
                     });
                 }
             })
-            .then(function (userToLogin) {
+            .then(userToLogin => {
                 done(null, userToLogin);
             })
-            .catch(function (err) {
+            .catch(err => {
                 console.error('Error creating user from Google authentication', err);
                 done(err);
             });
@@ -52,7 +52,7 @@ module.exports = function (app, db) {
 
     app.get('/auth/google/callback',
         passport.authenticate('google', {failureRedirect: '/login'}),
-        function (req, res) {
+        (req, res) => {
             res.redirect('/');
         });
 

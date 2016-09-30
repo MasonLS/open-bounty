@@ -14,14 +14,14 @@ module.exports = function (app, db) {
         callbackURL: facebookConfig.callbackURL
     };
 
-    var verifyCallback = function (accessToken, refreshToken, profile, done) {
+    var verifyCallback = (accessToken, refreshToken, profile, done) => {
 
         User.findOne({
                 where: {
                     facebook_id: profile.id
                 }
             })
-            .then(function (user) {
+            .then(user => {
                 if (user) {
                     return user;
                 } else {
@@ -30,10 +30,10 @@ module.exports = function (app, db) {
                     });
                 }
             })
-            .then(function (userToLogin) {
+            .then(userToLogin => {
                 done(null, userToLogin);
             })
-            .catch(function (err) {
+            .catch(err => {
                 console.error('Error creating user from Facebook authentication', err);
                 done(err);
             })
@@ -46,7 +46,7 @@ module.exports = function (app, db) {
 
     app.get('/auth/facebook/callback',
         passport.authenticate('facebook', {failureRedirect: '/login'}),
-        function (req, res) {
+        (req, res) => {
             res.redirect('/');
         });
 

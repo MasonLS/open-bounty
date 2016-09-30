@@ -3,7 +3,7 @@ var router = require('express').Router(); // eslint-disable-line new-cap
 module.exports = router;
 var _ = require('lodash');
 
-var ensureAuthenticated = function (req, res, next) {
+var ensureAuthenticated = (req, res, next) => {
     if (req.isAuthenticated()) {
         next();
     } else {
@@ -11,7 +11,7 @@ var ensureAuthenticated = function (req, res, next) {
     }
 };
 
-router.get('/secret-stash', ensureAuthenticated, function (req, res) {
+router.get('/secret-stash', ensureAuthenticated, (req, res) => {
 
     var theStash = [
         'http://ep.yimg.com/ay/candy-crate/bulk-candy-store-2.gif',

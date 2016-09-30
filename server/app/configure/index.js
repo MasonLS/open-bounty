@@ -6,7 +6,7 @@ module.exports = function (app, db) {
     // common way of setting application variables.
     app.setValue = app.set.bind(app);
 
-    app.getValue = function (path) {
+    app.getValue = path => {
         return app.get(path);
     };
 

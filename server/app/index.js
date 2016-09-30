@@ -20,7 +20,7 @@ module.exports = function (db) {
      This allows for proper 404s instead of the wildcard '/*' catching
      URLs that bypass express.static because the given file does not exist.
      */
-    app.use(function (req, res, next) {
+    app.use((req, res, next) => {
 
         if (path.extname(req.path).length > 0) {
             res.status(404).end();
@@ -30,12 +30,12 @@ module.exports = function (db) {
 
     });
 
-    app.get('/*', function (req, res) {
+    app.get('/*', (req, res) => {
         res.sendFile(app.get('indexHTMLPath'));
     });
 
     // Error catching endware.
-    app.use(function (err, req, res, next) {
+    app.use((err, req, res, next) => {
         console.error(err);
         console.error(err.stack);
         res.status(err.status || 500).send(err.message || 'Internal server error.');
