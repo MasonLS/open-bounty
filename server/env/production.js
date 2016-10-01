@@ -8,6 +8,7 @@
 
 module.exports = {
     DATABASE_URI: process.env.DATABASE_URI,
+    APP_URL: process.env.APP_URL,
     SESSION_SECRET: process.env.SESSION_SECRET,
     TWITTER: {
         consumerKey: process.env.TWITTER_CONSUMER_KEY,
@@ -23,6 +24,11 @@ module.exports = {
         clientID: process.env.GOOGLE_CLIENT_ID,
         clientSecret: process.env.GOOGLE_CLIENT_SECRET,
         callbackURL: process.env.GOOGLE_CALLBACK_URL
+    },
+    PAYPAL: {
+        mode: process.env.PAYPAL_MODE,
+        client_id: process.env.PAYPAL_CLIENT_ID,
+        client_secret: process.env.PAYPAL_CLIENT_SECRET
     },
     LOGGING: true,
     NATIVE: true

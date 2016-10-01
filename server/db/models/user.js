@@ -26,7 +26,7 @@ module.exports = db.define('user', {
     }
 }, {
     instanceMethods: {
-        sanitize: () => {
+        sanitize: function () {
             return _.omit(this.toJSON(), ['password', 'salt']);
         },
         correctPassword: function (candidatePassword) {
@@ -34,7 +34,7 @@ module.exports = db.define('user', {
         }
     },
     classMethods: {
-        generateSalt: () => {
+        generateSalt: function () {
             return crypto.randomBytes(16).toString('base64');
         },
         encryptPassword: function (plainText, salt) {
@@ -45,13 +45,13 @@ module.exports = db.define('user', {
         }
     },
     hooks: {
-        beforeCreate: user => {
+        beforeCreate: function (user) {
             if (user.changed('password')) {
                 user.salt = user.Model.generateSalt();
                 user.password = user.Model.encryptPassword(user.password, user.salt);
             }
         },
-        beforeUpdate: user => {
+        beforeUpdate: function (user) {
             if (user.changed('password')) {
                 user.salt = user.Model.generateSalt();
                 user.password = user.Model.encryptPassword(user.password, user.salt);
