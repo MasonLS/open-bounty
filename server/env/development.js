@@ -16,6 +16,11 @@ module.exports = {
     clientSecret: 'INSERT_GOOGLE_CLIENT_SECRET_HERE',
     callbackURL: 'INSERT_GOOGLE_CALLBACK_HERE'
   },
+  PAYPAL: {
+    clientID: 'AaPlZFuzR4BGmblo0jNvfcOY3SL0z9cJkMd9HV4ma1crNlEUm3f3caeyy6QRTrIHnUBDdl_8TVb5tHSi',
+    secret: 'EHv0MsNUj3BeSex4a2v5jdiRxmdNtCmSVHoJifonW7SxmxrMN9bHWDXUOYJzBoEnHq-z1zhV5rfi76NQ',
+    mode: 'sandbox'
+  },
   LOGGING: true,
   NATIVE: true
 };
