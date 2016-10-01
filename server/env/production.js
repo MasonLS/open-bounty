@@ -7,6 +7,7 @@
  */
 
 module.exports = {
+
     DATABASE_URI: process.env.DATABASE_URI,
     APP_URL: process.env.APP_URL,
     SESSION_SECRET: process.env.SESSION_SECRET,
@@ -19,6 +20,11 @@ module.exports = {
         clientID: process.env.FACEBOOK_APP_ID,
         clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
         callbackURL: process.env.FACEBOOK_CALLBACK_URL
+    },
+    GITHUB: {
+        clientID: process.env.GITHUB_CLIENT_ID,
+        clientSecret: process.env.GITHUB_CLIENT_SECRET,
+        callbackURL: process.env.GITHUB_CALLBACK_URL
     },
     GOOGLE: {
         clientID: process.env.GOOGLE_CLIENT_ID,
