@@ -58,6 +58,7 @@
     "passport-google-oauth": "^0.1.5",
     "passport-local": "^1.0.0",
     "passport-twitter": "^1.0.2",
+    "paypal-rest-sdk": "^1.6.9",
     "pg": "^4.5.5",
     "pg-hstore": "^2.3.2",
     "pg-native": "^1.10.0",
