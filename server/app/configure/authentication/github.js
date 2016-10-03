@@ -26,7 +26,8 @@ module.exports = function (app, db) {
         } else {
           return User.create({
             githubId: profile.id,
-            githubName: profile.username
+            githubName: profile.username,
+            githubToken: accessToken
           })
         }
       })

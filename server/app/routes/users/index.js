@@ -14,8 +14,6 @@ const ensureAuthenticated = (req, res, next) => {
 };
 //get all users
 router.get('/', (req, res, next) => {
-    console.log('REQ.USER', req.user)
-    console.log('SESSION', req.session)
     User.findAll()
         .then(users => {
             res.send(users);

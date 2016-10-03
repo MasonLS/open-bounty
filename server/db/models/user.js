@@ -23,6 +23,9 @@ module.exports = db.define('user', {
     },
     githubName: {
         type: Sequelize.STRING
+    },
+    githubToken: {
+        type: Sequelize.STRING
     }
 },{
     instanceMethods: {
