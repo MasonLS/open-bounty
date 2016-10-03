@@ -3,8 +3,8 @@ var Sequelize = require('sequelize');
 
 var db = require('../_db');
 
-module.exports = db.define('payment', {
-    pp_id: {
+module.exports = db.define('donation', {
+    ppId: {
         type: Sequelize.STRING,
         allowNull: false
     },
@@ -16,12 +16,12 @@ module.exports = db.define('payment', {
         type: Sequelize.STRING,
         allowNull: false
     },
-    payment_method: {
+    paymentMethod: {
         type: Sequelize.STRING,
         allowNull: false
     },
     amount: {
-        type: Sequelize.DECIMAL,
+        type: Sequelize.FLOAT,
         allowNull: false
     },
     currency: {
@@ -32,16 +32,22 @@ module.exports = db.define('payment', {
         type: Sequelize.STRING,
         allowNull: false
     },
-    self_url: {
+    selfUrl: {
         type: Sequelize.STRING,
         allowNull: false
     },
-    approval_url: {
+    approvalUrl: {
         type: Sequelize.STRING,
         allowNull: false
     },
-    execute_url: {
+    executeUrl: {
         type: Sequelize.STRING,
         allowNull: false
-    }
+    },
+    token: {
+        type: Sequelize.STRING
+    },
+    payerId: {
+        type: Sequelize.STRING
+    },
 });
