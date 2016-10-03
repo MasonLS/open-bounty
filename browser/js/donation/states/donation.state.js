@@ -10,6 +10,6 @@ app.config(function ($stateProvider) {
     $stateProvider.state('donateId', {
         url: '/donate/:projectId',
         controller: 'DonationCTRL',
-        templateUrl: 'js/donation/templates/donation.template.html'
+        templateUrl: 'js/donation/templates/donation-project.template.html'
     });
 });

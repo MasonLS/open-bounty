@@ -1,12 +1,20 @@
-#home {
-  fullstack-logo {
-    padding-top: 30px;
-    width: 150px;
-    margin: 0 auto;
-  }
-  h1 {
-    margin-top: 40px;
-    text-align: center;
+// #home {
+//   fullstack-logo {
+//     width: 150px;
+//     margin: 0 auto;
+//   }
+//   h1 {
+//     margin-top: 40px;
+//     text-align: center;
+//   }
+// }
+
+
+.home {
+  .home-top-stripe {
+    height: 420px;
+    background: url('/assets/gitbg2.jpg') no-repeat center center;
+    background-size: cover;
+    margin-bottom: 30px;
   }
 }
-
