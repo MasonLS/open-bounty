@@ -1,7 +1,8 @@
 'use strict';
 const router = require('express').Router(); // eslint-disable-line new-cap
-const db = require('../../db');
+const db = require('../../../db');
 const User = db.model('user');
+const request = require('request');
 module.exports = router;
 
 const ensureAuthenticated = (req, res, next) => {
@@ -13,6 +14,8 @@ const ensureAuthenticated = (req, res, next) => {
 };
 //get all users
 router.get('/', (req, res, next) => {
+    console.log('REQ.USER', req.user)
+    console.log('SESSION', req.session)
     User.findAll()
         .then(users => {
             res.send(users);
@@ -29,7 +32,7 @@ router.post('/', (req, res, next) => {
         .catch(next);
 });
 
-router.param('/:userId', (req, res, next, userId) => {
+router.param('userId', (req, res, next, userId) => {
     User.findById(req.params.userId)
         .then(user => {
             req.userSought = user;
@@ -60,7 +63,7 @@ router.delete('/:userId', (req, res, next) => {
         .catch(next);
 });
 
-
+router.use('/:userId/github', require('./github'));
 
 
 
