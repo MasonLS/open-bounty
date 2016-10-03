@@ -17,7 +17,7 @@ module.exports = function (app, db) {
 
     User.findOne({
       where: {
-        github_id: profile.id
+        githubId: profile.id
       }
     })
       .then(user => {
@@ -25,7 +25,7 @@ module.exports = function (app, db) {
           return user
         } else {
           return User.create({
-            github_id: profile.id
+            githubId: profile.id
           })
         }
       })

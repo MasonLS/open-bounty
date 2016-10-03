@@ -4,7 +4,7 @@ const path = require('path');
 const paypal = require('paypal-rest-sdk');
 
 const env = require(path.join(__dirname, '../../../env'));
-const Payment = require(path.join(__dirname, '../../../db/models/payment'));
+const Payment = require(path.join(__dirname, '../../../db/models/donation'));
 
 paypal.configure(env.PAYPAL);
 
@@ -27,8 +27,8 @@ router.get('/collect', ensureAuthenticated, (req, res, next) => {
         payment_method: 'paypal'
     };
     transaction.redirect_urls = {
-        return_url: env.APP_URL + '/api/payments/collect/ok',
-        cancel_url: env.APP_URL + '/api/payments/collect/ko'
+        return_url: env.APP_URL + '/api/donation/collect/ok',
+        cancel_url: env.APP_URL + '/api/donation/collect/ko'
     };
     transaction.transactions = [];
 
@@ -45,21 +45,21 @@ router.get('/collect', ensureAuthenticated, (req, res, next) => {
         } else {
             console.log(payment);
             let response_transaction = {
-                pp_id: payment.id,
+                ppId: payment.id,
                 intent: payment.intent,
                 state: payment.state,
-                payment_method: payment.payer.payment_method,
+                paymentMethod: payment.payer.payment_method,
                 amount: payment.transactions[0].amount.total,
                 currency: payment.transactions[0].amount.currency,
                 description: payment.transactions[0].description,
-                self_url: payment.links[0].href,
-                approval_url: payment.links[1].href,
-                execute_url: payment.links[2].href
+                selfUrl: payment.links[0].href,
+                approvalUrl: payment.links[1].href,
+                executeUrl: payment.links[2].href
             };
 
-            Payment.create(response_transaction)
-                .then(pp_response => res.json({
-                    transaction: pp_response,
+            Donation.create(responseTransaction)
+                .then(ppResponse => res.json({
+                    transaction: ppResponse,
                     message: 'to test, click on approval url and proceed with openbountyuser@aibu.it/openbountyuser'
                 }))
                 .catch(next);
@@ -71,16 +71,20 @@ router.get('/collect', ensureAuthenticated, (req, res, next) => {
 // Collect $$$ / OK response from Paypal
 router.get('/collect/ok', ensureAuthenticated, (req, res, next) => {
 
-    let transaction_id = req.query.paymentId;
+    const transactionId = req.query.paymentId;
+    const token = req.query.token;
+    const payerId = req.query.PayerID;
 
-    Payment.findOne({
+    Donation.findOne({
             where: {
-                pp_id: transaction_id
+                ppId: transactionId
             }
         })
         .then(foundTransaction => {
             foundTransaction.update({
-                state: 'completed'
+                state: 'completed',
+                token: token,
+                payerId: payerId
             })
         })
         .catch(next);
