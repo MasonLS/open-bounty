@@ -27,7 +27,7 @@
             </form>
             <ul class="nav navbar-nav navbar-right">
                 <li ng-show="user">
-                    <a>Welcome, {{ user.email }}!</a>
+                    <a>Welcome, {{ user.githubName }}!</a>
                 </li>
                 <li ng-repeat="item in privateItems" ng-show="!item.auth || isLoggedIn()">
                     <a ui-sref-active="active" ui-sref="{{ item.state }}">{{ item.label }}</a>
