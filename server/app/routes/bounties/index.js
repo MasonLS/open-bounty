@@ -1,7 +1,7 @@
-var router = require('express').Router();
-var Bounties = require('../../../db/models/bounty')
+const router = require('express').Router();
+const Bounty = require('../../../db/models/bounty')
 module.exports = router
-var _ = require('lodash')
+const _ = require('lodash')
 
 const ensureAuthenticated = (req, res, next) => {
     if (req.isAuthenticated()) {
@@ -13,7 +13,7 @@ const ensureAuthenticated = (req, res, next) => {
 
 router.get('/:id', (req, res, next) => {
     const id = req.params.id
-    Bounties.findById(id)
+    Bounty.findById(id)
         .then(bounty => {
             res.status(201).send(bounty)
         })
@@ -22,7 +22,7 @@ router.get('/:id', (req, res, next) => {
 
 router.post('/create', (req, res, next) => {
    const body = req.body
-    Bounties.create(body)
+    Bounty.create(body)
         .then(bounty => {
             res.status(201).send(bounty)
         })
@@ -32,12 +32,9 @@ router.post('/create', (req, res, next) => {
 router.put('/update/:id', (req, res, next) => {
     const id = req.params.id
 
-    Bounties.findById(id)
+    Bounty.findById(id)
         .then(bounty => {
             return bounty.update(req.body)
-                .then(updatedBounty => {
-                    return updatedBounty
-                })
         })
         .then(updatedBounty => {
             res.send(updatedBounty)
