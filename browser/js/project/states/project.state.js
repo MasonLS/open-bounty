@@ -25,4 +25,10 @@ app.config(function($stateProvider) {
         }
     });
 
+    $stateProvider.state('searchProject', {
+        url: '/project/search',
+        controller: 'SearchProjectCtrl',
+        templateUrl: 'js/project/templates/project-search.template.html',
+    });
+
 });
