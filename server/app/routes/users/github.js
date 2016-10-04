@@ -2,23 +2,45 @@
 const router = require('express').Router(); // eslint-disable-line new-cap
 const db = require('../../../db');
 const User = db.model('user');
-const request = require('request');
+const GitHubApi = require('github');
+var github = new GitHubApi();
 module.exports = router;
 
-const apiUrl = 'https://api.github.com/user/emails';
+//only need this if requests to github need to be authenticated (token)
+// router.use('/', (req, res, next) => {
+// 	github.authenticate({
+// 		type: 'oauth',
+// 		token: req.user.githubToken
+// 	})
+	
+// 	next();
+// });
 
-//get user's public repos
+//sends back an array(.length === 30) of user's repos
 router.get('/repos', (req, res, next) => {
-	let options = {
-		url: apiUrl,
-		headers: {
-			'User-Agent': 'OpenBounty'
-		}
-	}
-	request.get(options, (err, response, body) => {
-		if (err) next(err);
-		else res.json(body);
-	});
+	github.repos.getForUser({
+		user: req.user.githubName,
+		access_token: req.user.githubToken
+	})
+	.then(response => {
+		res.json(response);
+	})
+	.catch(next);
 });
 
-//get user's starred repos
+//get user's starred repos as an array
+router.get('/starred', (req, res, next) => {
+	github.activity.getStarredReposForUser({
+		user: req.user.githubName
+	})
+	.then(response => {
+		res.json(response);
+	})
+	.catch(next);
+});
+
+
+
+
+
+
