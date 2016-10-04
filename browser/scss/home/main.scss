@@ -1,20 +1,51 @@
-// #home {
-//   fullstack-logo {
-//     width: 150px;
-//     margin: 0 auto;
-//   }
-//   h1 {
-//     margin-top: 40px;
-//     text-align: center;
-//   }
-// }
-
-
 .home {
-  .home-top-stripe {
-    height: 420px;
-    background: url('/assets/gitbg2.jpg') no-repeat center center;
-    background-size: cover;
-    margin-bottom: 30px;
-  }
+    margin-top: -20px;
+    h1 {
+      width: 80%;
+      margin: 20px auto 50px;
+    }
+    .home-top-stripe {
+        height: 420px;
+        background: url('/assets/gitbg2.jpg') no-repeat center center;
+        background-size: cover;
+        margin-bottom: 50px;
+    }
+    .home-grey-stripe {
+      background-color: #f5f5f5;
+      color: #767676;
+      border-top: 1px solid #e5e5e5;
+      padding: 30px;
+      h4 {
+        font-size: 18px;
+        width: 85%;
+        margin: 0 auto;
+      }
+    }
+    .home-icon {
+      font-size: 120px;
+      padding-top: 30px;
+    }
+    .col-md-4 {
+      border-right: 1px solid #e5e5e5;
+    }
+    .col-md-4:last-child {
+      border: none;
+    }
+    .home-blue-stripe {
+      background-color: #DFEBF8;
+      color: #767676;
+      padding: 30px;
+      h4 {
+        font-size: 18px;
+        width: 85%;
+        margin: 0 auto;
+      }
+    }
+    .home-middle-stripe {
+        height: 420px;
+        background: url('/assets/gitbg5.jpg') no-repeat center center;
+        background-size: cover;
+        margin-bottom: 50px;
+    }
+
 }
