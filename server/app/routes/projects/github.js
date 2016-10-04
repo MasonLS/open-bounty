@@ -1,59 +1,55 @@
-const express = require('express');
+'use strict';
+const router = require('express').Router();
 
-const router = express.Router();
+const GitHubApi = require("github");
 
-// http request library for calls to Github API 
-const request = require('request');
+const github = new GitHubApi({});
 
-const API = 'https://api.github.com';
+// get repos by user
+router.get('/repos/user/:user', (req, res, next) => {
 
-router.get('/repos/:username/page/:page', (req, res, next) => {
-
-
-    const query = {
-        url: `${API}/users/${name}/repos`,
-        headers: {
-            'user-agent': 'OpenBounty',
-            json: true
-        }
-    };
-
-    request(query, (error, response, body) => {
-        const repos = JSON.parse(body)
-            .map(repo => {
-                return {
-                    id: repo.id,
-                    name: repo.name,
-                    url: repo.html_url
-                }
-            });
-        res.json(repos);
-    });
+    github.repos.getForUser({
+            user: req.params.user
+        })
+        .then(repos => {
+            res.json(repos);
+        })
+        .catch(next);
 
 });
 
+// search all github repos
+router.get('/repos/search/:query', (req, res, next) => {
+    github.search.repos({
+            q: req.params.query,
+            sort: 'stars'
+        })
+        .then(repos => {
+            repos = repos.items
+                .map(repo => {
+                    return {
+                        id: repo.id,
+                        name: repo.name,
+                        url: repo.html_url
+                    };
+                });
+            res.json(repos)
+        })
+        .catch(next);
+});
 
-// search repos.
-// client factory should concatenate multiple search terms with '+' as delimiter
-router.get('/repos/search/:term', (req, res, next) => {
+// get all issues for repo
+router.get('/issues/user/:user/repo/:repo', (req, res, next) => {
 
-    const query = {
-        url: `${API}/search/repositories?q=${term}&sort=stars&order=desc`,
-        headers: {
-            'user-agent': 'OpenBounty',
-            json: true
-        }
-    };
-
-    request(query, (error, response, body) => {
-        const repos = JSON.parse(body)
-            .map(repo => {
-                return {
-                    id: repo.id,
-                    name: repo.name,
-                    url: repo.html_url
-                }
-            });
-    });
+    github.issues.getForRepo({
+            user: req.params.user,
+            repo: req.params.repo
+        })
+        .then(issues => {
+            res.json(issues)
+        })
+        .catch(next);
 
 });
+
+module.exports = router;
