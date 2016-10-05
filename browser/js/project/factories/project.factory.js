@@ -12,7 +12,7 @@ app.factory('ProjectFactory', function($http, AuthService) {
 
         return AuthService.getLoggedInUser()
             .then(function(user) {
-                data.ownerId = user.id;
+                data.OwnerId = user.id;
                 return $http.post('/api/projects/new', data);
             })
             .catch(console.log);
