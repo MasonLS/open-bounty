@@ -40,32 +40,32 @@ const _ = require('lodash');
 const seedUsers = function () {
 
     const users = [
-        {   
+        {
             githubName: 'MasonLS',
             githubEmail: 'masonseale88@gmail.com',
             githubId: 15522249,
             githubToken: '6f4d4cfe93d46512f811154c02eaae0c12fdb52c',
             isAdmin: true
         },
-        {   
+        {
             githubName: 'jeff-bruemmer',
             githubEmail: 'jeff.bruemmer@gmail.com',
             githubId: 17343328,
             githubToken: '050df9305f31535f5beb798b9f30019566de457a',
             isAdmin: true
         },
-        {   
+        {
             githubName: 'devpatel91',
             githubEmail: 'devnitinpatel91@gmail.com',
             githubId: 18338826,
             githubToken: '21f31c04fd7bc2247049a72c611bdf39bbecfbad',
             isAdmin: true
         },
-        {   
+        {
             githubName: 'Aibu',
             githubEmail: 'fsaitta@aibu.it',
             githubId: 19736,
-            githubToken: 'd2cc77e7dcaa575f91ba0474e8caf5d96b6a0e63',
+            githubToken: '21f31c04fd7bc2247049a72c611bdf39bbecfbad',
             isAdmin: true
         }
     ];
@@ -105,7 +105,7 @@ const seedUsers = function () {
 // }
 
 // const seedDonations = function (project) {
-//     return 
+//     return
 // }
 
 // const createDonation = function (project) {
