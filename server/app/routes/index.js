@@ -1,6 +1,17 @@
 'use strict';
-var router = require('express').Router(); // eslint-disable-line new-cap
+const router = require('express').Router(); // eslint-disable-line new-cap
+const GitHubApi = require('github');
+const github = new GitHubApi();
 module.exports = router;
+
+router.use('/', (req, res, next) => {
+	github.authenticate({
+		type: 'oauth',
+		token: req.user.githubToken
+	})
+	req.github = github;
+	next();
+});
 
 router.use('/users', require('./users'));
 router.use('/donations', require('./donations'));
