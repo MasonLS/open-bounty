@@ -4,10 +4,6 @@ const path = require('path');
 
 const Project = require(path.join(__dirname, '../../../db/models/project'));
 
-const GitHubApi = require("github");
-
-const github = new GitHubApi({});
-
 // get all projects for user
 router.get('/all/owner/:ownerId', (req, res, next) => {
     Project.findAll({
@@ -15,9 +11,7 @@ router.get('/all/owner/:ownerId', (req, res, next) => {
                 ownerId: req.params.ownerId
             } 
         })
-        .then(projects => {
-            res.json(projects);
-        })
+        .then(projects => res.json(projects))
         .catch(next);
 });
 
@@ -27,7 +21,7 @@ router.get('/one/:projectId', (req, res, next) => {
     Project.findById(req.params.projectId)
         .then(project => {
 	   response.project = project 
-	    github.repos.getById({
+	    req.github.repos.getById({
 		id: project.repoId
 	    })
 		.then(repo => {
@@ -41,9 +35,7 @@ router.get('/one/:projectId', (req, res, next) => {
 // create project
 router.post('/new/', (req, res, next) => {
     Project.create(req.body)
-        .then(project => {
-            res.json(project);
-        })
+        .then(project => res.json(project))
         .catch(next);
 });
 
