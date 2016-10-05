@@ -4,7 +4,7 @@ const path = require('path');
 const paypal = require('paypal-rest-sdk');
 
 const env = require(path.join(__dirname, '../../../env'));
-const Payment = require(path.join(__dirname, '../../../db/models/donation'));
+const Donation = require(path.join(__dirname, '../../../db/models/donation'));
 
 paypal.configure(env.PAYPAL);
 
@@ -44,7 +44,7 @@ router.get('/collect', ensureAuthenticated, (req, res, next) => {
             throw error;
         } else {
             console.log(payment);
-            let response_transaction = {
+            let responseTransaction = {
                 ppId: payment.id,
                 intent: payment.intent,
                 state: payment.state,

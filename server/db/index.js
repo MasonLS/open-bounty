@@ -9,8 +9,8 @@ const Bounty = require('./models/bounty');
 const Donation = require('./models/donation');
 // if we had more models, we could associate them in this file
 // e.g. User.hasMany(Reports)
-User.hasMany(Donation);
-Donation.belongsTo(User, {as: 'Donor'});
+User.hasMany(Donation, {as: 'donor'});
+Donation.belongsTo(User, {as: 'donor'});
 
 Project.hasMany(Donation);
 Donation.belongsTo(Project);
@@ -18,7 +18,7 @@ Donation.belongsTo(Project);
 Project.hasMany(Bounty);
 Bounty.belongsTo(Project);
 
-Project.belongsTo(User, {as: 'Owner'});
-User.hasMany(Project);
-Bounty.belongsToMany(User, { through: 'bounty_hunters', as: 'Hunters' });
-User.belongsToMany(Bounty, { through: 'bounty_hunters' });
+Project.belongsTo(User, {as: 'owner'});
+
+Bounty.belongsToMany(User, { through: 'bounty_hunters', as: 'hunters' });
+User.belongsToMany(Bounty, { through: 'bounty_hunters', foreignKey: 'hunterId' });
