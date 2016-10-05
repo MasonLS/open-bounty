@@ -9,7 +9,7 @@ router.get('/all/owner/:ownerId', (req, res, next) => {
     Project.findAll({
             where: {
                 ownerId: req.params.ownerId
-            } 
+            }
         })
         .then(projects => res.json(projects))
         .catch(next);
@@ -20,20 +20,20 @@ router.get('/one/:projectId', (req, res, next) => {
     const response = {}
     Project.findById(req.params.projectId)
         .then(project => {
-	   response.project = project 
-	    req.github.repos.getById({
-		id: project.repoId
-	    })
-		.then(repo => {
-		    response.repo = repo
-		    res.json(response);
-		}); 
+            response.project = project;
+            req.github.repos.getById({
+                    id: project.repoId
+                })
+                .then(repo => {
+                    response.repo = repo
+                    res.json(response);
+                });
         })
         .catch(next);
 });
 
 // create project
-router.post('/new/', (req, res, next) => {
+router.post('/new', (req, res, next) => {
     Project.create(req.body)
         .then(project => res.json(project))
         .catch(next);

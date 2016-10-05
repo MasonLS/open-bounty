@@ -7,13 +7,13 @@ router.get('/repos/search/:query', (req, res, next) => {
             q: req.params.query,
             sort: 'stars'
         })
-        .then(repo => res.json(repos))
+        .then(repos => res.json(repos))
         .catch(next);
 });
 
 // get all issues for repo
 router.get('/repos/issues/:repo', (req, res, next) => {
-   req.github.issues.getForRepo({
+    req.github.issues.getForRepo({
             user: req.user,
             repo: req.params.repo
         })
