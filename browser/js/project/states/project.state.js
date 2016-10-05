@@ -9,7 +9,10 @@ app.config(function($stateProvider) {
     $stateProvider.state('fundProjectLogged', {
         url: '/project/fund',
         controller: 'FundProjectLoggedCtrl',
-        templateUrl: 'js/project/templates/project-fund-logged.template.html'
+        templateUrl: 'js/project/templates/project-fund-logged.template.html',
+        data: {
+            authenticate: true
+        },
     });
 
     $stateProvider.state('manageProjects', {
