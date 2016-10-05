@@ -12,17 +12,58 @@ const supertest = require('supertest');
 
 describe('Project Routes', () => {
     let Project,
+        User,
         agent,
         testApp;
 
-    beforeEach('Sync database', function() {
-        db.sync({
-            force: true
-        })
-    });
 
-    beforeEach('Create app', function() {
-        Project = db.model('project');
+    // models
+    Project = db.model('project');
+    User = db.model('user');
+
+    const exampleProject = {
+        repoId: 1,
+        description: 'wizard',
+        ownerId: 1
+    };
+    const exampleProject2 = {
+        repoId: 2,
+        description: 'sorceror',
+        ownerId: 1
+    };
+
+    const exampleProject3 = {
+        repoId: 3,
+        description: 'monk',
+        ownerId: 2
+    };
+
+    const exampleUser = {
+        isAdmin: false
+    }
+
+    const exampleUser2 = {
+        isAdmin: false
+    }
+
+    beforeEach('Sync database', function() {
+        return db.sync({
+                force: true
+            })
+            .then(function() {
+                let u1 = User.create(exampleUser);
+                let u2 = User.create(exampleUser2);
+                return Promise.all([u1, u2]);
+            })
+            .then(function() {
+                // to guarantee id = 1
+                return Project.create(exampleProject);
+            })
+            .then(function() {
+                let p2 = Project.create(exampleProject2);
+                let p3 = Project.create(exampleProject3);
+                return Promise.all([p2, p3])
+            })
     });
 
     beforeEach('Summon test agent', function() {
@@ -41,24 +82,21 @@ describe('Project Routes', () => {
         agent = supertest.agent(testApp);
     });
 
-    const exampleProject = {
-        repoId: 1,
-        description: 'This is serious project.',
-        raised: 1000,
-        paidout: 500,
-        OwnerId: 1
-    };
-    const exampleProject2 = {
-        repoId: 2,
-        description: 'wizard is serious project.',
-        raised: 1000,
-        paidOut: 500,
-        OwnerId: 2
-    };
 
-    beforeEach('create a project', function() {
-        return Project.create(exampleProject)
+
+
+    it('should get all projects for user', function(done) {
+        agent.get('/api/projects/all/owner/1')
+            .expect(200)
+            .end(function(err, response) {
+                if (err) {
+                    done(err)
+                }
+                expect(response.body.length).to.equal(2);
+                done();
+            })
     });
+
 
     it('should get project by id', function(done) {
         agent.get('/api/projects/one/1')
@@ -67,23 +105,10 @@ describe('Project Routes', () => {
                 if (err) {
                     done(err);
                 }
-                expect(response.body.project.raised).to.equal(exampleProject.raised);
                 expect(response.body.project.description).to.equal(exampleProject.description);
                 done();
             });
     });
-
-    // it('should get all projects for user', function(done) {
-    //     agent.get('/api/projects/all/owner/1')
-    //         .expect(200)
-    //         .end(function(err, response) {
-    //             if (err) {
-    //                 done(err)
-    //             }
-    //             console.log(response);
-    //             done();
-    //         })
-    // });
 
     // it('should create a project', function(done) {
     //     agent.post('/api/projects/new')
