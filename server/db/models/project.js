@@ -8,6 +8,9 @@ module.exports = db.define('project', {
         type: Sequelize.INTEGER,
         allowNull: false
     },
+    name: {
+        type: Sequelize.STRING
+    },
     description: {
         type: Sequelize.TEXT
     },
