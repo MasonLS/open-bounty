@@ -15,7 +15,13 @@
     <div class="row">
         <project-sidebar></project-sidebar>
         <div class="col-sm-10 col-sm-offset-2">
-            Content
+            <div class="search-input">
+                <form>
+                    <div class="form-group">
+                        <input type="text" ng-model="searchWord" placeholder="search for your repos" uib-typeahead="repo as repo.title for repo in searchProducts($viewValue)" typeahead-loading="loadingRepos" typeahead-no-results="noResults" class="form-control search-input" typeahead-template-url="/js/project/templates/project-add.typeahead.item.template.html">
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 </div>
