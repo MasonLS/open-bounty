@@ -73,17 +73,17 @@ describe('Project Routes', () => {
             });
     });
 
-    it('should get all projects for user', function(done) {
-        agent.get('/api/projects/all/owner/1')
-            .expect(200)
-            .end(function(err, response) {
-                if (err) {
-                    done(err)
-                }
-                console.log(response);
-                done();
-            })
-    });
+    // it('should get all projects for user', function(done) {
+    //     agent.get('/api/projects/all/owner/1')
+    //         .expect(200)
+    //         .end(function(err, response) {
+    //             if (err) {
+    //                 done(err)
+    //             }
+    //             console.log(response);
+    //             done();
+    //         })
+    // });
 
     // it('should create a project', function(done) {
     //     agent.post('/api/projects/new')
