@@ -19,6 +19,6 @@ Project.hasMany(Bounty);
 Bounty.belongsTo(Project);
 
 Project.belongsTo(User, {as: 'Owner'});
-
+User.hasMany(Project);
 Bounty.belongsToMany(User, { through: 'bounty_hunters', as: 'Hunters' });
 User.belongsToMany(Bounty, { through: 'bounty_hunters' });

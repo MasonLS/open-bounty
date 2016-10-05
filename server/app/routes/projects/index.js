@@ -4,36 +4,38 @@ const path = require('path');
 
 const Project = require(path.join(__dirname, '../../../db/models/project'));
 
-const itemsPerPage = 30;
-
-const GitHubApi = require("github");
-
-const github = new GitHubApi({});
-
 // get all projects for user
-router.get('/all/user/:user/page/:page', (req, res, next) => {
-    // selects range start for query
-    // first page param should be zero
-    const offset = req.params.page === '0' ? 1 : req.params.page * itemsPerPage;
+router.get('/all/owner/:ownerId', (req, res, next) => {
     Project.findAll({
             where: {
-                user: req.params.user
-            },
-            offset: offset,
-            limit: itemsPerPage,
+                ownerId: req.params.ownerId
+            } 
         })
-        .then(projects => {
-            res.json(projects);
-        })
+        .then(projects => res.json(projects))
         .catch(next);
 });
 
 // get single project
 router.get('/one/:projectId', (req, res, next) => {
-    Project.findById(req.params.id)
+    const response = {}
+    Project.findById(req.params.projectId)
         .then(project => {
-            res.json(project);
+	   response.project = project 
+	    req.github.repos.getById({
+		id: project.repoId
+	    })
+		.then(repo => {
+		    response.repo = repo
+		    res.json(response);
+		}); 
         })
+        .catch(next);
+});
+
+// create project
+router.post('/new/', (req, res, next) => {
+    Project.create(req.body)
+        .then(project => res.json(project))
         .catch(next);
 });
 
