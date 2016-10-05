@@ -36,12 +36,28 @@ app.config(function($stateProvider) {
                         return user;
                     })
                     .then(function(user) {
-                        return SearchFactory.getRepoByUser(user.githubName)
+                        return SearchFactory.getRepoByUser(user.id)
                             .then(function(repos) {
                                 return repos;
                             });
                     });
             }
+        }
+    });
+
+    $stateProvider.state('addProjectOK', {
+        url: '/project/add/ok',
+        templateUrl: 'js/project/templates/project-add-ok.template.html',
+        data: {
+            authenticate: true
+        }
+    });
+
+    $stateProvider.state('addProjectKO', {
+        url: '/project/add/ko',
+        templateUrl: 'js/project/templates/project-add-ko.template.html',
+        data: {
+            authenticate: true
         }
     });
 

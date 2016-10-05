@@ -1,8 +1,8 @@
 app.factory('SearchFactory', ($http) => {
     const SearchFactory = {};
 
-    SearchFactory.getRepoByUser = function(userName) {
-        return $http.get('/api/projects/github/repos/user/' + userName)
+    SearchFactory.getRepoByUser = function(userId) {
+        return $http.get('/api/users/' + userId + '/github/repos/')
             .then(repos => {
                 return repos.data;
             });

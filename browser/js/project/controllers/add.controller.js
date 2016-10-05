@@ -1,16 +1,25 @@
-app.controller('AddProjectCtrl', function($scope, userRepos) {
-    $scope.userRepos = userRepos;
+app.controller('AddProjectCtrl', function($scope, userRepos, ProjectFactory, $state) {
 
+    $scope.userRepos = userRepos;
     $scope.typeAheadDisabled = false;
 
-    $scope.onSelect = function ($item, $model, $label) {
-      console.log($item);
+    $scope.onSelect = function () {
       $scope.typeAheadDisabled = true;
     };
 
     $scope.clearSearch = function() {
-      console.log('enabled');
       $scope.typeAheadDisabled = false;
-    }
+      $scope.searchRepo = null;
+    };
+
+    $scope.addProject = function() {
+      ProjectFactory.addProject($scope.searchRepo, $scope.submitProject.projectDescription)
+        .then(function () {
+          $state.go('addProjectOK');
+        })
+        .catch(function () {
+          $state.go('addProjectKO');
+        })
+    };
 
 });
