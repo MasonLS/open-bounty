@@ -56,7 +56,6 @@
     "karma-mocha": "^0.1.10",
     "karma-mocha-reporter": "^1.0.2",
     "lodash": "^3.9.3",
-    "nock": "^8.0.0",
     "nodemon": "^1.3.7",
     "passport": "^0.2.1",
     "passport-facebook": "^1.0.3",
