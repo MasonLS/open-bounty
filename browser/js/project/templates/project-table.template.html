@@ -1,0 +1,50 @@
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Total Raised</th>
+            <th>Total Paid</th>
+            <th>Bounties</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <th scope="row">1</th>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>
+                <button type="button" class="btn btn-warning btn-sm">Manage</button>
+                <button type="button" class="btn btn-danger btn-sm">Delete</button>
+            </td>
+        </tr>
+
+    </tbody>
+</table>
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Issue Id</th>
+            <th>Description</th>
+            <th>Bounty Amount</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="bounty in bounties">
+            <th scope="row">{{bounty.issueId}}</th>
+            <td></td>
+            <td>{{bounty.amount | currency}}</td>
+            <td>{{bounty.status}}</td>
+            <td>
+                <button type="button" class="btn btn-warning btn-sm">Change Amount</button>
+                <button type="button" class="btn btn-danger btn-sm">Delete</button>
+            </td>
+        </tr>
+
+    </tbody>
+</table>
+
