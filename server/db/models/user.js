@@ -8,11 +8,14 @@ const github = new GitHubApi();
 const db = require('../_db');
 
 module.exports = db.define('user', {
-    password: {
-        type: Sequelize.STRING
-    },
-    salt: {
-        type: Sequelize.STRING
+    // password: {
+    //     type: Sequelize.STRING
+    // },
+    // salt: {
+    //     type: Sequelize.STRING
+    // },
+    isAdmin: {
+        type: Sequelize.BOOLEAN
     },
     paypalEmail: {
         type: Sequelize.STRING

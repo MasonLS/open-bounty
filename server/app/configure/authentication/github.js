@@ -22,7 +22,9 @@ module.exports = function (app, db) {
     })
       .then(user => {
         if (user) {
-          return user
+          return user.update({
+            githubToken: accessToken
+          })
         } else {
           return  User.create({
                     githubId: profile.id,
