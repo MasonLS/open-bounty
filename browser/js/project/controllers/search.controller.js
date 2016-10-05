@@ -1,1 +1,3 @@
-app.controller('SearchProjectCtrl', function () {});
+app.controller('SearchProjectCtrl', ($scope, SearchFactory) => {
+
+});
