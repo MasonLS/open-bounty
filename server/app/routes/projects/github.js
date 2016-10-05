@@ -7,7 +7,6 @@ const github = new GitHubApi({});
 
 // get repos by user
 router.get('/repos/user/:user', (req, res, next) => {
-
     github.repos.getForUser({
             user: req.params.user
         })
@@ -15,7 +14,6 @@ router.get('/repos/user/:user', (req, res, next) => {
             res.json(repos);
         })
         .catch(next);
-
 });
 
 // search all github repos
