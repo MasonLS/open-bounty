@@ -2,13 +2,12 @@
 const crypto = require('crypto');
 const _ = require('lodash');
 const Sequelize = require('sequelize');
+const GitHubApi = require('github');
+const github = new GitHubApi();
 
 const db = require('../_db');
 
 module.exports = db.define('user', {
-    email: {
-        type: Sequelize.STRING
-    },
     password: {
         type: Sequelize.STRING
     },
@@ -25,6 +24,9 @@ module.exports = db.define('user', {
         type: Sequelize.STRING
     },
     githubToken: {
+        type: Sequelize.STRING
+    },
+    githubEmail: {
         type: Sequelize.STRING
     }
 },{
@@ -49,7 +51,26 @@ module.exports = db.define('user', {
     },
     hooks: {
         beforeCreate: setSaltAndPassword,
-        beforeUpdate: setSaltAndPassword
+        beforeUpdate: setSaltAndPassword,
+        afterCreate: function (user) {
+            if (user.githubToken) {
+                github.authenticate({
+                    type: 'oauth',
+                    token: user.githubToken
+                });
+                github.users.getEmails({})
+                    .then(response => {
+                        response.forEach(emailObj => {
+                            if (emailObj.primary) {
+                                return user.update({
+                                        githubEmail: emailObj.email
+                                       });
+                            }
+                        })
+                    })
+                    .catch(console.error);
+            }
+        }
     }
 });
 
