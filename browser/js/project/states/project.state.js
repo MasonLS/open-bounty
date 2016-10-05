@@ -28,6 +28,20 @@ app.config(function($stateProvider) {
         templateUrl: 'js/project/templates/project-add.template.html',
         data: {
             authenticate: true
+        },
+        resolve: {
+            userRepos: function(SearchFactory, AuthService) {
+                return AuthService.getLoggedInUser()
+                    .then(function(user) {
+                        return user;
+                    })
+                    .then(function(user) {
+                        return SearchFactory.getRepoByUser(user.githubName)
+                            .then(function(repos) {
+                                return repos;
+                            });
+                    });
+            }
         }
     });
 

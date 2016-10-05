@@ -18,14 +18,21 @@
         <div class="col-sm-10 col-sm-offset-2">
             <form>
                 <div class="form-group">
-                    <label for="searchRepo">Select the repo you want to add by typing in the search box below</label>
-                    <input type="text" name="searchRepo" ng-model="searchRepo" placeholder="search for your repos" uib-typeahead="repo as repo.title for repo in searchProducts($viewValue)" typeahead-loading="loadingRepos" typeahead-no-results="noResults" class="form-control search-input" typeahead-template-url="/js/project/templates/project-add.typeahead.item.template.html">
-                </div>
-                <div class="form-group">
-                    <label for="projectDescription">Select the repo you want to add by typing in the search box below</label>
-                    <textarea name="projectDescription" class="form-control"></textarea>
-                </div>
+                    <label for="searchRepo">Select the repo you want to add by typing in the search box below:</label>
+                    <div class="input-group" ng-show="!typeAheadDisabled">
+                        <input type="text" name="searchRepo" ng-model="searchRepo" placeholder="Search for your Repos" uib-typeahead="repo as repo.name for repo in userRepos | filter: {name: $viewValue}" typeahead-loading="loadingRepos" typeahead-no-results="noResults" class="form-control search-input" typeahead-template-url="/js/project/templates/project-add.typeahead.item.template.html" typeahead-on-select="onSelect($item, $model, $label)" ng-disabled="typeAheadDisabled" />
+                        <span class="input-group-addon" ng-show="!typeAheadDisabled"><span class="glyphicon glyphicon-search"></span> Search</span>
+                    </div>
+                    <div class="fake-input" ng-show="typeAheadDisabled">
+                        <div ng-click="clearSearch()"> {{searchRepo.name}} </div>
+                        <span class="input-group-addon" ng-show="!typeAheadDisabled"><span class="glyphicon glyphicon-remove"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="projectDescription">Let your users know why you are raising funds:</label>
+                        <textarea name="projectDescription" class="form-control"></textarea>
+                    </div>
             </form>
+            <pre>Model: {{searchRepo | json}}</pre>
+            </div>
         </div>
     </div>
-</div>
