@@ -30,16 +30,10 @@ app.config(function($stateProvider) {
             authenticate: true
         },
         resolve: {
-            userRepos: function(SearchFactory, AuthService) {
+            userRepos: function(UserFactory, AuthService) {
                 return AuthService.getLoggedInUser()
                     .then(function(user) {
-                        return user;
-                    })
-                    .then(function(user) {
-                        return SearchFactory.getRepoByUser(user.id)
-                            .then(function(repos) {
-                                return repos;
-                            });
+                        return UserFactory.getRepos(user)
                     });
             }
         }

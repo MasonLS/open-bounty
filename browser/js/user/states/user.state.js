@@ -2,4 +2,21 @@
 
 app.config(function ($stateProvider) {
 	
+	$stateProvider.state('user', {
+		url: '/user',
+		controller: 'UserCtrl',
+		templateUrl: 'js/user/templates/main.template.html',
+		resolve: {
+			starredRepos: function (UserFactory, $rootScope, AuthService) {
+				if (!$rootScope.loggedInUser) {
+					return AuthService.getLoggedInUser()
+						.then(user => {
+							$rootScope.loggedInUser = user;
+							return UserFactory.getStarred(user);
+						});
+				}
+				return UserFactory.getStarred($rootScope.loggedInUser)
+			}
+		}
+	});
 });
