@@ -6,12 +6,19 @@ module.exports = router;
 
 //sends back an array(.length === 30) of user's repos
 router.get('/repos', (req, res, next) => {
+    const response = {}
 	req.github.repos.getForUser({
 		user: req.user.githubName,
 		access_token: req.user.githubToken
 	})
-	.then(response => {
-		res.json(response);
+	.then(repos => {
+	    response.repos = repos;
+	    Project.findAll({
+		where: {
+		    ownerId: req.user.id
+		}
+	    })
+		res.json(repos);
 	})
 	.catch(next);
 });

@@ -46,16 +46,15 @@ describe('Project Routes', () => {
         description: 'This is serious project.',
         raised: 1000,
         paidout: 500,
-        ownerId: 1
+        OwnerId: 1
     };
     const exampleProject2 = {
         repoId: 2,
         description: 'wizard is serious project.',
         raised: 1000,
-        paidout: 500,
-        ownerId: 1
+        paidOut: 500,
+        OwnerId: 2
     };
-
 
     beforeEach('create a project', function() {
         return Project.create(exampleProject)
@@ -64,7 +63,7 @@ describe('Project Routes', () => {
     it('should get project by id', function(done) {
         agent.get('/api/projects/one/1')
             .expect(200)
-            .end((err, response) => {
+            .end(function(err, response) {
                 if (err) {
                     done(err);
                 }
@@ -72,6 +71,18 @@ describe('Project Routes', () => {
                 expect(response.body.project.description).to.equal(exampleProject.description);
                 done();
             });
+    });
+
+    it('should get all projects for user', function(done) {
+        agent.get('/api/projects/all/owner/1')
+            .expect(200)
+            .end(function(err, response) {
+                if (err) {
+                    done(err)
+                }
+                console.log(response);
+                done();
+            })
     });
 
     // it('should create a project', function(done) {
