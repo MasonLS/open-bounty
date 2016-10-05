@@ -19,6 +19,20 @@ app.config(function($stateProvider) {
         data: {
             authenticate: true
         }
+        // resolve: {
+        //     userProjects: function(ProjectFactory, AuthService) {
+        //         return AuthService.getLoggedInUser()
+        //             .then(function(user) {
+        //                 return user;
+        //             })
+        //             .then(function(user) {
+        //                 return ProjectFactory.findProject(user.id)
+        //                     .then(function(project) {
+        //                         return project;
+        //                     });
+        //             });
+        //     }
+        // }
     });
 
 

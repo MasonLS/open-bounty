@@ -1,9 +1,10 @@
-app.controller('ManageProjectCtrl', function($scope, BountyFactory, $state) {
+app.controller('ManageProjectCtrl', ($scope,BountyFactory) => {
+    // $scope.userProjects = userProjects;
+    // console.log($scope.userProjects)
     BountyFactory.getAll()
-        .then(function(bounties) {
-            console.log(bounties)
+        .then(bounties => {
+            //console.log(bounties)
             $scope.bounties = bounties
         })
-
 
 });
