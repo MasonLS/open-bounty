@@ -7,14 +7,14 @@ var github = new GitHubApi();
 module.exports = router;
 
 //only need this if requests to github need to be authenticated (token)
-// router.use('/', (req, res, next) => {
-// 	github.authenticate({
-// 		type: 'oauth',
-// 		token: req.user.githubToken
-// 	})
+router.use('/', (req, res, next) => {
+	github.authenticate({
+		type: 'oauth',
+		token: req.user.githubToken
+	})
 	
-// 	next();
-// });
+	next();
+});
 
 //sends back an array(.length === 30) of user's repos
 router.get('/repos', (req, res, next) => {
