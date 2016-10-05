@@ -121,10 +121,10 @@ const seedUsers = function () {
 // }
 
 db.sync({ force: true })
-    .then(function () {
-        console.log(chalk.blue('Seeding users...'));
-        return seedUsers();
-    })
+    // .then(function () {
+    //     console.log(chalk.blue('Seeding users...'));
+    //     return seedUsers();
+    // })
     // .then(function (seededUsers) {
     //     console.log(chalk.green('Seeding projects...'));
     //     return Promise.map(seededUsers, seedProjects);
