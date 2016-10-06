@@ -9,7 +9,7 @@ app.controller('DonationCTRL', function($scope, $log, $window, SearchFactory) {
       SearchFactory.redirectToGitHubProject(projectId)
         .then(function(repoInfo){
           console.log(repoInfo);
-          $window.open(repoInfo.git_url, "_blank");
+          $window.open(repoInfo.git_url, '_self');
         })
         .catch($log.error);
     }
