@@ -111,10 +111,9 @@ describe('Project Routes', () => {
             });
     });
 
-    it('should create a project', function(done) {
-        agent.post('/api/projects/new')
-            .send(exampleProject)
-            .expect(201)
+    it('should get issues by repo', function(done) {
+        agent.get('/api/projects/github/repos/issues/weather')
+            .expect(200)
             .end(function(err, response) {
                 if (err) {
                     done(err);
@@ -124,6 +123,21 @@ describe('Project Routes', () => {
                 }
             });
     });
+
+
+    // it('should create a project', function(done) {
+    //     agent.post('/api/projects/new')
+    //         .send(exampleProject)
+    //         .expect(201)
+    //         .end(function(err, response) {
+    //             if (err) {
+    //                 done(err);
+    //             } else {
+    //                 expect(response).to.equal(response);
+    //                 done();
+    //             }
+    //         });
+    // });
 
 
 });

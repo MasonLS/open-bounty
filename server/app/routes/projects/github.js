@@ -14,7 +14,7 @@ router.get('/repos/search/:query', (req, res, next) => {
 // get all issues for repo
 router.get('/repos/issues/:repo', (req, res, next) => {
     req.github.issues.getForRepo({
-            user: req.user,
+            user: req.user.githubName,
             repo: req.params.repo
         })
         .then(issues => res.json(issues))
