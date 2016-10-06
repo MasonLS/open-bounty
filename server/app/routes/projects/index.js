@@ -15,6 +15,7 @@ router.get('/all/owner/:ownerId', (req, res, next) => {
         .catch(next);
 });
 
+
 // get single project
 router.get('/one/:projectId', (req, res, next) => {
     const response = {}
@@ -33,7 +34,7 @@ router.get('/one/:projectId', (req, res, next) => {
 });
 
 // create project
-router.post('/new/', (req, res, next) => {
+router.post('/new', (req, res, next) => {
     Project.create(req.body)
         .then(project => res.json(project))
         .catch(next);

@@ -1,64 +1,99 @@
-// app
+'use strict'
+
 const db = require('../../../../server/db');
 const Sequelize = require('sequelize');
+const express = require('express');
+const projectsRouter = require('../../../../server/app/routes/projects');
 
 // testing tools
 const expect = require('chai').expect;
 const supertest = require('supertest');
 
+
 describe('Project Routes', () => {
-    let app, Project;
-    let agent;
+    let Project,
+        agent,
+        testApp;
 
-    beforeEach('Sync database', () => db.sync({
-        force: true
-    }));
+    beforeEach('Sync database', function() {
+        db.sync({
+            force: true
+        })
+    });
 
-    beforeEach('Create app', () => {
-        app = require('../../../../server/app')(db);
+    beforeEach('Create app', function() {
         Project = db.model('project');
     });
 
-    beforeEach('Create guest agent', () => {
-        agent = supertest.agent(app);
+    beforeEach('Summon test agent', function() {
+        testApp = express();
+        testApp.use((req, res, next) => {
+            req.github = {
+                repos: {
+                    getById: () => Promise.resolve({
+                        id: 1
+                    })
+                }
+            }
+            next();
+        });
+        testApp.use('/api/projects', projectsRouter);
+        agent = supertest.agent(testApp);
     });
 
     const exampleProject = {
-        title: 'Example-Project',
-	repoId: 1,
-        description: 'This is some serious project.',
-        raised: 100,
-	paidout: 50,
-	ownerId: 0
+        repoId: 1,
+        description: 'This is serious project.',
+        raised: 1000,
+        paidout: 500,
+        OwnerId: 1
+    };
+    const exampleProject2 = {
+        repoId: 2,
+        description: 'wizard is serious project.',
+        raised: 1000,
+        paidOut: 500,
+        OwnerId: 2
     };
 
-    beforeEach('Create a review', done => {
-        Project.create(exampleProject)
-            .then(done);
+    beforeEach('create a project', function() {
+        return Project.create(exampleProject)
     });
 
-    it('should get project by id', done => {
+    it('should get project by id', function(done) {
         agent.get('/api/projects/one/1')
             .expect(200)
-            .end((err, response) => {
-                if (err) done(err);
-                expect(response.body.title).to.equal(exampleProject.title);
-                expect(response.body.description).to.equal(exampleProject.description);
+            .end(function(err, response) {
+                if (err) {
+                    done(err);
+                }
+                expect(response.body.project.raised).to.equal(exampleProject.raised);
+                expect(response.body.project.description).to.equal(exampleProject.description);
                 done();
             });
     });
 
-    // it('should update reviews by id', done => {
-    //     agent.put('/api/reviews/1')
-    //         .send({
-    //             title: 'I changed my mind'
-    //         })
+    // it('should get all projects for user', function(done) {
+    //     agent.get('/api/projects/all/owner/1')
     //         .expect(200)
-    //         .end((err, response) => {
-    //             if (err) done(err);
-    //             expect(response.body.title).to.equal('I changed my mind');
-    //             expect(response.body.content).to.equal(review.content);
+    //         .end(function(err, response) {
+    //             if (err) {
+    //                 done(err)
+    //             }
+    //             console.log(response);
     //             done();
-    //         });
+    //         })
     // });
+
+    // it('should create a project', function(done) {
+    //     agent.post('/api/projects/new')
+    //         .send(exampleProject2)
+    //         .expect(201)
+    //         .end((err, response) => {
+    //             if (err) {
+    //                 done(err);
+    //             }
+    //             expect('computer').to.equal('computer');
+    //         });
+    // })
 });
