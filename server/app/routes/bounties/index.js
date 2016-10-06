@@ -16,7 +16,8 @@ router.get('/:id', (req, res, next) => {
     Bounty.findAll({
             where: {
                 projectId: id
-            }
+            }//,
+            // include: [Project]
         })
         .then(bounty => {
             res.status(201).send(bounty)
