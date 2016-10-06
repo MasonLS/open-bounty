@@ -4,9 +4,9 @@ app.factory('IssueFactory', function($http, AuthService) {
 
     IssueFactory.getIssuesForProject = repo => {
 	return AuthService.getLoggedInUser()
-	    .then(user => $http.get(`/api/projects/github/issues/${repo}`))
+	    .then(user => $http.get(`/api/projects/github/repos/issues/${repo}`))
 	    .then(issues => issues.data)
-	    .catch(next);
+	    .catch(console.log);
     };
 
      return IssueFactory;
