@@ -4,6 +4,8 @@ const GitHubApi = require('github');
 const github = new GitHubApi();
 module.exports = router;
 
+router.use('/public', require('./public'));
+
 router.use('/', (req, res, next) => {
 	github.authenticate({
 		type: 'oauth',

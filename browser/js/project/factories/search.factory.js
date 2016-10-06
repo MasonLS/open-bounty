@@ -1,4 +1,4 @@
-app.factory('SearchFactory', ($http) => {
+app.factory('SearchFactory', ($http, $log) => {
     const SearchFactory = {};
 
     SearchFactory.getRepoByUser = function(userId) {
@@ -7,5 +7,22 @@ app.factory('SearchFactory', ($http) => {
                 return repos.data;
             });
     };
+
+    SearchFactory.getProjectsBySearchTerm = function(searchTerm) {
+        return $http.get('/api/public/search/' + searchTerm)
+            .then(foundProjects => {
+                return foundProjects.data
+            })
+            .catch($log.error);
+    }
+
+    SearchFactory.getLastProjects = function() {
+        return $http.get('/api/public/search/all')
+            .then(allProjects => {
+                return allProjects.data
+            })
+            .catch($log.error);
+    }
+
     return SearchFactory;
 });
