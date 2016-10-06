@@ -1,27 +1,28 @@
 app.factory('SearchFactory', ($http, $log) => {
     const SearchFactory = {};
+    const getData = function(data) { return data.data; };
 
     SearchFactory.getRepoByUser = function(userId) {
         return $http.get('/api/users/' + userId + '/github/repos/')
-            .then(repos => {
-                return repos.data;
-            });
+            .then(getData);
     };
 
     SearchFactory.getProjectsBySearchTerm = function(searchTerm) {
         return $http.get('/api/public/search/' + searchTerm)
-            .then(foundProjects => {
-                return foundProjects.data
-            })
+            .then(getData)
             .catch($log.error);
     }
 
     SearchFactory.getLastProjects = function() {
         return $http.get('/api/public/search/all')
-            .then(allProjects => {
-                return allProjects.data
-            })
+            .then(getData)
             .catch($log.error);
+    }
+
+    SearchFactory.redirectToGitHubProject = function(projectId) {
+        return $http.get('/api/public/repos/search/id/' + projectId)
+            .then(getData)
+            .catch($log.error)
     }
 
     return SearchFactory;
