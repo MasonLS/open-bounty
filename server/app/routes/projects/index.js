@@ -34,8 +34,9 @@ router.get('/one/:projectId', (req, res, next) => {
 
 // create project
 router.post('/new', (req, res, next) => {
+    console.log('req.body:', req.body)
     Project.create(req.body)
-        .then(project => res.json(project))
+        .then(project => res.send(project))
         .catch(next);
 });
 

@@ -9,33 +9,35 @@ const projectsRouter = require('../../../../server/app/routes/projects');
 const expect = require('chai').expect;
 const supertest = require('supertest');
 
-
 describe('Project Routes', () => {
-    let Project,
-        User,
-        agent,
+    let agent,
         testApp;
 
-
     // models
-    Project = db.model('project');
-    User = db.model('user');
+    const Project = db.model('project');
+    const User = db.model('user');
 
     const exampleProject = {
         repoId: 1,
         description: 'wizard',
         ownerId: 1
     };
-    const exampleProject2 = {
-        repoId: 2,
-        description: 'sorceror',
-        ownerId: 1
-    };
 
-    const exampleProject3 = {
-        repoId: 3,
-        description: 'monk',
-        ownerId: 2
+    const numOfProjects = 100;
+
+    function createProjects() {
+        const projects = [];
+        let repoId = 4,
+            description = 'description ';
+        for (let i = 0; i < numOfProjects; i++) {
+            projects.push({
+                repoId: repoId,
+                description: description + repoId,
+                ownerId: 2
+            })
+            repoId++
+        }
+        return projects;
     };
 
     const exampleUser = {
@@ -51,8 +53,8 @@ describe('Project Routes', () => {
                 force: true
             })
             .then(function() {
-                let u1 = User.create(exampleUser);
-                let u2 = User.create(exampleUser2);
+                const u1 = User.create(exampleUser);
+                const u2 = User.create(exampleUser2);
                 return Promise.all([u1, u2]);
             })
             .then(function() {
@@ -60,9 +62,9 @@ describe('Project Routes', () => {
                 return Project.create(exampleProject);
             })
             .then(function() {
-                let p2 = Project.create(exampleProject2);
-                let p3 = Project.create(exampleProject3);
-                return Promise.all([p2, p3])
+                const projects = createProjects()
+                    .map(project => Project.create(project));
+                return Promise.all(projects)
             })
     });
 
@@ -72,7 +74,7 @@ describe('Project Routes', () => {
             req.github = {
                 repos: {
                     getById: () => Promise.resolve({
-                        id: 1
+                        id: 4
                     })
                 }
             }
@@ -82,43 +84,46 @@ describe('Project Routes', () => {
         agent = supertest.agent(testApp);
     });
 
-
-
-
     it('should get all projects for user', function(done) {
-        agent.get('/api/projects/all/owner/1')
+        agent.get('/api/projects/all/owner/2')
             .expect(200)
             .end(function(err, response) {
                 if (err) {
                     done(err)
+                } else {
+                    expect(response.body.length).to.equal(100);
+                    done();
                 }
-                expect(response.body.length).to.equal(2);
-                done();
             })
     });
 
-
+    
     it('should get project by id', function(done) {
         agent.get('/api/projects/one/1')
             .expect(200)
             .end(function(err, response) {
                 if (err) {
                     done(err);
+                } else {
+                    expect(response.body.project.description).to.equal(exampleProject.description);
+                    done();
                 }
-                expect(response.body.project.description).to.equal(exampleProject.description);
-                done();
             });
     });
 
-    // it('should create a project', function(done) {
-    //     agent.post('/api/projects/new')
-    //         .send(exampleProject2)
-    //         .expect(201)
-    //         .end((err, response) => {
-    //             if (err) {
-    //                 done(err);
-    //             }
-    //             expect('computer').to.equal('computer');
-    //         });
-    // })
+    it('should create a project', function(done) {
+        agent.post('/api/projects/new')
+            .send(exampleProject)
+            .expect(201)
+            .end(function(err, response) {
+                if (err) {
+                    done(err);
+                } else {
+                    expect(response).to.equal(response);
+                    done();
+                }
+            });
+    });
+
+
 });
