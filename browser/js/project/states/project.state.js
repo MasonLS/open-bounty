@@ -95,6 +95,4 @@ app.config(function($stateProvider) {
         templateUrl: 'js/project/templates/project-add-bounty.template.html'
     });
 
-
-
 });
