@@ -24,6 +24,8 @@ navbar {
   .nav > li > a {
     cursor: pointer;
     transition: color 0.2s;
+    font-size: 14px;
+    text-transform: uppercase;
     &.active {
       color: darken(#f31214, 10%);
     }
