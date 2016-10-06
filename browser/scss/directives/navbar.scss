@@ -24,6 +24,8 @@ navbar {
   .nav > li > a {
     cursor: pointer;
     transition: color 0.2s;
+    font-size: 14px;
+    text-transform: uppercase;
     &.active {
       color: darken(#f31214, 10%);
     }
@@ -57,5 +59,28 @@ navbar {
       cursor: pointer;
     }
   }
-
 }
+.login-modal {
+  .modal-body {
+    padding: 0;
+  }
+  .modal-content {
+    border-radius: 0;
+    .left {
+      background-color: #f5f5f5;
+      padding: 30px;
+      height: 250px;
+    }
+    .right {
+      padding: 30px;
+      height: 250px;
+    }
+    h4 {
+      margin-bottom: 30px;
+    }
+  }
+}
+.modal-backdrop {
+  display: none;
+}
+
