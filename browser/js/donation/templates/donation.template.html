@@ -13,7 +13,7 @@
                 </div>
                 <div class="col-md-3 name">
                     <span>{{ project.name }}</span>
-                    <button class="btn btn-xs btn-default">Check in GitHub</button>
+                    <button class="btn btn-xs btn-default" ng-click="redirectToGitHub(project.repoId)">Check in GitHub</button>
                 </div>
                 <div class="col-md-3 description">
                     {{ project.description }}
