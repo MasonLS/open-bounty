@@ -1,3 +1,4 @@
+
 <table class="table table-hover">
     <thead>
         <tr>
@@ -9,38 +10,13 @@
         </tr>
     </thead>
     <tbody>
-        <tr >
-            <th scope="row">{{ userProjects}}</th>
-            <td></td>
-            <td></td>
+        <tr ng-repeat="userProject in userProjects">
+            <th scope="row">{{ userProject.name | uppercase}}</th>
+            <td>{{ userProject.raised}}</td>
+            <td>{{ userProject.paidOut}}</td>
             <td></td>
             <td>
-                <button type="button" class="btn btn-warning btn-sm">Manage</button>
-                <button type="button" class="btn btn-danger btn-sm">Delete</button>
-            </td>
-        </tr>
-
-    </tbody>
-</table>
-
-<table class="table table-hover">
-    <thead>
-        <tr>
-            <th>Issue Id</th>
-            <th>Description</th>
-            <th>Bounty Amount</th>
-            <th>Status</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr ng-repeat="bounty in bounties">
-            <th scope="row">{{bounty.issueId}}</th>
-            <td></td>
-            <td>{{bounty.amount | currency}}</td>
-            <td>{{bounty.status}}</td>
-            <td>
-                <button type="button" class="btn btn-warning btn-sm">Change Amount</button>
+                <button type="button" class="btn btn-warning btn-sm" ui-sref="manageSingleProjects({projectId: userProject.id })">Manage</button>
                 <button type="button" class="btn btn-danger btn-sm">Delete</button>
             </td>
         </tr>

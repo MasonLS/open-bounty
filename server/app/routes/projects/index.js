@@ -20,14 +20,14 @@ router.get('/one/:projectId', (req, res, next) => {
     const response = {}
     Project.findById(req.params.projectId)
         .then(project => {
-	   response.project = project
-	    req.github.repos.getById({
-		id: project.repoId
-	    })
-		.then(repo => {
-		    response.repo = repo
-		    res.json(response);
-		});
+            response.project = project
+            req.github.repos.getById({
+                    id: project.repoId
+                })
+                .then(repo => {
+                    response.repo = repo
+                    res.json(response);
+                });
         })
         .catch(next);
 });

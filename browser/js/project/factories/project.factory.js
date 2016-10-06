@@ -18,16 +18,23 @@ app.factory('ProjectFactory', function($http, AuthService) {
             .catch(console.log);
     };
 
-    ProjectFactory.findProject = function(user){
+    ProjectFactory.findProject = function(user) {
         return AuthService.getLoggedInUser()
-            .then(function(user){
+            .then(function(user) {
                 return $http.get('/api/projects/all/owner/' + user.id);
             })
-            .then(function(project){
+            .then(function(project) {
                 return project.data;
             })
 
     }
+
+    ProjectFactory.findSingleProject = function(projectId) {
+        return $http.get('/api/bounties/' + projectId)
+            .then(function(project) {
+                return project.data;
+            })
+    };
 
     return ProjectFactory;
 });
