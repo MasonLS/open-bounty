@@ -20,7 +20,7 @@
                 <div class="form-group">
                     <label for="searchRepo">Select the repo you want to add by typing in the search box below:</label>
                     <div class="input-group searchRepo" ng-show="!typeAheadDisabled">
-                        <input type="text" name="searchRepo" typeahead-editable='false' ng-model="searchRepo" placeholder="Search for your Repos" uib-typeahead="repo as repo.name for repo in userRepos | filter: {name: $viewValue}" typeahead-loading="loadingRepos" typeahead-no-results="noResults" class="form-control search-input" typeahead-template-url="/js/project/templates/project-add.typeahead.item.template.html" typeahead-on-select="onSelect($item, $model, $label)" ng-disabled="typeAheadDisabled" autocomplete="false" />
+                        <input type="text" name="searchRepo" typeahead-editable='false' ng-model="searchRepo" placeholder="Search for your Repos" uib-typeahead="repo as repo.name for repo in userRepos | filter: {name: $viewValue}" typeahead-loading="loadingRepos" typeahead-no-results="noResults" class="form-control search-input" typeahead-template-url="/js/project/templates/project-add.typeahead.item.template.html" typeahead-on-select="onSelect($item, $model, $label)" ng-disabled="typeAheadDisabled" autocomplete="off" />
                         <span class="input-group-addon" ng-show="!typeAheadDisabled"><span class="glyphicon glyphicon-search"></span> Search</span>
                     </div>
                     <div class="fake-input" ng-show="typeAheadDisabled">

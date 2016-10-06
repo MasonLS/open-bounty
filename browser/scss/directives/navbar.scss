@@ -57,5 +57,28 @@ navbar {
       cursor: pointer;
     }
   }
-
 }
+.login-modal {
+  .modal-body {
+    padding: 0;
+  }
+  .modal-content {
+    border-radius: 0;
+    .left {
+      background-color: #f5f5f5;
+      padding: 30px;
+      height: 300px;
+    }
+    .right {
+      padding: 30px;
+      height: 300px;
+    }
+    h4 {
+      margin-bottom: 30px;
+    }
+  }
+}
+.modal-backdrop {
+  display: none;
+}
+
