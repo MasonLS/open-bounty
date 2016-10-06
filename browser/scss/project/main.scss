@@ -51,3 +51,25 @@
     width: 100%;
     text-transform: uppercase;
 }
+.nav-sidebar > .active > a,
+.nav-sidebar > .active > a:hover,
+.nav-sidebar > .active > a:focus {
+    color: white !important;
+}
+
+
+.nav-sidebar.nav > li {
+    a {
+        &:hover {
+            color: #707070;
+        }
+    }
+    .active {
+        a {
+            &:hover {
+                color: white !important;
+            }
+        }
+    }
+}
+
