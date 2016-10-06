@@ -1,0 +1,44 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-10 col-sm-offset-2">
+            <ol class="breadcrumb">
+		<li class="breadcrumb-item"><a ui-sref="home">Home</a></li>
+                <li class="breadcrumb-item"><a ui-sref="home">Projects</a></li>
+		<li class="breadcrumb-item"><a ui-sref="home">Bounties</a></li>
+		<li class="breadcrumb-item active">Issues</li>
+
+            </ol>
+        </div>
+    </div>
+
+    <div class='row'>
+        <div class='col-sm-10 col-sm-offset-2'>
+            <h2>Issues</h2>
+        </div>
+    </div>
+
+    <project-sidebar></project-sidebar>
+    <div class="row">
+        <div class="col-sm-10 col-sm-offset-2">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Title</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="issue in issues">
+                        <th scope="row"><a href="{{issue.html_url}}">{{ issue.id | uppercase}}</th>
+                        <td>{{ issue.title}}</td>
+                        <td>{{ issue.description }}</td></a>
+                        <td>
+                            <button type="button" class="btn btn-warning btn-sm" ui-sref="addBounty">Add Bounty</button>
+                            <button type="button" class="btn btn-danger btn-sm">delete</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
