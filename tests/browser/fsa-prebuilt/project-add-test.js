@@ -1,37 +1,64 @@
-describe('Project Add Service', function () {
+describe('Project Add Service', function() {
 
-    beforeEach(module('ProjectFactory'));
+    beforeEach(module('OpenBounty'));
 
-    var $rootScope;
-    var ProjectFactory;
-    beforeEach(inject(function (_$rootScope_, _ProjectFactory_) {
+    let $rootScope;
+    let ProjectFactory;
+    let $httpBackend;
+    let AuthService;
+
+    beforeEach(inject(function(_$rootScope_, _ProjectFactory_, _$httpBackend_, _AuthService_) {
         $rootScope = _$rootScope_;
         ProjectFactory = _ProjectFactory_;
+        $httpBackend = _$httpBackend_;
+        AuthService = _AuthService_;
     }));
 
-
-    it('should be an object', function () {
+    // Test if factory exists
+    it('should be an object', function() {
         expect(ProjectFactory).to.be.an('object');
     });
 
-    // it('should by default have id and user as null', function () {
-    //     expect(Session.user).to.be.equal(null);
-    //     expect(Session.id).to.be.equal(null);
-    // });
-
-    // describe('create method', function () {
-
-    //     it('should when called with id and user arguments' +
-    //     'set the id and user to session', function () {
-    //         var id = 'testId';
-    //         var user = {};
-    //         Session.create(id, user);
-    //         expect(Session.user).to.be.equal(user);
-    //         expect(Session.id).to.be.equal(id);
-    //     });
-
-    // });
+    afterEach(function() {
+        $httpBackend.verifyNoOutstandingExpectation();
+        $httpBackend.verifyNoOutstandingRequest();
+    });
 
 
+    it('it retrieves project by userId', function() {
+
+        let stub = sinon.stub(AuthService, 'getLoggedInUser', function() {
+            return Promise.resolve({
+                id: 1
+            });
+        });
+
+        $httpBackend.expectGET('/api/projects/all/owner/1') // ensure GET
+            .respond(200, [{
+                id: 1,
+                repoId: 66979712,
+                name: 'fsg',
+                description: 'test',
+                raised: 0,
+                paidOut: 0,
+                createdAt: '2016-10-06T14:22:46.152Z',
+                updatedAt: '2016-10-06T14:22:46.152Z',
+                ownerId: 1
+            }]);
+
+        setTimeout(function() {
+            $httpBackend.flush();
+        }, 500)
+
+        return ProjectFactory.findProject(1).then(function(foundProjects) {
+            stub.restore();
+            expect(foundProjects[0].name).to.be.equal('fsg');
+
+        });
+
+
+
+
+    });
 
 });
