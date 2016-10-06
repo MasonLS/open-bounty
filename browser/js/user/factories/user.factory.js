@@ -15,9 +15,9 @@ app.factory('UserFactory', function ($http) {
 			.then(getData);
 	}
 
-	// function getReposOfInterest (user) {
-	// 	return $http.get('/api/bounties')
-	// }
+	function getReposOfInterest (user) {
+		return $http.get('/api/bounties')
+	}
 
 	return {
 		getStarred: getStarred,
