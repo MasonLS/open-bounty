@@ -9,14 +9,14 @@
     </div>
     <div class='row'>
         <div class='col-sm-10 col-sm-offset-2'>
-            <h2>Repos I've starred</h2>
+            <h2>Bounties of project's I've starred</h2>
         </div>
     </div>
     <div class="row">
         <project-sidebar></project-sidebar>
         <div class="col-sm-10 col-sm-offset-2">
             <ul class="list-group">
-              <li class="list-group-item" ng-repeat="repo in starredRepos">{{repo.name}}</li>
+              <li class="list-group-item" ng-repeat="bounty in bountiesOfInterest">{{bounty.name}}</li>
             </ul>
         </div>
     </div>

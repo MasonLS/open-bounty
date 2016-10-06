@@ -18,5 +18,14 @@ module.exports = db.define('bounty', {
 	instanceMethods: {
 		updateStatus: status => this.status = status,
 		updateAmount: amount => this.amount += amount
+	},
+	classMethods: {
+		getByProjectId: projectId => {
+			return Bounty.findAll({
+				where: {
+					projectId: projectId
+				}
+			})
+		}
 	}
 });
