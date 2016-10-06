@@ -50,14 +50,15 @@ router.get('/starred', (req, res, next) => {
             user: req.user.githubName
         })
         .then(repos => {
-            return Promise.filter(repos, repo => {
-                return Project.findOne({
-                    where: {
-                        repoId: repo.id
-                    },
-                    include: [Bounty]
-                })
-                .then(data => data !== null)
+            let starredRepoIds = repos.map(repo => repo.id);
+
+            return Project.findAll({
+                where: {
+                    repoId: {
+                        $in: starredRepoIds
+                    }
+                },
+                include: [Bounty]
             })
         })
         .then(starredProjects => res.json(starredProjects))
