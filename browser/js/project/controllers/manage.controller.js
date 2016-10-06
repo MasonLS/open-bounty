@@ -9,4 +9,5 @@ app.controller('ManageProjectCtrl', ($scope, $stateParams,AuthService, ProjectFa
         });
 
 
+
 });

@@ -27,7 +27,7 @@ app.factory('ProjectFactory', function($http, AuthService) {
                 return project.data;
             })
 
-    }
+    };
 
     ProjectFactory.findSingleProject = function(projectId) {
         return $http.get('/api/bounties/' + projectId)
@@ -35,6 +35,9 @@ app.factory('ProjectFactory', function($http, AuthService) {
                 return project.data;
             })
     };
+
+    ProjectFactory.findOneById = projectId => $http.get(`/api/projects/one/${projectId}`)
+	    .then(project => project.data);
 
     return ProjectFactory;
 });
