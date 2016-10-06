@@ -13,7 +13,11 @@ const ensureAuthenticated = (req, res, next) => {
 
 router.get('/:id', (req, res, next) => {
     const id = req.params.id
-    Bounty.findById(id)
+    Bounty.findAll({
+            where: {
+                projectId: id
+            }
+        })
         .then(bounty => {
             res.status(201).send(bounty)
         })
@@ -21,7 +25,7 @@ router.get('/:id', (req, res, next) => {
 });
 
 router.post('/create', (req, res, next) => {
-   const body = req.body
+    const body = req.body
     Bounty.create(body)
         .then(bounty => {
             res.status(201).send(bounty)
