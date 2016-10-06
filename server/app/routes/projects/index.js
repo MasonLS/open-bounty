@@ -21,7 +21,7 @@ router.get('/one/:projectId', (req, res, next) => {
     const response = {}
     Project.findById(req.params.projectId)
         .then(project => {
-            response.project = project;
+            response.project = project
             req.github.repos.getById({
                     id: project.repoId
                 })

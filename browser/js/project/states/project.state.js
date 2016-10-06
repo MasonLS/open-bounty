@@ -24,6 +24,15 @@ app.config(function($stateProvider) {
         }
     });
 
+    $stateProvider.state('manageSingleProjects', {
+        url: '/project/manage/:projectId',
+        controller: 'ManageSingleProjectCtrl',
+        templateUrl: 'js/project/templates/project-manageSingleProject.template.html',
+        data: {
+            authenticate: true
+        }
+    });
+
 
     $stateProvider.state('addProject', {
         url: '/project/add',
