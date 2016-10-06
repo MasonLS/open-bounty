@@ -3,6 +3,8 @@ const router = require('express').Router(); // eslint-disable-line new-cap
 const db = require('../../../db');
 const User = db.model('user');
 const Project = db.model('project');
+const Bounty = db.model('bounty');
+const Promise = require('bluebird');
 module.exports = router;
 
 // for filtering out user repos already created as projects
@@ -42,13 +44,22 @@ router.get('/repos', (req, res, next) => {
         .catch(next);
 });
 
-//get user's starred repos as an array
+//get projects for repos starred by user with bounties attached
 router.get('/starred', (req, res, next) => {
     req.github.activity.getStarredReposForUser({
             user: req.user.githubName
         })
-        .then(response => {
-            res.json(response);
+        .then(repos => {
+            return Promise.filter(repos, repo => {
+                return Project.findOne({
+                    where: {
+                        repoId: repo.id
+                    },
+                    include: [Bounty]
+                })
+                .then(data => data !== null)
+            })
         })
+        .then(starredProjects => res.json(starredProjects))
         .catch(next);
 });
