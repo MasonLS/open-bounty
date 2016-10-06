@@ -4,6 +4,7 @@ var path = require('path');
 module.exports = function (config) {
 
     var filesCollection = [
+        'tests/browser/test-globals.js',
         'node_modules/lodash/index.js',
         'node_modules/angular/angular.js',
         'node_modules/angular-animate/angular-animate.js',
@@ -12,8 +13,11 @@ module.exports = function (config) {
         'node_modules/angular-ui-bootstrap/ui-bootstrap-tpls.js',
         'node_modules/socket.io-client/socket.io.js',
         'public/main.js',
+        'node_modules/jquery/dist/jquery.js',
         'node_modules/sinon/pkg/sinon.js',
         'node_modules/angular-mocks/angular-mocks.js',
+        'node_modules//angular-loading-bar/build/loading-bar.js',
+        'node_modules//bootstrap/dist/js/bootstrap.js',
         'tests/browser/**/*.js'
     ];
 
@@ -46,3 +50,7 @@ module.exports = function (config) {
     config.set(configObj);
 
 };
+
+// testing tools (front-end experience);
+// selenium web driver
+// protractor

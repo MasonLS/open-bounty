@@ -1,15 +1,19 @@
 'use strict';
 window.app = angular.module('OpenBounty', ['fsaPreBuilt', 'ui.router', 'ui.bootstrap', 'ngAnimate', 'angular-loading-bar']);
 
+
 app.config(function($urlRouterProvider, $locationProvider) {
-    // This turns off hashbang urls (/#about) and changes it to something normal (/about)
-    $locationProvider.html5Mode(true);
-    // If we go to a URL that ui-router doesn't have registered, go to the "/" url.
-    $urlRouterProvider.otherwise('/');
-    // Trigger page refresh when accessing an OAuth route
-    $urlRouterProvider.when('/auth/:provider', function() {
-        window.location.reload();
-    });
+    if (!window.testing) {
+        console.log('test', window.testing);
+        // This turns off hashbang urls (/#about) and changes it to something normal (/about)
+        $locationProvider.html5Mode(true);
+        // If we go to a URL that ui-router doesn't have registered, go to the "/" url.
+        $urlRouterProvider.otherwise('/');
+        // Trigger page refresh when accessing an OAuth route
+        $urlRouterProvider.when('/auth/:provider', function() {
+            window.location.reload();
+        });
+    }
 });
 
 // This app.run is for controlling access to specific states.
@@ -52,6 +56,7 @@ app.run(function($rootScope, AuthService, $state) {
     });
 
 });
+
 
 
 app.config(['cfpLoadingBarProvider', function(cfpLoadingBarProvider) {
