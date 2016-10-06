@@ -29,11 +29,11 @@
                 </thead>
                 <tbody>
                     <tr ng-repeat="issue in issues">
-                        <th scope="row">{{ issue.id | uppercase}}</th>
-                        <td>{{ issue.name}}</td>
-                        <td>{{ issue.description }}</td>
+                        <th scope="row"><a href="{{issue.html_url}}">{{ issue.id | uppercase}}</th>
+                        <td>{{ issue.title}}</td>
+                        <td>{{ issue.description }}</td></a>
                         <td>
-                            <button type="button" class="btn btn-warning btn-sm" ui-sref="">Add Bounty</button>
+                            <button type="button" class="btn btn-warning btn-sm" ui-sref="addBounty">Add Bounty</button>
                             <button type="button" class="btn btn-danger btn-sm">delete</button>
                         </td>
                     </tr>
