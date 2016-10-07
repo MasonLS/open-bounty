@@ -3,7 +3,7 @@ app.controller('ManageProjectCtrl', ($scope, $stateParams,AuthService, ProjectFa
     //It's used to get the Projects
     AuthService.getLoggedInUser()
         .then(user => user)
-        .then(user => ProjectFactory.findProject(user.id))
+        .then(user => ProjectsFactory.getByUser(user.id))
         .then(project => {
             $scope.userProjects = project;
         });

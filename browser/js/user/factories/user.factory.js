@@ -11,7 +11,7 @@ app.factory('UserFactory', function ($http) {
 	}
 
 	function getRepos (user) {
-		return $http.get('/api/users/' + user.id + '/github/repos')
+		return $http.get('/api/users/repos')
 			.then(getData);
 	}
 
