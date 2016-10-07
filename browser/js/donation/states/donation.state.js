@@ -8,8 +8,11 @@ app.config(function ($stateProvider) {
 
 
     $stateProvider.state('donateId', {
-        url: '/donate/:projectId',
-        controller: 'DonationCTRL',
+        url: '/project',
+        params: {
+            project: null
+        },
+        controller: 'DonateToProjectCtrl',
         templateUrl: 'js/donation/templates/donation-project.template.html'
     });
 });

@@ -14,3 +14,7 @@ app.controller('DonationCTRL', function($scope, $log, $window, SearchFactory) {
         .catch($log.error);
     }
 });
+
+app.controller('DonateToProjectCtrl', ($scope, $stateParams) => {
+  $scope.project = $stateParams.project;
+})

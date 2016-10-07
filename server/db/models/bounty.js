@@ -5,8 +5,7 @@ const db = require('../_db');
 
 module.exports = db.define('bounty', {
 	issueNumber: {
-		type: Sequelize.INTEGER,
-		allowNull: false
+		type: Sequelize.INTEGER
 	},
 	status: {
 		type: Sequelize.ENUM('open', 'pull request', 'paid', 'deleted')
