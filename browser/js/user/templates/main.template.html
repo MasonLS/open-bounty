@@ -9,15 +9,28 @@
     </div>
     <div class='row'>
         <div class='col-sm-10 col-sm-offset-2'>
-            <h2>Bounties of project's I've starred</h2>
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search projects..." ng-model="search.term">
+                        <span class="input-group-btn"><button class="btn btn-default" type="button" ng-click="searchProjects(search.term)">Search</button></span>
+                    </div>
+                    <!-- /input-group -->
+                </div>
+                <!-- /.col-lg-6 -->
+            </div>
+            <!-- /.row -->
         </div>
     </div>
     <div class="row">
         <project-sidebar></project-sidebar>
         <div class="col-sm-10 col-sm-offset-2">
-            <ul class="list-group">
-              <li class="list-group-item" ng-repeat="bounty in bountiesOfInterest">{{bounty.issue.name}}</li>
-            </ul>
+            <div class="list-group">
+                <button type="button" class="list-group-item" ng-repeat="project in projects">{{project.name}}</button>
+                <div class="list-group">
+                    <button type="button" class="list-group-item" ng-repeat="bounty in project.bounties">{{bounty.issue.name}}</button>
+                </div>
+            </div>
         </div>
     </div>
 </div>

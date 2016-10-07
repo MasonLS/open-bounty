@@ -31,6 +31,9 @@ module.exports = db.define('user', {
     },
     githubEmail: {
         type: Sequelize.STRING
+    },
+    glory: {
+        type: Sequelize.INTEGER
     }
 },{
     instanceMethods: {
@@ -39,6 +42,9 @@ module.exports = db.define('user', {
         },
         correctPassword: function (candidatePassword) {
             return this.Model.encryptPassword(candidatePassword, this.salt) === this.password;
+        },
+        incrementGlory: function (amountOfGlory) {
+            this.glory =+ amountOfGlory;
         }
     },
     classMethods: {
