@@ -16,6 +16,7 @@
     <div class="row">
         <project-sidebar></project-sidebar>
         <div class="col-sm-10 col-sm-offset-2">
+
             <form autocomplete="off" name="submitProject">
                 <div class="form-group">
                     <label for="searchRepo">Select the repo you want to add by typing in the search box below:</label>
@@ -35,6 +36,7 @@
                     <button type="submit" class="btn btn-submit-project" ng-disabled="!searchRepo" ng-click="addProject(searchRepo, projectDescription)">Submit your project</button>
                 </div>
             </form>
+
         </div>
     </div>
 </div>

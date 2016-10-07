@@ -24,6 +24,19 @@ app.config(function($stateProvider) {
         }
     });
 
+    $stateProvider.state('manageSingleProjects', {
+        url: '/project/manage/:projectId',
+        controller: 'ManageSingleProjectCtrl',
+        templateUrl: 'js/project/templates/project-manageSingleProject.template.html',
+        resolve: {
+            project: ($stateParams, ProjectFactory) => ProjectFactory.findOneById($stateParams.projectId)
+                .then(project => project)
+        },
+        data: {
+            authenticate: true
+        }
+    });
+
 
     $stateProvider.state('addProject', {
         url: '/project/add',
@@ -62,6 +75,24 @@ app.config(function($stateProvider) {
         url: '/project/search',
         controller: 'SearchProjectCtrl',
         templateUrl: 'js/project/templates/project-search.template.html',
+    });
+
+
+    $stateProvider.state('issueList', {
+        url: '/project/issue-list/:repo',
+        controller: 'IssuesCtrl',
+        templateUrl: 'js/project/templates/project-issue-list.template.html',
+        resolve: {
+            issues: ($stateParams, IssueFactory, AuthService) => AuthService.getLoggedInUser()
+                .then(user => IssueFactory.getIssuesForProject($stateParams.repo)
+                    .then(issues => issues))
+        }
+    });
+
+    $stateProvider.state('addBounty', {
+        url: '/project/issue-list/add-bounty',
+        controller: 'BountyCtrl',
+        templateUrl: 'js/project/templates/project-add-bounty.template.html'
     });
 
 });

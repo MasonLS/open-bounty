@@ -1,11 +1,35 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12 text-center">
-            <h1>Donate!</h1>
+            <h1>Donate! </h1>
+            <h2>in $$$ or €€€ or ¥¥¥ or whichever currency you prefer!</h2>
         </div>
     </div>
-    <div class="row">
-        <div class="col-md-6"></div>
-        <div class="col-md-6">Content</div>
+    <div class="projects-container">
+        <div class="project-container" ng-repeat="project in projects">
+            <div class="row">
+                <div class="col-md-1 icon">
+                    <i class="fa fa-github" aria-hidden="true"></i>
+                </div>
+                <div class="col-md-3 name">
+                    <span>{{ project.name }}</span>
+                    <button class="btn btn-xs btn-default" ng-click="redirectToGitHub(project.repoId)">Check in GitHub</button>
+                </div>
+                <div class="col-md-3 description">
+                    {{ project.description }}
+                </div>
+                <div class="col-md-3 money">
+                    <div class="raised">
+                        <span>Raised:</span> {{ project.raised | currency }}
+                    </div>
+                    <div class="paidout">
+                        <span>Paid out:</span> {{ project.paidOut | currency }}
+                    </div>
+                </div>
+                <div class="col-md-2 donate">
+                    <button class='btn btn-success'>Donate now!</button>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

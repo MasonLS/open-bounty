@@ -1,0 +1,43 @@
+.projects-container {
+    margin-top: 60px;
+}
+
+.project-container {
+    margin-bottom: 30px;
+    background-color: #F9F9F9;
+    padding: 10px 30px;
+    border-radius: 5px;
+    border: 1px solid #E5E5E5;
+    border-bottom: 2px solid #CCCCCC;
+    color: #54687C;
+    .name {
+        font-size: 20px;
+        padding-top: 10px;
+        span {
+            margin:0;
+            display: block;
+        }
+    }
+    .donate {
+        line-height: 70px;
+        button {
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        display: table-cell;
+        vertical-align: middle;
+    }
+    .description {
+      padding-top: 15px;
+    }
+    .icon {
+        font-size: 50px;
+    }
+    .raised {
+        padding-top: 10px;
+        font-size: 20px;
+    }
+    .paidout {
+        font-size: 20px;
+    }
+}

@@ -31,7 +31,7 @@ router.get('/:projectName/:id', (req, res, next) => {
 });
 
 router.post('/create', (req, res, next) => {
-   const body = req.body
+    const body = req.body
     Bounty.create(body)
         .then(bounty => {
             res.status(201).send(bounty)

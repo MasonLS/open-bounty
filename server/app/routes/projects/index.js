@@ -15,14 +15,13 @@ router.get('/all/owner/:ownerId', (req, res, next) => {
         .catch(next);
 });
 
-
 // get single project
 router.get('/one/:projectId', (req, res, next) => {
     const response = {}
     Project.findById(req.params.projectId)
         .then(project => {
-            response.project = project;
-            req.github.repos.getById({
+            response.project = project
+            return req.github.repos.getById({
                     id: project.repoId
                 })
                 .then(repo => {
@@ -35,8 +34,9 @@ router.get('/one/:projectId', (req, res, next) => {
 
 // create project
 router.post('/new', (req, res, next) => {
+    console.log('req.body:', req.body)
     Project.create(req.body)
-        .then(project => res.json(project))
+        .then(project => res.send(project))
         .catch(next);
 });
 
