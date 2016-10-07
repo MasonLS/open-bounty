@@ -4,7 +4,7 @@ const Sequelize = require('sequelize');
 const db = require('../_db');
 
 module.exports = db.define('bounty', {
-	issueId: {
+	issueNumber: {
 		type: Sequelize.INTEGER,
 		allowNull: false
 	},
@@ -16,8 +16,27 @@ module.exports = db.define('bounty', {
 	}
 },{
 	instanceMethods: {
-		updateStatus: status => this.status = status,
-		updateAmount: amount => this.amount += amount
+		updateStatus: function (status) {
+			this.status = status;
+		},
+		updateAmount: function (amount) { 
+			this.amount += amount; 
+		},
+		attachIssue: function (githubClient, githubName, projectName) {
+			return githubClient.issues.get({
+					user: githubName,
+					repo: projectName,
+					number: this.issueNumber
+				})
+				.then(issue => {
+					this.setDataValue('issue', issue);
+					return this;
+				})
+				.catch(_ => {
+					this.setDataValue('issue', []);
+					return this;
+				});
+		}
 	},
 	classMethods: {
 		getByProjectId: projectId => {
