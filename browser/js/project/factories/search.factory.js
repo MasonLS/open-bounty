@@ -22,7 +22,7 @@ app.factory('SearchFactory', ($http, $log) => {
     SearchFactory.redirectToGitHubProject = function(projectId) {
         return $http.get('/api/public/repos/search/id/' + projectId)
             .then(getData)
-            .catch($log.error)
+            .catch($log.error);
     }
 
     return SearchFactory;
