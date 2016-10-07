@@ -22,18 +22,18 @@ module.exports = db.define('bounty', {
 		updateAmount: function (amount) { 
 			this.amount += amount; 
 		},
-		addIssue: function (githubClient, githubName, ProjectName) {
+		attachIssue: function (githubClient, githubName, projectName) {
 			return githubClient.issues.get({
 					user: githubName,
 					repo: projectName,
 					number: this.issueNumber
 				})
 				.then(issue => {
-					this.issue = issue;
+					this.setDataValue('issue', issue);
 					return this;
 				})
 				.catch(_ => {
-					this.issue = [];
+					this.setDataValue('issue', []);
 					return this;
 				});
 		}

@@ -62,13 +62,8 @@ router.get('/starred', (req, res, next) => {
             })
         })
         .then(starredProjects => {
-            console.log('STARRED PROJECTS !!!!', starredProjects);
-            // return starredProjects[0].addBounties(req.github, req.user.githubName)
-            //     .then(data => {
-            //         console.log(data)
-            //     })
             return Promise.map(starredProjects, project => {
-                return project.addBounties(req.github, req.user.githubName);
+                return project.attachBounties(req.github, req.user.githubName);
             })
         })
         .then(starredProjectsWithBounties => {

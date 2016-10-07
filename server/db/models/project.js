@@ -25,16 +25,16 @@ module.exports = db.define('project', {
     }
 },{
     instanceMethods: {
-        addBounties: function (githubClient, githubName) {
+        attachBounties: function (githubClient, githubName) {
             return this.getBounties()
                 .then(bounties => {
                     console.log('BOUNTIES !!!!', bounties)
                     return Promise.map(bounties, bounty => {
-                        return bounty.addIssue(githubClient, githubName, this.name);
+                        return bounty.attachIssue(githubClient, githubName, this.name);
                     });
                 })
                 .then(bountiesWithIssue => {
-                    this.bounties = bountiesWithIssue;
+                    this.setDataValue('bounties', bountiesWithIssue);
                     return this;
                 })
                 
