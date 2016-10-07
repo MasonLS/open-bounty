@@ -4,7 +4,7 @@ app.directive('navbar', function($rootScope, AuthService, AUTH_EVENTS, $state) {
         restrict: 'E',
         scope: {},
         templateUrl: 'js/common/directives/navbar/navbar.html',
-        link: function(scope) {
+        link: (scope) => {
 
             scope.items = [
                 { label: 'Donate', state: 'donate' },
@@ -17,23 +17,23 @@ app.directive('navbar', function($rootScope, AuthService, AUTH_EVENTS, $state) {
 
             scope.user = null;
 
-            scope.isLoggedIn = function() {
+            scope.isLoggedIn = () => {
                 return AuthService.isAuthenticated();
             };
 
-            scope.logout = function() {
+            scope.logout = () => {
                 AuthService.logout().then(function() {
                     $state.go('home');
                 });
             };
 
-            var setUser = function() {
+            var setUser = () => {
                 AuthService.getLoggedInUser().then(function(user) {
                     scope.user = user;
                 });
             };
 
-            var removeUser = function() {
+            var removeUser = () => {
                 scope.user = null;
             };
 
@@ -50,24 +50,22 @@ app.directive('navbar', function($rootScope, AuthService, AUTH_EVENTS, $state) {
 
 });
 
-app.controller('LoginModalCtrl', function($scope, $uibModal) {
-
-    $scope.open = function() {
+app.controller('LoginModalCtrl', ($scope, $uibModal) => {
+    $scope.open = () => {
         $uibModal.open({
             templateUrl: '/js/common/directives/navbar/navbar.modal.template.html',
             controller: 'ModalInstanceCtrl',
             windowClass: 'login-modal'
         });
     };
-
 });
 
-app.controller('ModalInstanceCtrl', function($scope, $uibModalInstance) {
-    $scope.ok = function() {
+app.controller('ModalInstanceCtrl', ($scope, $uibModalInstance) => {
+    $scope.ok = () => {
         $uibModalInstance.close();
     };
 
-    $scope.cancel = function() {
+    $scope.cancel = () => {
         $uibModalInstance.dismiss('cancel');
     };
-})
+});
