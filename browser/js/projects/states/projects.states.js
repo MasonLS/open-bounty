@@ -29,9 +29,9 @@ app.config($stateProvider => {
             project: null
         },
         resolve: {
-            repoIssues: (ProjectsFactory, $stateParams) => ProjectsFactory.getIssues($stateParams.project.name)
+            bounties: (ProjectsFactory, $stateParams) => ProjectsFactory.getIssues($stateParams.project.name)
         },
         controller: 'SingleProjectCtrl'
     });
 
-})
+});

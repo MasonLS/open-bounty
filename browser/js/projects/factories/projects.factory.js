@@ -12,8 +12,6 @@ app.factory('ProjectsFactory', function($http, $log, AuthService) {
             .then(getData)
             .catch($log.error);
     }
-    // let ProjectFactory = {}
-
 
     function addProject (repo, description) {
 
@@ -49,7 +47,7 @@ app.factory('ProjectsFactory', function($http, $log, AuthService) {
     const findOneById = projectId => $http.get(`/api/projects/one/${projectId}`)
 	    .then(project => project.data);
 
-    // return ProjectFactory;
+    // return ProjectsFactory;
     return {
         getForUser,
         getIssues,
