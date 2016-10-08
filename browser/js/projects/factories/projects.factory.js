@@ -7,8 +7,8 @@ app.factory('ProjectsFactory', function($http, $log, AuthService) {
         .then(getData)
         .catch($log.error);
     }
-    function getIssues (projectId) {
-        return $http.get('/api/projects/' + projectId + '/issues')
+    function getIssues (projectName) {
+        return $http.get('/api/projects/' + projectName + '/issues')
             .then(getData)
             .catch($log.error);
     }

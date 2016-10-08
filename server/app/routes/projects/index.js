@@ -33,6 +33,16 @@ router.post('/', (req, res, next) => {
         .catch(next);
 });
 
+
+router.get('/:projectName/issues', (req, res, next) => {
+    req.github.issues.getForRepo({
+        user: req.user.githubName,
+        repo: req.params.projectName
+    })
+    .then(issues => res.send(issues))
+    .catch(next);
+});
+
 router.param('projectId', (req, res, next, projectId) => {
     Project.findById(projectId)
         .then(project => {
@@ -42,14 +52,14 @@ router.param('projectId', (req, res, next, projectId) => {
         .catch(next);
 })
 
-router.get('/:projectId/issues', (req, res, next) => {
-    req.github.issues.getForRepo({
-        user: req.user.githubName,
-        repo: req.project.name
-    })
-    .then(issues => res.send(issues))
-    .catch(next);
-});
+// router.get('/:projectId/issues', (req, res, next) => {
+//     req.github.issues.getForRepo({
+//         user: req.user.githubName,
+//         repo: req.project.name
+//     })
+//     .then(issues => res.send(issues))
+//     .catch(next);
+// });
 
 // get single project
 router.get('/one/:projectId', (req, res, next) => {

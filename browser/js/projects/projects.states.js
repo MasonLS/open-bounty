@@ -26,10 +26,10 @@ app.config($stateProvider => {
         url: '/projects/single',
         templateUrl: 'js/projects/templates/single.project.html',
         params: {
-            project: {}
+            project: null
         },
         resolve: {
-            repoIssues: (ProjectsFactory, $stateParams) => ProjectsFactory.getIssues($stateParams.project.id)
+            repoIssues: (ProjectsFactory, $stateParams) => ProjectsFactory.getIssues($stateParams.project.name)
         },
         controller: 'SingleProjectCtrl'
     });
