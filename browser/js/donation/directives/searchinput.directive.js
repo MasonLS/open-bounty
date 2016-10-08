@@ -1,11 +1,11 @@
 app.directive('searchEnter', function(SearchFactory, $log) {
     return {
         scope: {
-            projects: '='
+            projects: '=',
+            allProjects: '='
         },
-        link: function(scope, element) {
-            element.bind('keydown keypress', function(event) {
-
+        link: (scope, element) => {
+            element.bind('keyup', event => {
                 if (event.target.value.length > 0) {
                     if (event.which === 13) {
 
@@ -19,8 +19,10 @@ app.directive('searchEnter', function(SearchFactory, $log) {
 
                         event.preventDefault();
                     }
+                } else {
+                    scope.projects = scope.allProjects;
+                    scope.$apply();
                 }
-
             });
         }
     };

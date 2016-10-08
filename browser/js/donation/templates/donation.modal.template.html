@@ -1,0 +1,37 @@
+<div class="modal-body modal-donate">
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <div>
+                <h4>Donate to {{ items.project.name }} now!</h4>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <form name="form.donationForm">
+                <div class="form-group">
+                    <label for="paypalEmail">Insert your PayPal email address:</label>
+                    <input type="email" class="form-control" id="paypalEmail" name="paypalEmail" ng-model="paypalEmail" aria-describedby="paypalEmail" placeholder="Enter your PayPal email address" required>
+                    <small id="paypalEmailHelp" class="form-text text-muted">You will be transferred to PayPal to safely complete your donation.</small>
+                </div>
+                <div class="form-group">
+                    <label for="donorName">Insert your name:</label>
+                    <input type="text" class="form-control" id="donorName" name="donorName" ng-model="donorName" aria-describedby="donorName" placeholder="Enter your name" required>
+                    <small id="donorNameHelp" class="form-text text-muted">Your name will be show in the list of donors if you choose to do so.</small>
+                </div>
+                <div class="form-group">
+                    <label for="donationAmount">Insert the total you wish to donate (donation are processed in USD):</label>
+                    <input type="number" class="form-control" id="donationAmount" name="donationAmount" step="0.01" min="0" aria-describedby="donationAmount" ng-model="donationAmount" placeholder="Insert the total amount to donate. E.g.: 10.00" required>
+                    <small id="donationAmountHelp" class="form-text text-muted">Attention please! We don't keep any $$$, but PayPal does.<br/>Expect around 3% PayPal fees to be subtracted by your transaction.</small>
+                </div>
+                <div class="form-check">
+                    <label class="form-check-label">
+                        <input type="checkbox" class="form-check-input" ng-model="donationAnonymous" name="donationAnonymous"> Make my donation anonymous
+                    </label>
+                </div>
+                <br/>
+                <button type="submit" class="btn btn-primary" ng-click="completeDonation()">Donate now!</button>
+            </form>
+        </div>
+    </div>
+</div>

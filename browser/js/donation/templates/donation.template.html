@@ -10,7 +10,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12 text-center">
-                <input name="searchProjects" ng-model="searchProjects" ng-init="searchProjects=''" class="searchProjects" placeholder="Search Projects" search-enter projects="projects" />
+                <input name="searchProjects" ng-model="searchProjects" ng-init="searchProjects=''" class="searchProjects" placeholder="Search Projects" search-enter projects="projects" all-projects="allProjects" />
                 <button class="btn btn-default btn-clearsearch" ng-click="clearSearch()" ng-show="searchProjects !== ''">Show all</button>
             </div>
         </div>
@@ -39,7 +39,7 @@
                     </div>
                 </div>
                 <div class="col-md-2 donate">
-                    <button class='btn btn-success'>Donate now!</button>
+                    <button class='btn btn-success' ng-click="openDonationWindow(project)">Donate now!</button>
                 </div>
             </div>
         </div>

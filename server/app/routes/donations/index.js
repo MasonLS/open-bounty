@@ -5,6 +5,7 @@ const paypal = require('paypal-rest-sdk');
 
 const env = require(path.join(__dirname, '../../../env'));
 const Donation = require(path.join(__dirname, '../../../db/models/donation'));
+const Project = require(path.join(__dirname, '../../../db/models/project'));
 
 paypal.configure(env.PAYPAL);
 
@@ -18,7 +19,9 @@ let ensureAuthenticated = (req, res, next) => {
 
 
 // Collect $$$
-router.get('/collect', ensureAuthenticated, (req, res, next) => {
+router.post('/collect', (req, res, next) => {
+
+    console.log(req.body);
 
     let transaction = {};
 
@@ -27,16 +30,16 @@ router.get('/collect', ensureAuthenticated, (req, res, next) => {
         payment_method: 'paypal'
     };
     transaction.redirect_urls = {
-        return_url: env.APP_URL + '/api/donation/collect/ok',
-        cancel_url: env.APP_URL + '/api/donation/collect/ko'
+        return_url: env.APP_URL + '/api/donations/collect/ok',
+        cancel_url: env.APP_URL + '/api/donations/collect/ko'
     };
     transaction.transactions = [];
 
     transaction.transactions[0] = {};
-    transaction.transactions[0].description = 'Fund for automated wiki generator';
+    transaction.transactions[0].description = req.body.description;
     transaction.transactions[0].amount = {
         currency: 'USD',
-        total: '10.00'
+        total: Number(req.body.amount).toFixed(2)
     }
 
     paypal.payment.create(transaction, function(error, payment) {
@@ -54,7 +57,11 @@ router.get('/collect', ensureAuthenticated, (req, res, next) => {
                 description: payment.transactions[0].description,
                 selfUrl: payment.links[0].href,
                 approvalUrl: payment.links[1].href,
-                executeUrl: payment.links[2].href
+                executeUrl: payment.links[2].href,
+                paypalEmail: req.body.paypalEmail,
+                donorName: req.body.donorName,
+                donationAnonymous: req.body.donationAnonymous,
+                projectId: req.body.projectId
             };
 
             Donation.create(responseTransaction)
@@ -69,7 +76,7 @@ router.get('/collect', ensureAuthenticated, (req, res, next) => {
 
 
 // Collect $$$ / OK response from Paypal
-router.get('/collect/ok', ensureAuthenticated, (req, res, next) => {
+router.get('/collect/ok', (req, res, next) => {
 
     const transactionId = req.query.paymentId;
     const token = req.query.token;
@@ -81,15 +88,27 @@ router.get('/collect/ok', ensureAuthenticated, (req, res, next) => {
             }
         })
         .then(foundTransaction => {
-            foundTransaction.update({
+            return foundTransaction.update({
                 state: 'completed',
                 token: token,
                 payerId: payerId
             })
         })
+        .then(updatedTransaction => {
+            return Project.findById(updatedTransaction.id)
+                .then(foundProject => {
+                    let totalRaised = foundProject.raised;
+                    return foundProject.update({
+                        raised: totalRaised + updatedTransaction.amount
+                    })
+                    .then(updatedProject => {
+                        console.log(updatedProject)
+                    });
+                });
+        })
         .catch(next);
 
-    res.json(req.query);
+    res.redirect('/donation/ok');
 });
 
 // Collect $$$ / KO response from Paypal
