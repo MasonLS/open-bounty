@@ -3,8 +3,8 @@ window.app = angular.module('OpenBounty', ['fsaPreBuilt', 'ui.router', 'ui.boots
 
 
 app.config(function($urlRouterProvider, $locationProvider) {
+    // Hack to bypass Auth when testing the Front-End
     if (!window.testing) {
-        console.log('test', window.testing);
         // This turns off hashbang urls (/#about) and changes it to something normal (/about)
         $locationProvider.html5Mode(true);
         // If we go to a URL that ui-router doesn't have registered, go to the "/" url.

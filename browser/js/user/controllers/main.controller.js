@@ -1,6 +1,8 @@
 'use strict';
 
 app.controller('UserCtrl', function ($scope, starredProjects) {
-	$scope.starredProjects = starredProjects;
-	$scope.projectsOfInterest = starredProjects.reduce((prevProj, curProj) => prevProj.concat(curProj), []);
+	console.log(starredProjects);
+	if (starredProjects.length) {
+		$scope.bountiesOfInterest = starredProjects.reduce((prevProj, curProj) => prevProj.bounties.concat(curProj.bounties));
+	}
 });

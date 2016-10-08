@@ -15,7 +15,7 @@ app.config(function ($stateProvider) {
 							return UserFactory.getStarred(user);
 						});
 				}
-				return UserFactory.getStarred($rootScope.loggedInUser)
+				return UserFactory.getStarred($rootScope.loggedInUser);
 			}
 		}
 	});
