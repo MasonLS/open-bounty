@@ -19,6 +19,19 @@ router.get('/', (req, res, next) => {
         .catch(next);
 });
 
+// create project
+router.post('/', (req, res, next) => {
+    const projectData = req.body;
+    projectData.ownerId = req.user.id;
+    console.log('projectData:', projectData)
+
+    Project.create(projectData)
+        .then(project => {
+            console.log(project)
+            res.json(project);
+        })
+        .catch(next);
+});
 
 router.param('projectId', (req, res, next, projectId) => {
     Project.findById(projectId)
@@ -52,14 +65,6 @@ router.get('/one/:projectId', (req, res, next) => {
                     res.json(response);
                 });
         })
-        .catch(next);
-});
-
-// create project
-router.post('/new', (req, res, next) => {
-    console.log('req.body:', req.body)
-    Project.create(req.body)
-        .then(project => res.send(project))
         .catch(next);
 });
 

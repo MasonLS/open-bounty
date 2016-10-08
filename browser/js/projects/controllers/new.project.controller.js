@@ -1,4 +1,4 @@
-app.controller('ProjectsNewCtrl', function($scope, userRepos, ProjectsFactory, $state) {
+app.controller('NewProjectCtrl', function($scope, userRepos, ProjectsFactory, $state) {
 
     $scope.userRepos = userRepos;
     $scope.typeAheadDisabled = false;
@@ -14,10 +14,10 @@ app.controller('ProjectsNewCtrl', function($scope, userRepos, ProjectsFactory, $
 
     $scope.addProject = function() {
       ProjectsFactory.addProject($scope.searchRepo, $scope.submitProject.projectDescription)
-        .then(function () {
-          $state.go('addProjectOK');
+        .then(function (project) {
+          $state.go('singleProject', {project: project});
         })
-        .catch(function () {
+        .catch(function (project) {
           $state.go('addProjectKO');
         })
     };

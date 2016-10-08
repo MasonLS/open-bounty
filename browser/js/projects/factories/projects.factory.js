@@ -23,12 +23,9 @@ app.factory('ProjectsFactory', function($http, $log, AuthService) {
             description: description.$modelValue
         }
 
-        return AuthService.getLoggedInUser()
-            .then(function(user) {
-                data.ownerId = user.id;
-                return $http.post('/api/projects/new', data);
-            })
-            .catch(console.log);
+        return $http.post('/api/projects', data)
+            .then(getData)
+            .catch($log.error);
     }
 
     function findProject (user) {

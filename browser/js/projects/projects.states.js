@@ -13,25 +13,25 @@ app.config($stateProvider => {
         }
     });
 
-    $stateProvider.state('projects.new', {
-        url: '/new',
-        templateUrl: 'js/projects/templates/projects.new.html',
-        controller: 'ProjectsNewCtrl',
+    $stateProvider.state('newProject', {
+        url: '/projects/new',
+        templateUrl: 'js/projects/templates/new.project.html',
+        controller: 'NewProjectCtrl',
         resolve: {
             userRepos: UserFactory => UserFactory.getRepos()
         }
     })
 
-    $stateProvider.state('projects.single', {
-        url: '/single',
-        templateUrl: 'js/projects/templates/projects.single.html',
+    $stateProvider.state('singleProject', {
+        url: '/projects/single',
+        templateUrl: 'js/projects/templates/single.project.html',
         params: {
-            project: null
+            project: {}
         },
         resolve: {
             repoIssues: (ProjectsFactory, $stateParams) => ProjectsFactory.getIssues($stateParams.project.id)
         },
-        controller: 'ProjectsSingleCtrl'
+        controller: 'SingleProjectCtrl'
     });
 
 })
