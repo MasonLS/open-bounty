@@ -10,14 +10,15 @@ app.factory('UserFactory', function ($http) {
 			.then(getData);
 	}
 
-	function getRepos (user) {
-		return $http.get('/api/users/' + user.id + '/github/repos')
+	function getRepos () {
+		return $http.get('/api/users/repos')
 			.then(getData);
 	}
 
 
 	return {
-		getStarred: getStarred,
-		getRepos: getRepos
+		getStarred,
+		getRepos,
+		getReposOfInterest
 	}
 });

@@ -30,6 +30,16 @@ router.post('/', (req, res, next) => {
         .catch(next);
 });
 
+router.get('/repos', (req, res, next) => {
+    req.github.repos.getForUser({
+            user: req.user.githubName
+        })
+        .then(repos => {
+            res.send(repos);
+        })
+        .catch(next);
+})
+
 router.param('userId', (req, res, next, userId) => {
     User.findById(req.params.userId)
         .then(user => {

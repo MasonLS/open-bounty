@@ -1,19 +1,65 @@
 const router = require('express').Router();
 
 const path = require('path');
+const Promise = require('bluebird');
 
 const Project = require(path.join(__dirname, '../../../db/models/project'));
 
-// get all projects for user
-router.get('/all/owner/:ownerId', (req, res, next) => {
+
+
+// get all projects for user -------- It's goood-----
+router.get('/', (req, res, next) => {
     Project.findAll({
             where: {
-                ownerId: req.params.ownerId
+                ownerId: req.user.id
             }
         })
-        .then(projects => res.json(projects))
+        .then(projects => Promise.map(projects, project => project.attachBounties()))
+        .then(projectsWithBounties => res.send(projectsWithBounties))
         .catch(next);
 });
+
+// create project
+router.post('/', (req, res, next) => {
+    const projectData = req.body;
+    projectData.ownerId = req.user.id;
+    console.log('projectData:', projectData)
+
+    Project.create(projectData)
+        .then(project => {
+            console.log(project)
+            res.json(project);
+        })
+        .catch(next);
+});
+
+
+router.get('/:projectName/issues', (req, res, next) => {
+    req.github.issues.getForRepo({
+        user: req.user.githubName,
+        repo: req.params.projectName
+    })
+    .then(issues => res.send(issues))
+    .catch(next);
+});
+
+router.param('projectId', (req, res, next, projectId) => {
+    Project.findById(projectId)
+        .then(project => {
+            req.project = project;
+            next();
+        })
+        .catch(next);
+})
+
+// router.get('/:projectId/issues', (req, res, next) => {
+//     req.github.issues.getForRepo({
+//         user: req.user.githubName,
+//         repo: req.project.name
+//     })
+//     .then(issues => res.send(issues))
+//     .catch(next);
+// });
 
 // get single project
 router.get('/one/:projectId', (req, res, next) => {
@@ -29,14 +75,6 @@ router.get('/one/:projectId', (req, res, next) => {
                     res.json(response);
                 });
         })
-        .catch(next);
-});
-
-// create project
-router.post('/new', (req, res, next) => {
-    console.log('req.body:', req.body)
-    Project.create(req.body)
-        .then(project => res.send(project))
         .catch(next);
 });
 
