@@ -17,9 +17,9 @@ app.config($stateProvider => {
         url: '/projects/new',
         templateUrl: 'js/projects/templates/new.project.html',
         controller: 'NewProjectCtrl',
-        resolve: {
-            userRepos: UserFactory => UserFactory.getRepos()
-        }
+        // resolve: {
+        //     userRepos: UserFactory => UserFactory.getRepos()
+        // }
     })
 
     $stateProvider.state('singleProject', {
@@ -34,4 +34,4 @@ app.config($stateProvider => {
         controller: 'SingleProjectCtrl'
     });
 
-})
+});
