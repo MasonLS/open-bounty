@@ -5,8 +5,6 @@ const Promise = require('bluebird');
 
 const Project = require(path.join(__dirname, '../../../db/models/project'));
 
-
-
 // get all projects for user -------- It's goood-----
 router.get('/', (req, res, next) => {
     Project.findAll({
@@ -23,7 +21,6 @@ router.get('/', (req, res, next) => {
 router.post('/', (req, res, next) => {
     const projectData = req.body;
     projectData.ownerId = req.user.id;
-    console.log('projectData:', projectData)
 
     Project.create(projectData)
         .then(project => {
@@ -51,15 +48,6 @@ router.param('projectId', (req, res, next, projectId) => {
         })
         .catch(next);
 })
-
-// router.get('/:projectId/issues', (req, res, next) => {
-//     req.github.issues.getForRepo({
-//         user: req.user.githubName,
-//         repo: req.project.name
-//     })
-//     .then(issues => res.send(issues))
-//     .catch(next);
-// });
 
 // get single project
 router.get('/one/:projectId', (req, res, next) => {
