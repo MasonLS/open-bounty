@@ -1,3 +1,5 @@
+'use strict';
+
 const router = require('express').Router();
 
 const path = require('path');
@@ -32,12 +34,31 @@ router.post('/', (req, res, next) => {
 
 
 router.get('/:projectName/issues', (req, res, next) => {
-    req.github.issues.getForRepo({
-        user: req.user.githubName,
-        repo: req.params.projectName
-    })
-    .then(issues => res.send(issues))
-    .catch(next);
+    function getIssuesPage (pageNum) {
+        return req.github.issues.getForRepo({
+            user: req.user.id,
+            repo: req.params.projectName,
+            per_page: 100,
+            page: pageNum
+        });
+    }
+
+    function getAllIssues (pageNum, issues) {
+        return getIssuesPage(pageNum)
+            .then(pageIssues => {
+                if (pageIssues.length < 100) {
+                    return issues.concat(pageIssues);
+                }
+                return getAllIssues(pageNum + 1, issues.concat(pageIssues));
+            });
+    }
+
+    getAllIssues (1, [])
+        .then(allIssues => {
+            console.log('LENGTH', allIssues.length)
+            res.send(allIssues);
+        })
+        .catch(next);
 });
 
 router.param('projectId', (req, res, next, projectId) => {
