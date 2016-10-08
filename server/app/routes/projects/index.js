@@ -15,6 +15,7 @@ router.get('/', (req, res, next) => {
             }
         })
         .then(projects => Promise.map(projects, project => project.attachBounties()))
+        .then(projectsWithBounties => res.send(projectsWithBounties))
         .catch(next);
 });
 

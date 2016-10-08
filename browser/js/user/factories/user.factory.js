@@ -10,7 +10,7 @@ app.factory('UserFactory', function ($http) {
 			.then(getData);
 	}
 
-	function getRepos (user) {
+	function getRepos () {
 		return $http.get('/api/users/repos')
 			.then(getData);
 	}
@@ -20,7 +20,8 @@ app.factory('UserFactory', function ($http) {
 	}
 
 	return {
-		getStarred: getStarred,
-		getRepos: getRepos
+		getStarred,
+		getRepos,
+		getReposOfInterest
 	}
 });

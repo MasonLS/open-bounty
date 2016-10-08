@@ -1,4 +1,4 @@
-app.controller('AddProjectCtrl', function($scope, userRepos, ProjectFactory, $state) {
+app.controller('ProjectsNewCtrl', function($scope, userRepos, ProjectsFactory, $state) {
 
     $scope.userRepos = userRepos;
     $scope.typeAheadDisabled = false;
@@ -13,7 +13,7 @@ app.controller('AddProjectCtrl', function($scope, userRepos, ProjectFactory, $st
     };
 
     $scope.addProject = function() {
-      ProjectFactory.addProject($scope.searchRepo, $scope.submitProject.projectDescription)
+      ProjectsFactory.addProject($scope.searchRepo, $scope.submitProject.projectDescription)
         .then(function () {
           $state.go('addProjectOK');
         })

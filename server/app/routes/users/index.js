@@ -31,7 +31,9 @@ router.post('/', (req, res, next) => {
 });
 
 router.get('/repos', (req, res, next) => {
-    req.github.repos.getAll()
+    req.github.repos.getForUser({
+            user: req.user.githubName
+        })
         .then(repos => {
             res.send(repos);
         })

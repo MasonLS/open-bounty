@@ -15,46 +15,50 @@ app.factory('ProjectsFactory', function($http, $log, AuthService) {
     // let ProjectFactory = {}
 
 
-    // ProjectFactory.addProject = function(repo, description) {
+    function addProject (repo, description) {
 
-    //     let data = {
-    //         repoId: repo.id,
-    //         name: repo.name,
-    //         description: description.$modelValue
-    //     }
+        let data = {
+            repoId: repo.id,
+            name: repo.name,
+            description: description.$modelValue
+        }
 
-    //     return AuthService.getLoggedInUser()
-    //         .then(function(user) {
-    //             data.ownerId = user.id;
-    //             return $http.post('/api/projects/new', data);
-    //         })
-    //         .catch(console.log);
-    // };
+        return AuthService.getLoggedInUser()
+            .then(function(user) {
+                data.ownerId = user.id;
+                return $http.post('/api/projects/new', data);
+            })
+            .catch(console.log);
+    }
 
-    // ProjectFactory.findProject = function(user) {
-    //     return AuthService.getLoggedInUser()
-    //         .then(function(user) {
-    //             return $http.get('/api/projects/all/owner/' + user.id);
-    //         })
-    //         .then(function(project) {
-    //             return project.data;
-    //         })
+    function findProject (user) {
+        return AuthService.getLoggedInUser()
+            .then(function(user) {
+                return $http.get('/api/projects/all/owner/' + user.id);
+            })
+            .then(function(project) {
+                return project.data;
+            })
 
-    // };
+    }
 
-    // ProjectFactory.findSingleProject = function(projectId) {
-    //     return $http.get('/api/bounties/' + projectId)
-    //         .then(function(project) {
-    //             return project.data;
-    //         })
-    // };
+    function findSingleProject (projectId) {
+        return $http.get('/api/bounties/' + projectId)
+            .then(function(project) {
+                return project.data;
+            })
+    }
 
-    // ProjectFactory.findOneById = projectId => $http.get(`/api/projects/one/${projectId}`)
-	   //  .then(project => project.data);
+    const findOneById = projectId => $http.get(`/api/projects/one/${projectId}`)
+	    .then(project => project.data);
 
     // return ProjectFactory;
     return {
         getForUser,
-        getIssues
+        getIssues,
+        findOneById,
+        findProject,
+        addProject,
+        findSingleProject
     }
 });

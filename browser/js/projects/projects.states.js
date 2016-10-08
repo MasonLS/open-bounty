@@ -4,10 +4,12 @@ app.config($stateProvider => {
 
     $stateProvider.state('projects', {
         url: '/projects',
-        controller: 'ProjectsCtrl',
         templateUrl: 'js/projects/templates/projects.html',
+        controller: 'ProjectsCtrl',
         resolve: {
-            projects: ProjectsFactory => ProjectsFactory.getForUser()
+            projects: function (ProjectsFactory) {
+                return ProjectsFactory.getForUser();
+            }
         }
     });
 
