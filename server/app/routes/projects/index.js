@@ -33,11 +33,14 @@ router.post('/', (req, res, next) => {
 
 router.get('/:projectName/issues', (req, res, next) => {
     req.github.issues.getForRepo({
-        user: req.user.githubName,
-        repo: req.params.projectName
-    })
-    .then(issues => res.send(issues))
-    .catch(next);
+            user: req.user.githubName,
+            repo: req.params.projectName
+        })
+        .then(issues => {
+                console.log(issues)
+                res.send(issues)
+        })
+        .catch(next);
 });
 
 router.param('projectId', (req, res, next, projectId) => {

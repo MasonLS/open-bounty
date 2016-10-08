@@ -8,9 +8,9 @@ app.config($stateProvider => {
 		params: {
 			project: null
 		},
-		controller: 'AddBountyCtrl',
+	        controller: 'AddBountyCtrl',
 		resolve: {
-			issues: (ProjectFactory, $stateParams) => ProjectFactory.getIssues()
+		    issues: (ProjectsFactory, $stateParams) => ProjectsFactory.getIssues($stateParams.project.name)
 		}
 	});
 
