@@ -1,0 +1,43 @@
+<div class="col-sm-10 col-sm-offset-2">
+    <form autocomplete="off" name="submitProject">
+        <div class="form-group">
+            <div class="input-group searchRepo" ng-show="!typeAheadDisabled">
+                <input type="text" name="searchRepo" typeahead-editable='false' ng-model="searchRepo" placeholder="Search your issues" uib-typeahead="issue as issue.title for issue in issues | filter: {name: $viewValue}" typeahead-loading="loadingRepos" typeahead-no-results="noResults" class="form-control search-input" typeahead-template-url="/js/project/templates/project-add.typeahead.item.template.html" typeahead-on-select="onSelect($item, $model, $label)" ng-disabled="typeAheadDisabled" autocomplete="off" />
+                <span class="input-group-addon" ng-show="!typeAheadDisabled"><span class="glyphicon glyphicon-search"></span> Search</span>
+            </div>
+            <div class="fake-input" ng-show="typeAheadDisabled">
+                <div ng-click="clearSearch()"> <span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span> {{searchRepo.name}} </div>
+            </div>
+        </div>
+    </form>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Issue Number</th>
+                <th>Title</th>
+                <th>Create at</th>
+                <th>Assignee</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="issue in issues">
+                <td>{{issue.number}}</td>
+                <td><a href="{{issue.html_url}}">{{ issue.title | uppercase}}</a></td>
+                <td>{{issue.created_at | date: 'MM-dd-yyyy'}}</td>
+                <td>{{issue.assignee.login || "Null"}}</td>
+                <td>
+                    <form class="form-inline">
+                        <div class="form-group">
+                            <label class="sr-only" for="exampleInputAmount">Amount (in dollars)</label>
+                            <div class="input-group">
+                                <input ng-model="bountyAmount" type="text" class="form-control" id="exampleInputAmount" placeholder="Enter Amount">
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-warning btn-sm" ng-click="createBounty(bountyAmount, issue)">CREATE BOUNTY</button>
+                        <button type="button" class="btn btn-danger btn-sm">DELETE</button>
+                    </form>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
