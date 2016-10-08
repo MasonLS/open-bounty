@@ -54,7 +54,7 @@ app.factory('ProjectsFactory', function($http, $log, AuthService) {
 
     // return ProjectFactory;
     return {
-        getForUser
+        getForUser,
         getIssues
     }
 });
