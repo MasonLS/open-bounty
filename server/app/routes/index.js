@@ -4,7 +4,7 @@ const GitHubApi = require('github');
 const github = new GitHubApi();
 module.exports = router;
 
-// Public routes
+//Public routes
 router.use('/public', require('./public-routes'));
 router.use('/donations', require('./donations'));
 
