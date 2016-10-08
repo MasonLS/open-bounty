@@ -16,6 +16,6 @@
     </div>
     <div class="row">
         <sidebar></sidebar>
-        <bounty-table></bounty-table>
+        <bounty-table ng-if="project.bounties" bounties="project.bounties"></bounty-table>
     </div>
 </div>

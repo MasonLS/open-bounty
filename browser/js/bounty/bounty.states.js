@@ -17,6 +17,9 @@ app.config($stateProvider => {
 	$stateProvider.state('editBounty', {
 		url: '/bounty/edit',
 		templateUrl: 'js/bounty/templates/edit-bounty.html',
+		params: {
+			bounty: null
+		},
 		controller: 'EditBountyCtrl',
 	});
 
