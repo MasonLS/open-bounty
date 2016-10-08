@@ -15,7 +15,6 @@ app.factory('UserFactory', function ($http) {
 			.then(getData);
 	}
 
-
 	return {
 		getStarred,
 		getRepos
