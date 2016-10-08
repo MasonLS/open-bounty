@@ -5,8 +5,8 @@ app.factory('UserFactory', function ($http) {
 		return res.data;
 	}
 
-	function getStarred (user) {
-		return $http.get('/api/users/' + user.id + '/github/starred')
+	function getStarred () {
+		return $http.get('/api/users/starred')
 			.then(getData);
 	}
 
@@ -18,7 +18,6 @@ app.factory('UserFactory', function ($http) {
 
 	return {
 		getStarred,
-		getRepos,
-		getReposOfInterest
+		getRepos
 	}
 });

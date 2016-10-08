@@ -7,16 +7,8 @@ app.config(function ($stateProvider) {
 		controller: 'UserCtrl',
 		templateUrl: 'js/user/templates/user.html',
 		resolve: {
-			starredProjects: function (UserFactory, $rootScope, AuthService) {
-				if (!$rootScope.loggedInUser) {
-					return AuthService.getLoggedInUser()
-						.then(user => {
-							$rootScope.loggedInUser = user;
-							return UserFactory.getStarred(user);
-						});
-				}
-				return UserFactory.getStarred($rootScope.loggedInUser);
-			}
+			user: AuthService => AuthService.getLoggedInUser(),
+			starredProjects: UserFactory => UserFactory.getStarred()
 		}
 	});
 });

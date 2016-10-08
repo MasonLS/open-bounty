@@ -46,28 +46,29 @@ router.get('/repos', (req, res, next) => {
 
 //get starred projects with bounties attached
 
-router.get('/starred', (req, res, next) => {
-    req.github.activity.getStarredReposForUser({
-            user: req.user.githubName
-        })
-        .then(repos => {
-            let starredRepoIds = repos.map(repo => repo.id);
+// router.get('/starred', (req, res, next) => {
+//     req.github.activity.getStarredReposForUser({
+//             user: req.user.githubName
+//         })
+//         .then(repos => {
+//             console.log('ANYTHING!!!')
+//             let starredRepoIds = repos.map(repo => repo.id);
 
-            return Project.findAll({
-                where: {
-                    repoId: {
-                        $in: starredRepoIds
-                    }
-                },
-            })
-        })
-        .then(starredProjects => {
-            return Promise.map(starredProjects, project => {
-                return project.attachBounties(req.github, req.user.githubName);
-            })
-        })
-        .then(starredProjectsWithBounties => {
-            res.json(starredProjectsWithBounties);
-        })
-        .catch(next);
-});
+//             return Project.findAll({
+//                 where: {
+//                     repoId: {
+//                         $in: starredRepoIds
+//                     }
+//                 },
+//             })
+//         })
+//         .then(starredProjects => {
+//             return Promise.map(starredProjects, project => {
+//                 return project.attachBounties(req.github, req.user.githubName);
+//             })
+//         })
+//         .then(starredProjectsWithBounties => {
+//             res.json(starredProjectsWithBounties);
+//         })
+//         .catch(next);
+// });
