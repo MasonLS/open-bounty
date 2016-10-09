@@ -16,12 +16,6 @@ module.exports = db.define('bounty', {
 	}
 },{
 	instanceMethods: {
-		updateStatus: function (status) {
-			this.status = status;
-		},
-		updateAmount: function (amount) { 
-			this.amount += amount; 
-		},
 		attachIssue: function (githubClient, githubName, projectName) {
 			return githubClient.issues.get({
 					user: githubName,
@@ -36,15 +30,6 @@ module.exports = db.define('bounty', {
 					this.setDataValue('issue', []);
 					return this;
 				});
-		}
-	},
-	classMethods: {
-		getByProjectId: projectId => {
-			return Bounty.findAll({
-				where: {
-					projectId: projectId
-				}
-			})
 		}
 	}
 });

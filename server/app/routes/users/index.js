@@ -14,6 +14,7 @@ const ensureAuthenticated = (req, res, next) => {
         res.status(401).end();
     }
 };
+
 //get all users
 router.get('/', (req, res, next) => {
     User.findAll()
@@ -28,16 +29,6 @@ router.post('/', (req, res, next) => {
     User.create(req.body)
         .then(user => {
             res.status(201).send(user);
-        })
-        .catch(next);
-});
-
-router.get('/repos', (req, res, next) => {
-    req.github.repos.getForUser({
-            user: req.user.githubName
-        })
-        .then(repos => {
-            res.send(repos);
         })
         .catch(next);
 });
@@ -59,40 +50,25 @@ router.get('/starred', (req, res, next) => {
         })
         .then(starredProjects => {
             return Promise.map(starredProjects, project => {
-                return project.attachBounties(req.github, req.user.githubName);
+                return project.attachRepoAndBounties(req.github, req.user.githubName);
             })
         })
-        .then(starredProjectsWithBounties => {
-            res.json(starredProjectsWithBounties);
+        .then(starredProjectsWithRepoAndBounties => {
+            res.json(starredProjectsWithRepoAndBounties);
         })
         .catch(next);
 });
 
-// router.param('userId', (req, res, next, userId) => {
-//     User.findById(req.params.userId)
-//         .then(user => {
-//             req.userSought = user;
-//             next();
-//         })
-//         .catch(next);
-// });
-
-//get one, put one, delete one routes
-
-router.get('/:userId', (req, res, next) => {
-    res.send(req.userSought);
-});
-
-router.put('/:userId', (req, res, next) => {
-    req.userSought.update(req.body)
-        .then(_ => {
-            res.sendStatus(204);
+router.put('/', (req, res, next) => {
+    req.user.update(req.body)
+        .then(updatedUser => {
+            res.send(updatedUser);
         })
         .catch(next);
 });
 
-router.delete('/:userId', (req, res, next) => {
-    req.userSought.destroy()
+router.delete('/', (req, res, next) => {
+    req.user.destroy()
         .then(_ => {
             res.sendStatus(204);
         })
@@ -100,6 +76,3 @@ router.delete('/:userId', (req, res, next) => {
 });
 
 router.use('/github', require('./github'));
-
-
-

@@ -3,14 +3,11 @@
 app.config($stateProvider => {
 	
 	$stateProvider.state('addBounty', {
-		url: '/bounty/add',
+		url: '/:projectId/bounty/add',
 		templateUrl: 'js/bounty/templates/add-bounty.html',
-		params: {
-			project: null
-		},
-	        controller: 'AddBountyCtrl',
+	    controller: 'AddBountyCtrl',
 		resolve: {
-		    issues: (ProjectsFactory, $stateParams) => ProjectsFactory.getIssues($stateParams.project.name)
+		    project: (ProjectsFactory, $stateParams) => ProjectsFactory.getOne($stateParams.projectId)
 		}
 	});
 

@@ -47,6 +47,12 @@ module.exports = db.define('project', {
                     return this;
                 })
                 
+        },
+        attachRepoAndBounties: function (githubClient, githubName) {
+            return this.attachRepo(githubClient, githubName)
+                    .then(projectWithRepo => {
+                        return this.attachBounties(githubClient, githubName)
+                    });
         }
     }
 });

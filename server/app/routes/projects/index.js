@@ -1,25 +1,28 @@
 'use strict';
 
 const router = require('express').Router();
-
 const path = require('path');
 const Promise = require('bluebird');
-
 const Project = require(path.join(__dirname, '../../../db/models/project'));
+module.exports = router;
 
-// get all projects for user -------- It's goood-----
+// get all projects for user with repos and bounties
 router.get('/', (req, res, next) => {
     Project.findAll({
             where: {
                 ownerId: req.user.id
             }
         })
-        .then(projects => Promise.map(projects, project => project.attachBounties()))
-        .then(projectsWithBounties => res.send(projectsWithBounties))
+        .then(projects => {
+            return Promise.map(projects, project => {
+                return project.attachRepoAndBounties(req.github, req.user.githubName);
+            })
+        })
+        .then(projectsWithRepoAndBounties => res.send(projectsWithRepoAndBounties))
         .catch(next);
 });
 
-// create project
+// create a project
 router.post('/', (req, res, next) => {
     const projectData = req.body;
     projectData.ownerId = req.user.id;
@@ -32,19 +35,7 @@ router.post('/', (req, res, next) => {
         .catch(next);
 });
 
-
-router.get('/:projectName/issues', (req, res, next) => {
-    req.github.issues.getForRepo({
-            user: req.user.githubName,
-            repo: req.params.projectName
-        })
-        .then(issues => {
-            console.log(issues)
-            res.send(issues)
-        })
-        .catch(next);
-});
-
+//find project and attach to req object
 router.param('projectId', (req, res, next, projectId) => {
     Project.findById(projectId)
         .then(project => {
@@ -54,23 +45,25 @@ router.param('projectId', (req, res, next, projectId) => {
         .catch(next);
 })
 
-// get single project
-router.get('/one/:projectId', (req, res, next) => {
-    const response = {}
-    Project.findById(req.params.projectId)
-        .then(project => {
-            response.project = project
-            return req.github.repos.getById({
-                    id: project.repoId
-                })
-                .then(repo => {
-                    response.repo = repo
-                    res.json(response);
-                });
+// get single project with repo and bounties
+router.get('/:projectId', (req, res, next) => {
+    req.project.attachRepoAndBounties(req.github, req.user.githubName)
+        .then(projectWithRepoAndBounties => {
+            res.send(projectWithRepoAndBounties);
         })
         .catch(next);
 });
 
-router.use('/github', require('./github'));
+// update a project and send it back with repo and bounties (and bears! Oh, my!)
+router.put('/:projectId', (req, res, next) => {
+    req.project.update(req.body)
+        .then(updatedProject => {
+            return updatedProject.attachRepoAndBounties(req.github, req.user.githubName);
+        })
+        .then(updatedProjectWithRepoAndBounties => {
+            res.send(updatedProjectWithRepoAndBounties);
+        })
+        .catch(next);
+});
 
-module.exports = router;
+router.use('/:projectId/github', require('./github'));

@@ -4,18 +4,27 @@
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a ui-sref="home">Home</a></li>
                 <li class="breadcrumb-item"><a ui-sref="projects">Projects</a></li>
-                <li class="breadcrumb-item"><a ui-sref="projects">Bounties</a></li>
-                <li class="breadcrumb-item active">Issues</li>
+                <li class="breadcrumb-item active">Add Bounty</li>
             </ol>
         </div>
     </div>
     <div class='row'>
         <div class='col-sm-10 col-sm-offset-2'>
-            <h2>{{ projectObject.project.name}} </h2>
-            <span>  Total Funds Available: {{ projectObject.project.raised - projectObject.project.paidOut | currency }}</span>
+            <h2>{{ project.name }} </h2>
+            <span>  Total Funds Available: {{ project.raised - project.paidOut | currency }}</span>
             <h2>Issues</h2>
         </div>
     </div>
-    <project-sidebar></project-sidebar>
-    <issue-table issues="issues"></issue-table>
+    <div class="col-sm-10 col-sm-offset-2">
+        <div class="col-lg-6">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Search issues..." ng-model="search.term">
+                <span class="input-group-btn">
+        <button class="btn btn-secondary" type="button" ng-click="searchIssues()">Search</button>
+      </span>
+            </div>
+            <issues-table></issues-table>
+        </div>
+    </div>
+    <sidebar></sidebar>
 </div>
