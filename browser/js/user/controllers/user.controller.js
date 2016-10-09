@@ -1,6 +1,12 @@
 'use strict';
 
-app.controller('UserCtrl', function ($scope, UserFactory, user, starredProjects) {
-	$scope.starredProjects = starredProjects;
-	$scope.user = user;
+app.controller('UserCtrl', function ($scope, starredProjects, SearchFactory) {
+	$scope.projects = starredProjects;
+	$scope.searchProjects = function (searchTerm) {
+		return SearchFactory.getProjectsBySearchTerm(searchTerm)
+			.then(projectResults => {
+				$scope.projects = projectResults;
+				console.log(projectResults);
+			})
+	};
 });

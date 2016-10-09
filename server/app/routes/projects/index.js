@@ -1,3 +1,5 @@
+'use strict';
+
 const router = require('express').Router();
 
 const path = require('path');
@@ -37,8 +39,8 @@ router.get('/:projectName/issues', (req, res, next) => {
             repo: req.params.projectName
         })
         .then(issues => {
-                console.log(issues)
-                res.send(issues)
+            console.log(issues)
+            res.send(issues)
         })
         .catch(next);
 });
