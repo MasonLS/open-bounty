@@ -1,45 +1,65 @@
+'use strict';
+
 const router = require('express').Router();
-
 const path = require('path');
-
+const Promise = require('bluebird');
 const Project = require(path.join(__dirname, '../../../db/models/project'));
+module.exports = router;
 
-// get all projects for user
-router.get('/all/owner/:ownerId', (req, res, next) => {
+// get all projects for user with repos and bounties
+router.get('/', (req, res, next) => {
     Project.findAll({
             where: {
-                ownerId: req.params.ownerId
+                ownerId: req.user.id
             }
         })
-        .then(projects => res.json(projects))
+        .then(projects => {
+            return Promise.map(projects, project => {
+                return project.attachRepoAndBounties(req.github, req.user.githubName);
+            })
+        })
+        .then(projectsWithRepoAndBounties => res.send(projectsWithRepoAndBounties))
         .catch(next);
 });
 
-// get single project
-router.get('/one/:projectId', (req, res, next) => {
-    const response = {}
-    Project.findById(req.params.projectId)
+// create a project
+router.post('/', (req, res, next) => {
+    const projectData = req.body;
+    projectData.ownerId = req.user.id;
+
+    Project.create(projectData)
         .then(project => {
-            response.project = project
-            return req.github.repos.getById({
-                    id: project.repoId
-                })
-                .then(repo => {
-                    response.repo = repo
-                    res.json(response);
-                });
+            res.send(project);
         })
         .catch(next);
 });
 
-// create project
-router.post('/new', (req, res, next) => {
-    console.log('req.body:', req.body)
-    Project.create(req.body)
-        .then(project => res.send(project))
+// put project with repo and bounties on req object
+router.param('projectId', (req, res, next, projectId) => {
+    Project.findById(projectId)
+        .then(project => project.attachRepoAndBounties(req.github, req.user.githubName))
+        .then(projectWithRepoAndBounties => {
+            req.project = projectWithRepoAndBounties;
+            next();
+        })
+        .catch(next);
+})
+
+// get single project with repo and bounties
+router.get('/:projectId', (req, res, next) => {
+    res.send(req.project);
+});
+
+// update a project and send it back with repo and bounties (and bears! Oh, my!)
+router.put('/:projectId', (req, res, next) => {
+    req.project.update(req.body)
+        .then(updatedProject => {
+            return updatedProject.attachRepoAndBounties(req.github, req.user.githubName);
+        })
+        .then(updatedProjectWithRepoAndBounties => {
+            res.send(updatedProjectWithRepoAndBounties);
+        })
         .catch(next);
 });
 
-router.use('/github', require('./github'));
-
-module.exports = router;
+router.use('/:projectId/github', require('./github'));

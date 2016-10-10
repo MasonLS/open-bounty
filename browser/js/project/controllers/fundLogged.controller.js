@@ -1,1 +1,0 @@
-app.controller('FundProjectLoggedCtrl', function () {});

@@ -5,6 +5,18 @@
             <h2>in $$$ or €€€ or ¥¥¥ or whichever currency you prefer!</h2>
         </div>
     </div>
+</div>
+<div class="donate-search-container">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <input name="searchProjects" ng-model="searchProjects" ng-init="searchProjects=''" class="searchProjects" placeholder="Search Projects" search-enter projects="projects" all-projects="allProjects" />
+                <button class="btn btn-default btn-clearsearch" ng-click="clearSearch()" ng-show="searchProjects !== ''">Show all</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
     <div class="projects-container">
         <div class="project-container" ng-repeat="project in projects">
             <div class="row">
@@ -27,7 +39,14 @@
                     </div>
                 </div>
                 <div class="col-md-2 donate">
-                    <button class='btn btn-success'>Donate now!</button>
+                    <button class='btn btn-success' ng-click="openDonationWindow(project)">Donate now!</button>
+                </div>
+            </div>
+        </div>
+        <div class="no-projects" ng-show="!projects.length">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <h3>No projects found :(</h3>
                 </div>
             </div>
         </div>

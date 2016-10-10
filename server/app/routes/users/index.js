@@ -3,6 +3,8 @@ const router = require('express').Router(); // eslint-disable-line new-cap
 const db = require('../../../db');
 const User = db.model('user');
 const request = require('request');
+const Project = db.model('project');
+const Promise = require('bluebird');
 module.exports = router;
 
 const ensureAuthenticated = (req, res, next) => {
@@ -12,6 +14,7 @@ const ensureAuthenticated = (req, res, next) => {
         res.status(401).end();
     }
 };
+
 //get all users
 router.get('/', (req, res, next) => {
     User.findAll()
@@ -30,38 +33,46 @@ router.post('/', (req, res, next) => {
         .catch(next);
 });
 
-router.param('userId', (req, res, next, userId) => {
-    User.findById(req.params.userId)
-        .then(user => {
-            req.userSought = user;
-            next();
+router.get('/starred', (req, res, next) => {
+    req.github.activity.getStarredReposForUser({
+            user: req.user.githubName
+        })
+        .then(repos => {
+            let starredRepoIds = repos.map(repo => repo.id);
+
+            return Project.findAll({
+                where: {
+                    repoId: {
+                        $in: starredRepoIds
+                    }
+                },
+            })
+        })
+        .then(starredProjects => {
+            return Promise.map(starredProjects, project => {
+                return project.attachRepoAndBounties(req.github, req.user.githubName);
+            })
+        })
+        .then(starredProjectsWithRepoAndBounties => {
+            res.json(starredProjectsWithRepoAndBounties);
         })
         .catch(next);
 });
 
-//get one, put one, delete one routes
-
-router.get('/:userId', (req, res, next) => {
-    res.send(req.userSought);
+router.put('/', (req, res, next) => {
+    req.user.update(req.body)
+        .then(updatedUser => {
+            res.send(updatedUser);
+        })
+        .catch(next);
 });
 
-router.put('/:userId', (req, res, next) => {
-    req.userSought.update(req.body)
+router.delete('/', (req, res, next) => {
+    req.user.destroy()
         .then(_ => {
             res.sendStatus(204);
         })
         .catch(next);
 });
 
-router.delete('/:userId', (req, res, next) => {
-    req.userSought.destroy()
-        .then(_ => {
-            res.sendStatus(204);
-        })
-        .catch(next);
-});
-
-router.use('/:userId/github', require('./github'));
-
-
-
+router.use('/github', require('./github'));

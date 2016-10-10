@@ -50,4 +50,14 @@ module.exports = db.define('donation', {
     payerId: {
         type: Sequelize.STRING
     },
+    paypalEmail: {
+        type: Sequelize.STRING
+    },
+    donorName: {
+        type: Sequelize.STRING
+    },
+    donationAnonymous: {
+        type: Sequelize.BOOLEAN
+    }
+
 });

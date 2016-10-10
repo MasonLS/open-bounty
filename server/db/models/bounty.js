@@ -7,6 +7,11 @@ module.exports = db.define('bounty', {
 	issueNumber: {
 		type: Sequelize.INTEGER
 	},
+	issueId: {
+		type: Sequelize.INTEGER,
+		// allowNull: false,
+		unique: true
+	},
 	status: {
 		type: Sequelize.ENUM('open', 'pull request', 'paid', 'deleted')
 	},
@@ -15,12 +20,6 @@ module.exports = db.define('bounty', {
 	}
 },{
 	instanceMethods: {
-		updateStatus: function (status) {
-			this.status = status;
-		},
-		updateAmount: function (amount) { 
-			this.amount += amount; 
-		},
 		attachIssue: function (githubClient, githubName, projectName) {
 			return githubClient.issues.get({
 					user: githubName,
@@ -28,22 +27,21 @@ module.exports = db.define('bounty', {
 					number: this.issueNumber
 				})
 				.then(issue => {
-					this.setDataValue('issue', issue);
-					return this;
+					if (issue.state === 'closed') {
+						return this.update({ status: 'pull request' })
+							.then(updatedBounty => {
+								updatedBounty.setDataValue('issue', issue);
+								return updatedBounty;
+							});
+					} else {
+						this.setDataValue('issue', issue);
+						return this;
+					}
 				})
 				.catch(_ => {
 					this.setDataValue('issue', []);
 					return this;
 				});
-		}
-	},
-	classMethods: {
-		getByProjectId: projectId => {
-			return Bounty.findAll({
-				where: {
-					projectId: projectId
-				}
-			})
 		}
 	}
 });

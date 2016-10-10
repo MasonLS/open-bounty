@@ -1,0 +1,26 @@
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Total Raised</th>
+            <th>Total Paid</th>
+            <th>Bounties</th>
+            <!-- <th>Actions</th> -->
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="project in projects">
+            <th scope="row">{{ project.name | uppercase}}</th>
+            <td>{{ project.raised}}</td>
+            <td>{{ project.paidOut}}</td>
+            <td>{{ project.bounties.length }}</td>
+            <td>
+                <button type="button" class="btn btn-warning btn-sm" ui-sref="singleProject({ projectId: project.id })">  Manage Project</button> <span style="color:red" ng-if="pullRequestMerged(project)"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                <span class="sr-only">Error:</span>Bounties to payout</span>
+            </td>
+        </tr>
+
+    </tbody>
+</table>
+

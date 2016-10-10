@@ -14,7 +14,7 @@
         font-size: 20px;
         padding-top: 10px;
         span {
-            margin:0;
+            margin: 0;
             display: block;
         }
     }
@@ -22,13 +22,12 @@
         line-height: 70px;
         button {
             text-transform: uppercase;
-            letter-spacing: 2px;
         }
         display: table-cell;
         vertical-align: middle;
     }
     .description {
-      padding-top: 15px;
+        padding-top: 15px;
     }
     .icon {
         font-size: 50px;
@@ -39,5 +38,30 @@
     }
     .paidout {
         font-size: 20px;
+    }
+}
+
+.donate-search-container {
+    background-color: #DFEBF8;
+    margin: 30px auto;
+    padding: 30px;
+    input {
+        width: 80%;
+        font-size: 24px;
+        padding: 10px 20px 5px;
+        border: none;
+        font-weight: 100;
+        border-bottom: 1px solid #E2E2E2;
+        background-color: #DFEBF8;
+        color: #54687C;
+        text-align: center;
+        &:focus {
+            outline: none;
+        }
+    }
+    .btn-clearsearch {
+        background: none;
+        border: none;
+        text-transform: uppercase;
     }
 }
