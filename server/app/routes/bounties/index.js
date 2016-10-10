@@ -17,11 +17,9 @@ router.post('/', (req, res, next) => {
     console.log(req.body);
     Project.findById(req.body.projectId)
         .then(project => {
-            const newRaised = project.raised - req.body.amount;
-            const newPaidOut = project.paidOut + req.body.amount;
 	    project.update({
-                    raised: newRaised,
-                    paidOut: newPaidOut
+                    raised: project.raised - req.body.amount,
+                    paidOut: project.paidOut + req.body.amount
                 })
                 .then(() => {
                     Bounty.create(req.body)
