@@ -14,7 +14,8 @@ module.exports = db.define('bounty', {
 		unique: true
 	},
 	status: {
-		type: Sequelize.ENUM('open', 'pull request', 'paid', 'deleted')
+		type: Sequelize.ENUM('open', 'pull request', 'paid', 'deleted'),
+        defaultValue: 'open'
 	},
 	amount: {
 		type: Sequelize.FLOAT
