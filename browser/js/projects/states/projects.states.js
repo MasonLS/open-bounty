@@ -23,13 +23,10 @@ app.config($stateProvider => {
     })
 
     $stateProvider.state('singleProject', {
-        url: '/projects/single',
+        url: '/projects/:projectId',
         templateUrl: 'js/projects/templates/single.project.html',
-        params: {
-            project: null
-        },
         resolve: {
-            bounties: (ProjectsFactory, $stateParams) => ProjectsFactory.getIssues($stateParams.project.name)
+            project: (ProjectsFactory, $stateParams) => ProjectsFactory.getOne($stateParams.projectId)
         },
         controller: 'SingleProjectCtrl'
     });

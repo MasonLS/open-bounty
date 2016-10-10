@@ -1,16 +1,13 @@
 app.factory('ProjectsFactory', function($http, $log, AuthService) {
+    
     function getData (res) {
         return res.data;
     }
+
     function getForUser() {
         return $http.get('/api/projects/')
         .then(getData)
         .catch($log.error);
-    }
-    function getIssues (projectName) {
-        return $http.get('/api/projects/' + projectName + '/issues')
-            .then(getData)
-            .catch($log.error);
     }
 
     function addProject (repo, description) {
@@ -37,23 +34,21 @@ app.factory('ProjectsFactory', function($http, $log, AuthService) {
 
     }
 
-    function findSingleProject (projectId) {
-        return $http.get('/api/bounties/' + projectId)
-            .then(function(project) {
-                return project.data;
-            })
+    function getOne (projectId) {
+        return $http.get(`/api/projects/${projectId}`)
+            .then(getData);
     }
 
-    const findOneById = projectId => $http.get(`/api/projects/one/${projectId}`)
-	    .then(project => project.data);
+    function searchIssues (projectId, searchTerm) {
+        return $http.get(`/api/projects/${projectId}/github/issues/${searchTerm}`)
+            .then(getData);
+    }
 
-    // return ProjectsFactory;
     return {
         getForUser,
-        getIssues,
-        findOneById,
         findProject,
         addProject,
-        findSingleProject
+        getOne,
+        searchIssues
     }
 });

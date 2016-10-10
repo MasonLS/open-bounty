@@ -7,7 +7,8 @@ const db = require('../_db');
 module.exports = db.define('project', {
     repoId: {
         type: Sequelize.INTEGER,
-        allowNull: false
+        allowNull: false,
+        unique: true
     },
     name: {
         type: Sequelize.STRING
@@ -47,6 +48,12 @@ module.exports = db.define('project', {
                     return this;
                 })
                 
+        },
+        attachRepoAndBounties: function (githubClient, githubName) {
+            return this.attachRepo(githubClient, githubName)
+                    .then(projectWithRepo => {
+                        return this.attachBounties(githubClient, githubName)
+                    });
         }
     }
 });

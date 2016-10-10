@@ -1,4 +1,3 @@
-app.controller('SingleProjectCtrl', ($scope, $stateParams, bounties) => {
-    $scope.bounties = bounties;
-    $scope.project = $stateParams.project;
+app.controller('SingleProjectCtrl', ($scope, project) => {
+    $scope.project = project;
 });

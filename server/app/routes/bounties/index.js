@@ -1,36 +1,18 @@
-const router = require('express').Router();
-const Bounty = require('../../../db/models/bounty')
-module.exports = router
-const _ = require('lodash')
+'use strict';
 
-const ensureAuthenticated = (req, res, next) => {
+const router = require('express').Router();
+const Bounty = require('../../../db/models/bounty');
+module.exports = router;
+
+function ensureAuthenticated (req, res, next) {
     if (req.isAuthenticated()) {
         next()
     } else {
         res.status(401).end()
     }
-};
+}
 
-router.get('/:projectName/:id', (req, res, next) => {
-    let bounty;
-    Bounty.findById(req.params.id)
-        .then(bountyRow => {
-            bounty = bountyRow;
-            return req.github.issues.get({
-                repo: req.params.projectName,
-                user: req.user.githubName,
-                number: bounty.issueNumber
-
-            })
-        })
-        .then(issue => {
-            bounty.issue = issue;
-            res.status(201).send(bounty);
-        })
-        .catch(next);
-});
-
-router.post('/create', (req, res, next) => {
+router.post('/', (req, res, next) => {
     const body = req.body
     Bounty.create(body)
         .then(bounty => {
@@ -39,15 +21,40 @@ router.post('/create', (req, res, next) => {
         .catch(next)
 });
 
-router.put('/update/:id', (req, res, next) => {
-    const id = req.params.id
-
-    Bounty.findById(id)
+router.param('bountyId', (req, res, next, bountyId) => {
+    Bounty.findById(bountyId)
         .then(bounty => {
-            return bounty.update(req.body)
+            req.bounty = bounty;
+            next();
         })
+        .catch(next);
+});
+
+router.get('/:bountyId', (req, res, next) => {
+    const bounty = req.bounty;
+
+    bounty.getProject()
+        .then(project => {
+            return bounty.attachIssue(req.github, req.user.githubName, project.name);
+        })
+        .then(bountyWithIssue => {
+            res.send(bountyWithIssue);
+        })
+        .catch(next);
+});
+
+router.put('/:bountyId', (req, res, next) => {
+    req.bounty.update(req.body)
         .then(updatedBounty => {
-            res.send(updatedBounty)
+            res.send(updatedBounty);
+        })
+        .catch(next);
+});
+
+router.delete('/:bountyId', (req, res, next) => {
+    req.bounty.destroy()
+        .then(_ => {
+            res.sendStatus(204);
         })
         .catch(next);
 });
