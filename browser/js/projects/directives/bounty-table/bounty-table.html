@@ -15,7 +15,7 @@
 
                 <td href="bounty.issue.html_url">{{ bounty.issue.title | uppercase}}</td>
                 <td>{{ bounty.amount | currency }}</td>
-                <td>{{ bounty.status}}</td>
+                <td>{{ bounty.status | uppercase }}</td>
                 <td>
                     <button type="button" class="btn btn-warning btn-sm" ui-sref="editBounty({ bountyId: bounty.id , projectId: project })">Edit Bounty</button>
                 </td>
