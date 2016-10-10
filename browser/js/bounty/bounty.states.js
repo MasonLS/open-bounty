@@ -1,9 +1,9 @@
 'use strict';
 
 app.config($stateProvider => {
-	
+
 	$stateProvider.state('addBounty', {
-		url: '/:projectId/bounty/add',
+		url: '/add-bounty/:projectId',
 		templateUrl: 'js/bounty/templates/add-bounty.html',
 	    controller: 'AddBountyCtrl',
 		resolve: {
@@ -12,12 +12,10 @@ app.config($stateProvider => {
 	});
 
 	$stateProvider.state('editBounty', {
-		url: '/bounty/edit',
+		url: '/:projectId/edit-bounty/:bountyId',
 		templateUrl: 'js/bounty/templates/edit-bounty.html',
-		params: {
-			bounty: null
-		},
 		controller: 'EditBountyCtrl',
+
 	});
 
 });

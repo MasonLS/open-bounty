@@ -10,11 +10,11 @@ module.exports = db.define('bounty', {
 	},
 	issueId: {
 		type: Sequelize.INTEGER,
-		//allowNull: false,
 		unique: true
 	},
 	status: {
-		type: Sequelize.ENUM('open', 'pull request', 'paid', 'deleted')
+		type: Sequelize.ENUM('open', 'pull request', 'paid', 'deleted'),
+        defaultValue: 'open'
 	},
 	amount: {
 		type: Sequelize.FLOAT
@@ -28,8 +28,16 @@ module.exports = db.define('bounty', {
 					number: this.issueNumber
 				})
 				.then(issue => {
-					this.setDataValue('issue', issue);
-					return this;
+					if (issue.state === 'closed') {
+						return this.update({ status: 'pull request' })
+							.then(updatedBounty => {
+								updatedBounty.setDataValue('issue', issue);
+								return updatedBounty;
+							});
+					} else {
+						this.setDataValue('issue', issue);
+						return this;
+					}
 				})
 				.catch(_ => {
 					this.setDataValue('issue', []);
