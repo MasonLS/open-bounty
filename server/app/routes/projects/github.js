@@ -4,7 +4,7 @@ const router = require('express').Router();
 module.exports = router;
 
 
-// get all issues for repo
+// search un-bounty-ified issues for project repo
 router.get('/issues/:searchTerm', (req, res, next) => {
     let searchTerm = req.params.searchTerm;
     let queryString = `${searchTerm}+type:issue+repo:${req.user.githubName}/${req.project.name}+is:open`;
@@ -12,7 +12,7 @@ router.get('/issues/:searchTerm', (req, res, next) => {
     req.github.search.issues({
         q: queryString
     })
-    .then(searchResults => res.send(searchResults))
+    .then(searchResultsObj => res.send(searchResultsObj.items))
     .catch(next);
 });
 

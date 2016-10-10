@@ -1,7 +1,9 @@
 app.factory('ProjectsFactory', function($http, $log, AuthService) {
+    
     function getData (res) {
         return res.data;
     }
+
     function getForUser() {
         return $http.get('/api/projects/')
         .then(getData)

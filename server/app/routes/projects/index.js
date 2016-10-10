@@ -29,17 +29,17 @@ router.post('/', (req, res, next) => {
 
     Project.create(projectData)
         .then(project => {
-            console.log(project)
-            res.json(project);
+            res.send(project);
         })
         .catch(next);
 });
 
-//find project and attach to req object
+// put project with repo and bounties on req object
 router.param('projectId', (req, res, next, projectId) => {
     Project.findById(projectId)
-        .then(project => {
-            req.project = project;
+        .then(project => project.attachRepoAndBounties(req.github, req.user.githubName))
+        .then(projectWithRepoAndBounties => {
+            req.project = projectWithRepoAndBounties;
             next();
         })
         .catch(next);
@@ -47,11 +47,7 @@ router.param('projectId', (req, res, next, projectId) => {
 
 // get single project with repo and bounties
 router.get('/:projectId', (req, res, next) => {
-    req.project.attachRepoAndBounties(req.github, req.user.githubName)
-        .then(projectWithRepoAndBounties => {
-            res.send(projectWithRepoAndBounties);
-        })
-        .catch(next);
+    res.send(req.project);
 });
 
 // update a project and send it back with repo and bounties (and bears! Oh, my!)
