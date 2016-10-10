@@ -1,9 +1,7 @@
 'use strict';
 const router = require('express').Router(); // eslint-disable-line new-cap
 const db = require('../../../db');
-const User = db.model('user');
 const Project = db.model('project');
-const Bounty = db.model('bounty');
 const Promise = require('bluebird');
 module.exports = router;
 
@@ -12,7 +10,7 @@ const filterByProp = (objectA, objectB) => {
     return objectA.filter(element => {
         if (Object.keys(objectB).length > 0) {
             for (let key in objectB) {
-                return element.name != objectB[key].name
+                return element.name !== objectB[key].name
             }
         }
     })
@@ -23,7 +21,19 @@ const filterByProp = (objectA, objectB) => {
 router.get('/repos', (req, res, next) => {
     const gettingRepos = req.github.repos.getForUser({
         user: req.user.githubName,
-        access_token: req.user.githubToken
+        access_token: req.user.githubToken,
+        type: 'owner',
+        sort: 'updated',
+        per_page: 100
+    });
+
+    const gettingRepos2 = req.github.repos.getForUser({
+        user: req.user.githubName,
+        access_token: req.user.githubToken,
+        type: 'owner',
+        sort: 'updated',
+        page: 2,
+        per_page: 100
     });
 
     const gettingProjects = Project.findAll({
@@ -32,14 +42,15 @@ router.get('/repos', (req, res, next) => {
         }
     });
 
-    Promise.all([gettingRepos, gettingProjects])
+    Promise.all([gettingRepos, gettingRepos2, gettingProjects])
         .then(function(data) {
-            let [repos, projects] = data;
-	    // exclude repos that are already associated with projects
+            let [repos, repos2, projects] = data;
+            repos.concat(repos2);
+            // exclude repos that are already associated with projects
             if (projects.length > 0) {
                 repos = filterByProp(repos, projects)
             }
-	    res.json(repos);
+            res.json(repos);
         })
         .catch(next);
 });

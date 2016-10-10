@@ -49,16 +49,13 @@ app.run(function($rootScope, AuthService, $state) {
             if (user) {
                 $state.go(toState.name, toParams);
             } else {
-                $state.go('login');
+                $state.go('home');
             }
         });
-
     });
-
 });
-
 
 
 app.config(['cfpLoadingBarProvider', function(cfpLoadingBarProvider) {
     cfpLoadingBarProvider.includeSpinner = false;
-}])
+}]);
