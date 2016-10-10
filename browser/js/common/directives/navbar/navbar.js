@@ -12,7 +12,7 @@ app.directive('navbar', function($rootScope, AuthService, AUTH_EVENTS, $state) {
             ];
 
             scope.privateItems = [
-                { label: 'Manage Projects', state: 'manageProjects', auth: true }
+                { label: 'Manage Projects', state: 'projects', auth: true }
             ]
 
             scope.user = null;
