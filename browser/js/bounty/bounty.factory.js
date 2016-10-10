@@ -1,7 +1,7 @@
 'use strict';
 
 app.factory('BountyFactory', function ($http) {
-	
+
 	function getData (res) {
 		return res.data;
 	}
@@ -24,10 +24,19 @@ app.factory('BountyFactory', function ($http) {
 			.then(getData);
 	}
 
+    function updateBounty(bountyId,bountyAmount){
+        let data = {
+            amount: bountyAmount
+        }
+        return $http.put(`/api/bounties/${bountyId}`,data)
+        .then(getData)
+    }
+
 	return {
 		createOne,
 		deleteOne,
 		track,
-		getTracked
+		getTracked,
+        updateBounty
 	}
 });
