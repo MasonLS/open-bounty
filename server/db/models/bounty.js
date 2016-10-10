@@ -10,7 +10,7 @@ module.exports = db.define('bounty', {
 	},
 	issueId: {
 		type: Sequelize.INTEGER,
-		allowNull: false,
+		//allowNull: false,
 		unique: true
 	},
 	status: {

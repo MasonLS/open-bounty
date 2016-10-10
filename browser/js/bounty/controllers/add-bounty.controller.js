@@ -14,9 +14,9 @@ app.controller('AddBountyCtrl', ($scope, project, ProjectsFactory, BountyFactory
 
     $scope.createBounty = function (bountyData) {
     	bountyData.projectId = project.id;
-
+	console.log(bountyData);
     	return BountyFactory.createOne(bountyData)
-    		.then(createdBounty => {
+    	    .then(createdBounty => {
     			$state.go('singleProject', {projectId: project.id});
     		});
     }
