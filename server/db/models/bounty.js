@@ -6,6 +6,10 @@ const db = require('../_db');
 module.exports = db.define('bounty', {
 	issueNumber: {
 		type: Sequelize.INTEGER,
+		allowNull: false
+	},
+	issueId: {
+		type: Sequelize.INTEGER,
 		allowNull: false,
 		unique: true
 	},
