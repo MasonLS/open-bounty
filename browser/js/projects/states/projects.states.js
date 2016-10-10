@@ -7,9 +7,12 @@ app.config($stateProvider => {
         templateUrl: 'js/projects/templates/projects.html',
         controller: 'ProjectsCtrl',
         resolve: {
-            projects: function (ProjectsFactory) {
+            projects: function(ProjectsFactory) {
                 return ProjectsFactory.getForUser();
             }
+        },
+        data: {
+            authenticate: true
         }
     });
 
@@ -19,6 +22,9 @@ app.config($stateProvider => {
         controller: 'NewProjectCtrl',
         resolve: {
             userRepos: UserFactory => UserFactory.getRepos()
+        },
+        data: {
+            authenticate: true
         }
     })
 
@@ -28,7 +34,9 @@ app.config($stateProvider => {
         resolve: {
             project: (ProjectsFactory, $stateParams) => ProjectsFactory.getOne($stateParams.projectId)
         },
-        controller: 'SingleProjectCtrl'
+        controller: 'SingleProjectCtrl',
+        data: {
+            authenticate: true
+        }
     });
-
 });
