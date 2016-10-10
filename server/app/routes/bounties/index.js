@@ -2,9 +2,10 @@
 
 const router = require('express').Router();
 const Bounty = require('../../../db/models/bounty');
+const Project = require('../../../db/models/project');
 module.exports = router;
 
-function ensureAuthenticated (req, res, next) {
+function ensureAuthenticated(req, res, next) {
     if (req.isAuthenticated()) {
         next()
     } else {
@@ -13,12 +14,22 @@ function ensureAuthenticated (req, res, next) {
 }
 
 router.post('/', (req, res, next) => {
-    const body = req.body
-    Bounty.create(body)
-        .then(bounty => {
-            res.status(201).send(bounty)
-        })
-        .catch(next)
+    console.log(req.body);
+    Project.findById(req.body.projectId)
+        .then(project => {
+            const newRaised = project.raised - req.body.amount;
+            const newPaidOut = project.paidOut + req.body.amount;
+	    project.update({
+                    raised: newRaised,
+                    paidOut: newPaidOut
+                })
+                .then(() => {
+                    Bounty.create(req.body)
+                        .then(bounty => {
+                            res.status(201).send(bounty)
+                        })
+                })
+        });
 });
 
 router.param('bountyId', (req, res, next, bountyId) => {

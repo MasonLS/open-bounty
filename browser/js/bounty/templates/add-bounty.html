@@ -11,7 +11,7 @@
     <div class='row'>
         <div class='col-sm-10 col-sm-offset-2'>
             <h2>{{ project.name }} </h2>
-            <span>  Total Funds Available: {{ project.raised - project.paidOut | currency }}</span>
+            <span>  Total Funds Available: {{ fundsAvailable | currency }}</span>
             <h2>Issues</h2>
         </div>
     </div>

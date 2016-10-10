@@ -1,29 +1,26 @@
 <table class="table table-hover">
     <thead>
         <tr>
-            <th>Issue Number</th>
+            <th>Issue</th>
             <th>Title</th>
             <th>Created</th>
             <th>Assignee</th>
             <th>Amount</th>
+	    <th>Action</th>
         </tr>
     </thead>
     <tbody>
         <tr ng-repeat="issue in issues">
-            <form class="form-inline">
-                <td>{{issue.number}}</td>
-                <td><a href="{{issue.html_url}}">{{ issue.title | uppercase}}</a></td>
-                <td>{{issue.created_at | date: 'MM-dd-yyyy'}}</td>
-                <td>{{issue.assignee.login || "Null"}}</td>
-                <td>
-                        <div class="input-group">
-                          <input ng-model="bounty.amount" type="text" class="form-control" id="exampleInputAmount" placeholder="Enter amount">
-			  <td>
-			    <button ng-click="createBounty({ issueNumber: issue.number, amount: bounty.amount})" class="btn btn-warning btn-sm">CREATE BOUNTY</button>
-			    </td>
-                        </div>
-                </td>
-            </form>
+            <td>{{issue.number}}</td>
+            <td><a href="{{issue.html_url}}">{{ issue.title | uppercase}}</a></td>
+            <td>{{issue.created_at | date: 'MM-dd-yyyy'}}</td>
+            <td>{{issue.assignee.login || "Null"}}</td>
+            <td>
+               $<input ng-model="bounty.amount" type="text" placeholder="dollar amount" required>
+            </td>
+            <td>
+                <button ng-click="createBounty({ issueNumber: issue.number, amount: bounty.amount})" class="btn btn-warning btn-sm">CREATE BOUNTY</button>
+            </td>
         </tr>
     </tbody>
 </table>
