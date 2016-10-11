@@ -11,16 +11,18 @@ app.controller('AddBountyCtrl', ($scope, project, $uibModal, ProjectsFactory, Bo
                 });
             });
     };
-    const openErrorWindow = () => {
+    const openErrorWindow = message => {
         $uibModal.open({
-            templateUrl: 'js/bounty/templates/insufficient-funds.html',
+            template: `<h1 class="error-title">${message}</h1>`,
             windowClass: 'donation-modal'
         });
     };
 
     $scope.createBounty = function(bountyData) {
         if (Number(bountyData.amount) < 0 || Number(bountyData.amount) > $scope.fundsAvailable) {
-            openErrorWindow();
+            openErrorWindow('Insufficient Funds');
+        } else if (!bountyData.amount.match(/\d+/g)) {
+            openErrorWindow('Amount must be an number.');
         } else {
             bountyData.projectId = project.id;
             return BountyFactory.createOne(bountyData)

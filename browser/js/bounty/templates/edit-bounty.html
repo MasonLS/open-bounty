@@ -11,13 +11,16 @@
     <div class='row'>
         <div class='col-sm-10 col-sm-offset-2'>
           <h1>{{project.name}}</h1>
+	  <h3>Bounty for <a href="issue.html_url"><strong>{{issue.title}}</strong></a></h3>
+
+            <p>Current Amount: ${{ bountyAmount}}</p>
             <form class="form-inline">
                 <div class="form-group">
                     <label class="sr-only">Email</label>
-                    <p class="form-control-static">Bounty for <a href="{{ issue.html_url }}"><strong>{{ issue.title }}: </strong></a></p>
+                    <p class="form-control-static">Change Amount: $</p>
                     <input type="number" class="form-control" placeholder="Change Amount" ng-model="amount">
                 </div>
-                <button type="submit" class="btn btn-primary" confirmed-click="changeBounty(amount)" ng-confirm-click="Are you sure you want to change the price?">Change</button>
+                <button type="submit" class="btn btn-primary" ng-click="changeBounty({amount: amount, previousAmount: bountyAmount, projectId: project.id})">Change</button>
             </form>
         </div>
     </div>
