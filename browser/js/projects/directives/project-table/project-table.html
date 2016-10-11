@@ -11,7 +11,7 @@
     </thead>
     <tbody>
         <tr ng-repeat="project in projects">
-            <th>{{ project.name | uppercase}}</th>
+            <th><a href="{{project.repo.html_url}}">{{ project.name | uppercase}}</a></th>
             <td>{{ project.raised}}</td>
             <td>{{ project.paidOut}}</td>
             <td>{{ project.bounties.length }}</td>
