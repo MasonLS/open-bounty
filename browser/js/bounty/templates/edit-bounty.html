@@ -13,6 +13,7 @@
             <h1>{{project.name}}</h1>
             <h3>Bounty for <a href="issue.html_url"><strong>{{issue.title}}</strong></a></h3>
             <p>Current Amount: ${{ bountyAmount}}</p>
+            <p>Funds Available: ${{ project.raised - project.fundsOnHold - project.paidOut + bountyAmount}}</p>
             <form class="form-inline">
                 <div class="form-group">
                     <label class="sr-only">Email</label>
