@@ -57,6 +57,13 @@ router.get('/:bountyId/track', (req, res, next) => {
         .catch(next);
 });
 
+router.get('/:bountyId/untrack', (req, res, next) => {
+    req.user.removeBounty(req.bounty.id)
+        .then(_ => req.bounty.removeHunter(req.user.id))
+        .then(_ => res.sendStatus(204))
+        .catch(next);
+});
+
 router.put('/:bountyId', (req, res, next) => {
     req.bounty.update(req.body)
         .then(updatedBounty => {

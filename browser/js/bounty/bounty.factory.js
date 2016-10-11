@@ -19,6 +19,10 @@ app.factory('BountyFactory', function ($http) {
 		return $http.get(`/api/bounties/${bountyId}/track`);
 	}
 
+	function untrack (bountyId) {
+		return $http.get(`/api/bounties/${bountyId}/untrack`);
+	}
+
 	function getTracked () {
 		return $http.get('api/bounties/tracked')
 			.then(getData);
@@ -36,6 +40,7 @@ app.factory('BountyFactory', function ($http) {
 		createOne,
 		deleteOne,
 		track,
+		untrack,
 		getTracked,
         updateBounty
 	}
