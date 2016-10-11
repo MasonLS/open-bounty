@@ -43,6 +43,21 @@ module.exports = db.define('bounty', {
 					this.setDataValue('issue', []);
 					return this;
 				});
+		},
+		updateAmount: function (amount) {
+			let newAmount = this.amount + amount;
+			return this.update({
+				amount: newAmount
+			})
+			.then(updatedBounty => {
+				return updatedBounty.getProject()
+			})
+			.then(bountyProject => {
+				let newFundsOnHold = bountyProject.fundsOnHold + amount;
+				return bountyProject.update({
+					fundsOnHold: newFundsOnHold
+				});
+			})
 		}
 	}
 });
