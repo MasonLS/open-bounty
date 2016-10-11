@@ -1,0 +1,45 @@
+
+
+<div class="modal-body modal-login">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="left">
+            {{items}}
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="modal-body modal-donate">
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <div>
+                <h4>Time to pay for bounty '{{ bounty.issue.title}}'!</h4>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <form name="form.payoutForm">
+                <div class="form-group">
+                {{bounty.amount}}
+                    <label for="paypalEmail">Insert the developer PayPal email address:</label>
+                    <input type="email" class="form-control" id="paypalEmail" name="paypalEmail" ng-model="paypalEmail" aria-describedby="paypalEmail" placeholder="Enter your PayPal email address" required>
+                    <small id="paypalEmailHelp" class="form-text text-muted">You will be transferred to PayPal to safely complete your donation.</small>
+                </div>
+                <div class="form-group">
+                    <label for="amount">This is the amount (USD) that will be paid:</label>
+                    <input type="text" class="form-control" id="amount" name="amount" ng-model="bounty.amount" aria-describedby="amount" disabled="disabled">
+                </div>
+                <div class="form-group">
+                    <label for="payoutMessage">Insert a small message for the recipient of the payment:</label>
+                    <input type="text" class="form-control" id="payoutMessage" name="payoutMessage" aria-describedby="payoutMessage" ng-model="payoutMessage" placeholder="Insert a small message for the recipient of the payment" required>
+                </div>
+                <br/>
+                <button type="submit" class="btn btn-primary" ng-click="completePayment()">Pay NOW!</button>
+            </form>
+        </div>
+    </div>
+</div>
