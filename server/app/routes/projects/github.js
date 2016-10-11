@@ -3,7 +3,6 @@
 const router = require('express').Router();
 module.exports = router;
 
-
 // search un-bounty-ified issues for project repo
 router.get('/issues/:searchTerm', (req, res, next) => {
     let searchTerm = req.params.searchTerm;
