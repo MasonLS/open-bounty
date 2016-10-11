@@ -14,7 +14,6 @@ function ensureAuthenticated(req, res, next) {
 }
 
 router.post('/', (req, res, next) => {
-    console.log(req.body);
     Project.findById(req.body.projectId)
         .then(project => {
 	    project.update({

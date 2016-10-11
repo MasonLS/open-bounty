@@ -19,7 +19,7 @@
                $<input ng-model="bounty.amount" type="text" placeholder="dollar amount" required>
             </td>
             <td>
-                <button ng-click="createBounty({ issueNumber: issue.number, amount: bounty.amount})" class="btn btn-warning btn-sm">CREATE BOUNTY</button>
+                <button ng-click="createBounty({ issueNumber: issue.number, issueId: issue.id, amount: bounty.amount})" class="btn btn-warning btn-sm">CREATE BOUNTY</button>
             </td>
         </tr>
     </tbody>
