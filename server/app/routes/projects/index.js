@@ -4,6 +4,8 @@ const router = require('express').Router();
 const path = require('path');
 const Promise = require('bluebird');
 const Project = require(path.join(__dirname, '../../../db/models/project'));
+const Bounty = require(path.join(__dirname, '../../../db/models/bounty'));
+const User = require(path.join(__dirname, '../../../db/models/user'));
 module.exports = router;
 
 // get all projects for user with repos and bounties
@@ -31,6 +33,23 @@ router.post('/', (req, res, next) => {
         .then(project => {
             res.send(project);
         })
+        .catch(next);
+});
+
+//search projects 
+router.get('/search/:searchTerm', (req, res, next) => {
+    Project.findAll({
+            where: {
+                name: {
+                    $iLike: `%${req.params.searchTerm}%`
+                },
+                ownerId: {
+                    $ne: req.user.id
+                }
+            },
+            include: [Bounty]
+        })
+        .then(res.json.bind(res))
         .catch(next);
 });
 

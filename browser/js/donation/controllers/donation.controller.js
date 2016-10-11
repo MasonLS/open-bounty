@@ -40,7 +40,6 @@ app.controller('DonationCTRL', function($scope, $log, $window, $uibModal, $timeo
 
 });
 
-
 app.controller('DonationModalInstanceCtrl', ($scope, $uibModalInstance, $log, $window, items, DonationFactory) => {
 
     $scope.items = items;
