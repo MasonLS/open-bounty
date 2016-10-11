@@ -3,6 +3,7 @@
 const router = require('express').Router();
 const Bounty = require('../../../db/models/bounty');
 const Project = require('../../../db/models/project');
+const User = require('../../../db/models/user');
 module.exports = router;
 
 function ensureAuthenticated(req, res, next) {
@@ -27,6 +28,13 @@ router.post('/', (req, res, next) => {
                     res.status(201).send(bounty)
                 })
         })
+        .catch(next);
+});
+
+router.get('/tracked', (req, res, next) => {
+    req.user.getBounties()
+        .then(userBounties => res.send(userBounties))
+        .catch(next);
 });
 
 router.param('bountyId', (req, res, next, bountyId) => {
@@ -46,6 +54,20 @@ router.get('/:bountyId', (req, res, next) => {
         .then(bountyWithIssue => {
             res.send(bountyWithIssue);
         })
+        .catch(next);
+});
+
+router.get('/:bountyId/track', (req, res, next) => {
+    req.user.addBounty(req.bounty.id)
+        .then(_ => req.bounty.addHunter(req.user.id))
+        .then(_ => res.sendStatus(204))
+        .catch(next);
+});
+
+router.get('/:bountyId/untrack', (req, res, next) => {
+    req.user.removeBounty(req.bounty.id)
+        .then(_ => req.bounty.removeHunter(req.user.id))
+        .then(_ => res.sendStatus(204))
         .catch(next);
 });
 

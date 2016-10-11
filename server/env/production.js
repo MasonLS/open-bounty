@@ -8,7 +8,7 @@
 
 module.exports = {
 
-    DATABASE_URI: process.env.DATABASE_URI,
+    DATABASE_URI: process.env.DATABASE_URL,
     APP_URL: process.env.APP_URL,
     SESSION_SECRET: process.env.SESSION_SECRET,
     TWITTER: {

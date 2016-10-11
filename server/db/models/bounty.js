@@ -5,8 +5,7 @@ const db = require('../_db');
 
 module.exports = db.define('bounty', {
 	issueNumber: {
-		type: Sequelize.INTEGER,
-		allowNull: false
+		type: Sequelize.INTEGER
 	},
 	issueId: {
 		type: Sequelize.INTEGER,
@@ -43,6 +42,21 @@ module.exports = db.define('bounty', {
 					this.setDataValue('issue', []);
 					return this;
 				});
+		},
+		updateAmount: function (amount) {
+			let newAmount = this.amount + amount;
+			return this.update({
+				amount: newAmount
+			})
+			.then(updatedBounty => {
+				return updatedBounty.getProject()
+			})
+			.then(bountyProject => {
+				let newFundsOnHold = bountyProject.fundsOnHold + amount;
+				return bountyProject.update({
+					fundsOnHold: newFundsOnHold
+				});
+			})
 		}
 	}
 });

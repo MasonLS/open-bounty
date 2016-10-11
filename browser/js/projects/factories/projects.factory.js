@@ -44,11 +44,17 @@ app.factory('ProjectsFactory', function($http, $log, AuthService) {
             .then(getData);
     }
 
+    function searchProjects (searchTerm) {
+        return $http.get(`/api/projects/search/${searchTerm}`)
+            .then(getData);
+    }
+
     return {
         getForUser,
         findProject,
         addProject,
         getOne,
-        searchIssues
+        searchIssues,
+        searchProjects
     }
 });
