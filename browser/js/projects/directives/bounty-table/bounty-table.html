@@ -17,7 +17,8 @@
                 <td>{{ bounty.amount | currency }}</td>
                 <td>{{ bounty.status | uppercase }}</td>
                 <td>
-                    <button type="button" class="btn btn-warning btn-sm" ui-sref="editBounty({ bountyId: bounty.id , projectId: project })">Edit Bounty</button>
+                    <button type="button" class="btn btn-warning btn-sm" ui-sref="bountyEdit({ bountyId: bounty.id })">Edit Bounty</button>
+                    <button type="button" ng-show="bounty.status !== 'paid'" ng-controller="PayModalCtrl" class="btn btn-success btn-sm" ng-click="openPaymentModal(bounty)">Pay</button>
                 </td>
             </tr>
         </tbody>

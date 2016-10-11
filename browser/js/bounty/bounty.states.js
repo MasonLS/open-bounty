@@ -17,5 +17,4 @@ app.config($stateProvider => {
 		controller: 'EditBountyCtrl',
 
 	});
-
 });
