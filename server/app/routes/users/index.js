@@ -44,6 +44,9 @@ router.get('/starred', (req, res, next) => {
                 where: {
                     repoId: {
                         $in: starredRepoIds
+                    },
+                    ownerId: {
+                        $ne: req.user.id
                     }
                 },
             })
