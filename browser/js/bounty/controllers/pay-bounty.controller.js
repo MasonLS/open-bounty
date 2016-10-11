@@ -5,7 +5,6 @@ app.controller('PayModalCtrl', ($scope, $uibModal) => {
             controller: 'PayModalInstanceCtrl',
             resolve: {
                 items: () => {
-                    console.log('2', bounty);
                     return {
                         bounty: bounty
                     }
