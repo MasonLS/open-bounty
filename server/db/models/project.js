@@ -16,6 +16,10 @@ module.exports = db.define('project', {
     description: {
         type: Sequelize.TEXT
     },
+    fundsOnHold: {
+        type: Sequelize.FLOAT,
+        defaultValue: 0.00
+    },
     raised: {
         type: Sequelize.FLOAT,
         defaultValue: 0.00
