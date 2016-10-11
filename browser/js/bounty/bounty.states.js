@@ -1,7 +1,7 @@
 'use strict';
 
 app.config($stateProvider => {
-	
+
 	$stateProvider.state('addBounty', {
 		url: '/:projectId/bounty/add',
 		templateUrl: 'js/bounty/templates/add-bounty.html',
@@ -19,5 +19,4 @@ app.config($stateProvider => {
 		},
 		controller: 'EditBountyCtrl',
 	});
-
 });

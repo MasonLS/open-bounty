@@ -34,7 +34,8 @@ module.exports = {
     PAYPAL: {
         mode: process.env.PAYPAL_MODE,
         client_id: process.env.PAYPAL_CLIENT_ID,
-        client_secret: process.env.PAYPAL_CLIENT_SECRET
+        client_secret: process.env.PAYPAL_CLIENT_SECRET,
+        client_email: process.env.PAYPAL_CLIENT_EMAIL
     },
     LOGGING: true,
     NATIVE: true

@@ -8,11 +8,11 @@ module.exports = db.define('bounty', {
 		type: Sequelize.INTEGER,
 		allowNull: false
 	},
-	issueId: {
-		type: Sequelize.INTEGER,
-		allowNull: false,
-		unique: true
-	},
+	// issueId: {
+	// 	type: Sequelize.INTEGER,
+	// 	allowNull: false,
+	// 	unique: true
+	// },
 	status: {
 		type: Sequelize.ENUM('open', 'pull request', 'paid', 'deleted')
 	},

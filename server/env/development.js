@@ -25,7 +25,8 @@ module.exports = {
     PAYPAL: {
         mode: 'sandbox',
         client_id: 'AaPlZFuzR4BGmblo0jNvfcOY3SL0z9cJkMd9HV4ma1crNlEUm3f3caeyy6QRTrIHnUBDdl_8TVb5tHSi',
-        client_secret: 'EHv0MsNUj3BeSex4a2v5jdiRxmdNtCmSVHoJifonW7SxmxrMN9bHWDXUOYJzBoEnHq-z1zhV5rfi76NQ'
+        client_secret: 'EHv0MsNUj3BeSex4a2v5jdiRxmdNtCmSVHoJifonW7SxmxrMN9bHWDXUOYJzBoEnHq-z1zhV5rfi76NQ',
+        client_email: 'openbountyuser@aibu.it'
     },
     LOGGING: false,
     NATIVE: true

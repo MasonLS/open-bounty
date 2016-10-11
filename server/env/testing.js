@@ -20,7 +20,8 @@ module.exports = {
     PAYPAL: {
         clientID: 'AaPlZFuzR4BGmblo0jNvfcOY3SL0z9cJkMd9HV4ma1crNlEUm3f3caeyy6QRTrIHnUBDdl_8TVb5tHSi',
         secret: 'EHv0MsNUj3BeSex4a2v5jdiRxmdNtCmSVHoJifonW7SxmxrMN9bHWDXUOYJzBoEnHq-z1zhV5rfi76NQ',
-        mode: 'sandbox'
+        mode: 'sandbox',
+        client_email: 'openbountyuser@aibu.it'
     },
     LOGGING: false,
     NATIVE: true
