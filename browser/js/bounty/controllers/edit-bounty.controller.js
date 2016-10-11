@@ -3,7 +3,7 @@ app.controller('EditBountyCtrl', ($scope, $state, project, ProjectsFactory, Boun
     $scope.bountyId = +$stateParams.bountyId
     $scope.bountyAmount = project.bounties.filter(bounty => bounty.id === +$stateParams.bountyId)[0].amount;
     $scope.issue = project.bounties.filter(bounty => bounty.id === +$stateParams.bountyId)[0].issue;
-    $scope.changeBounty = (bountyData) => BountyFactory.updateBounty($stateParams.bountyId, bountyData)
+    $scope.changeBounty = (bountyId, amount) => BountyFactory.updateBounty(bountyId, amount)
         .then(updatedBounty => $state.go('singleProject', {
             projectId: $stateParams.projectId
         }));

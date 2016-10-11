@@ -18,8 +18,7 @@ router.post('/', (req, res, next) => {
     Project.findById(req.body.projectId)
         .then(project => {
             return project.update({
-                raised: project.raised - Number(req.body.amount),
-                paidOut: project.paidOut + Number(req.body.amount)
+                fundsOnHold: project.fundsOnHold + Number(req.body.amount)
             })
         })
         .then(() => {
@@ -72,22 +71,14 @@ router.get('/:bountyId/untrack', (req, res, next) => {
 });
 
 router.put('/:bountyId', (req, res, next) => {
-    Project.findById(req.body.projectId)
-        .then(project => project.update({
-            raised: project.raised + Number(req.body.previousAmount) - Number(req.body.amount),
-            paidOut: project.paidOut + Number(req.body.amount)
-        }))
-        .then(() => {
-            req.bounty.update(req.body)
-                .then(updatedBounty => {
-                    res.send(updatedBounty);
-                })
-                .catch(next);
-        });
+    req.bounty.updateAmount(req.body.amount)
+        .then(updatedBounty => {
+            res.send(updatedBounty);
+        })
+        .catch(next);
 });
 
 router.delete('/:bountyId', (req, res, next) => {
-
     req.bounty.destroy()
         .then(_ => {
             res.sendStatus(204);
