@@ -9,7 +9,6 @@ module.exports = db.define('bounty', {
 	},
 	issueId: {
 		type: Sequelize.INTEGER,
-		// allowNull: false,
 		unique: true
 	},
 	status: {
@@ -44,8 +43,8 @@ module.exports = db.define('bounty', {
 					return this;
 				});
 		},
-		updateAmount: function (amount) {
-			let newAmount = this.amount + amount;
+	    updateAmount: function (newAmount) {
+		const oldAmount = this.amount;
 			return this.update({
 				amount: newAmount
 			})
@@ -53,9 +52,9 @@ module.exports = db.define('bounty', {
 				return updatedBounty.getProject()
 			})
 			.then(bountyProject => {
-				let newFundsOnHold = bountyProject.fundsOnHold + amount;
+			    const newFundsOnHold = Number(bountyProject.fundsOnHold) - Number(oldAmount) + Number(newAmount);
 				return bountyProject.update({
-					fundsOnHold: newFundsOnHold
+				    fundsOnHold: newFundsOnHold
 				});
 			})
 		}

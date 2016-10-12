@@ -10,7 +10,8 @@
     </div>
     <div class='row'>
         <div class='col-sm-10 col-sm-offset-2'>
-            <h1>{{ project.name }}</h1>
+          <h1>{{ project.name }}</h1>
+	  <p>Available funds: ${{ project.raised - project.fundsOnHold - project.paidOut }}</p>
             <h2>Bounties <button class="btn btn-default" ui-sref-active="active" ui-sref="addBounty({ projectId: project.id })">+ add bounty</button></h2>
         </div>
     </div>
