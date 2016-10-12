@@ -78,48 +78,6 @@ const seedUsers = function () {
 
 };
 
-
-
-// const seedProjects = function (user) {
-//     let userProjects;
-//     github.authenticate({
-//         type: 'oauth',
-//         token: user.githubToken
-//     });
-//     return github.repos.getForUser({
-//             user: user.githubName
-//         })
-//         .then(repos => {
-//             userProjects = repos.filter((repo, i) => i % 5 === 0);
-//             return Promise.map(userProjects, userProject => {
-//                 return Project.create({
-//                         ownerId: user.id,
-//                         repoId: userProject.id,
-//                         name: userProject.name,
-//                         description: Faker.lorem.sentences(),
-//                         raised: _.random(0, 30000, true),
-//                         paidOut: _.random(0, 60000, true)
-//                     });
-//             });
-//         });
-// }
-
-// const seedDonations = function (project) {
-//     return
-// }
-
-// const createDonation = function (project) {
-//     return Donation.create({
-//         ppId:,
-//         intent: 'sale',
-//         state:,
-//         paymentMethod:,
-//         amount:,
-//         currency:,
-
-//     })
-// }
-
 db.sync({ force: true })
     // .then(function () {
     //     console.log(chalk.blue('Seeding users...'));
