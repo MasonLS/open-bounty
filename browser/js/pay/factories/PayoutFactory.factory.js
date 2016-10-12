@@ -16,4 +16,4 @@ app.factory('PayoutFactory', ($http, $log) => {
     };
 
     return PayoutFactory;
-})
+});

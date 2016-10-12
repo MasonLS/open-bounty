@@ -23,9 +23,9 @@ let ensureAuthenticated = (req, res, next) => {
 
 
 // Promisified Paypal collect function
-const promisePPPayment = function(transaction) {
-    return new Promise(function(resolve, reject) {
-        paypal.payment.create(transaction, function(error, payment) {
+const promisePPPayment = transaction => {
+    return new Promise((resolve, reject) => {
+        paypal.payment.create(transaction, (error, payment) => {
             if (error) reject(error);
             else resolve(payment);
         });
@@ -34,9 +34,9 @@ const promisePPPayment = function(transaction) {
 
 
 // Promisified Paypal payout function
-const promisePPPayout = function(transaction) {
-    return new Promise(function(resolve, reject) {
-        paypal.payout.create(transaction, function(error, payout) {
+const promisePPPayout = transaction => {
+    return new Promise((resolve, reject) => {
+        paypal.payout.create(transaction, (error, payout) => {
             if (error) reject(error);
             else resolve(payout);
         });
@@ -103,17 +103,32 @@ router.post('/payout', ensureAuthenticated, (req, res) => {
     let bountyId = req.body.bountyId;
     let transaction = PaypalHelper.createPayoutTransaction(req.body);
 
+
     promisePPPayout(transaction)
         .then(() => {
-            return Bounty.findById(bountyId)
-                .then(foundBounty => {
-                    foundBounty.update({
-                        status: 'paid'
-                    });
-                });
+            return Bounty.findById(bountyId);
         })
-        .then(() => {
-            res.json({status: 'ok'})
+        .then(foundBounty => {
+            return foundBounty.update({
+                status: 'paid'
+            });
+        })
+        .then(updatedBounty => {
+            return [Project.findById(updatedBounty.projectId), updatedBounty.amount];
+        })
+        .spread((foundProject, bountyAmount) => {
+            let fundsOnHold = foundProject.fundsOnHold;
+            let paidOut = foundProject.paidOut;
+
+            return foundProject.update({
+                fundsOnHold: fundsOnHold - bountyAmount,
+                paidOut: paidOut + bountyAmount
+            });
+        })
+        .then(updatedProject => {
+            if (updatedProject) {
+                res.json({ status: 'ok' })
+            }
         })
         .catch(console.error);
 });

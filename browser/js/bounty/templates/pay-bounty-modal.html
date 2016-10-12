@@ -1,17 +1,3 @@
-
-
-<div class="modal-body modal-login">
-    <div class="row">
-        <div class="col-md-12">
-            <div class="left">
-            {{items}}
-            </div>
-        </div>
-    </div>
-</div>
-
-
-
 <div class="modal-body modal-donate">
     <div class="row">
         <div class="col-md-12 text-center">
@@ -24,7 +10,6 @@
         <div class="col-md-12">
             <form name="form.payoutForm">
                 <div class="form-group">
-                {{bounty.amount}}
                     <label for="paypalEmail">Insert the developer PayPal email address:</label>
                     <input type="email" class="form-control" id="paypalEmail" name="paypalEmail" ng-model="paypalEmail" aria-describedby="paypalEmail" placeholder="Enter your PayPal email address" required>
                     <small id="paypalEmailHelp" class="form-text text-muted">You will be transferred to PayPal to safely complete your donation.</small>
