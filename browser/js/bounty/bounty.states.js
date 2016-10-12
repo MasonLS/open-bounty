@@ -7,7 +7,8 @@ app.config($stateProvider => {
         templateUrl: 'js/bounty/templates/add-bounty.html',
         controller: 'AddBountyCtrl',
         resolve: {
-            project: (ProjectsFactory, $stateParams) => ProjectsFactory.getOne($stateParams.projectId)
+            project: (ProjectsFactory, $stateParams) => ProjectsFactory.getOne($stateParams.projectId),
+	    issues: (ProjectsFactory, $stateParams) => ProjectsFactory.getIssues($stateParams.projectId)
         }
     });
 
