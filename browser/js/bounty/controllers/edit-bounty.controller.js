@@ -1,4 +1,4 @@
-app.controller('EditBountyCtrl', ($scope, $state, project, ProjectsFactory, BountyFactory, $stateParams) => {
+app.controller('EditBountyCtrl', ($scope, $state, project, ProjectsFactory, BountyFactory, $stateParams, $uibModal) => {
     $scope.project = project[0];
     $scope.bountyId = +$stateParams.bountyId;
     $scope.fundsAvailable = project.raised - project.fundsOnHold - project.paidOut;
@@ -23,11 +23,11 @@ app.controller('EditBountyCtrl', ($scope, $state, project, ProjectsFactory, Boun
                     projectId: project[0].id
                 }));
         }
-    });
+    };
 
-$scope.deleteBounty = bountyId => BountyFactory.deleteOne(bountyId)
-.then(() => $state.go('singleProject', {
-    projectId: $stateParams.projectId
-}));
+    $scope.deleteBounty = bountyId => BountyFactory.deleteOne(bountyId)
+        .then(() => $state.go('singleProject', {
+            projectId: $stateParams.projectId
+        }));
 
 });
