@@ -29,6 +29,13 @@ router.post('/', (req, res, next) => {
     const projectData = req.body;
     projectData.ownerId = req.user.id;
 
+    req.github.issues.createLabel({
+        owner: req.user.githubName,
+        repo: projectData.name,
+        name: 'Open Bounty',
+        color: '42bcf4'
+    });
+
     Project.create(projectData)
         .then(project => {
             res.send(project);
@@ -43,9 +50,9 @@ router.get('/search/:searchTerm', (req, res, next) => {
                 name: {
                     $iLike: `%${req.params.searchTerm}%`
                 },
-                // ownerId: {
-                //     $ne: req.user.id
-                // }
+                ownerId: {
+                    $ne: req.user.id
+                }
             },
             include: [Bounty]
         })
