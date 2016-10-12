@@ -103,6 +103,7 @@ router.post('/payout', ensureAuthenticated, (req, res) => {
     let bountyId = req.body.bountyId;
     let transaction = PaypalHelper.createPayoutTransaction(req.body);
 
+
     promisePPPayout(transaction)
         .then(() => {
             return Bounty.findById(bountyId);
@@ -113,8 +114,21 @@ router.post('/payout', ensureAuthenticated, (req, res) => {
             });
         })
         .then(updatedBounty => {
-            console.log(updatedBounty);
-            res.json({ status: 'ok' })
+            return [Project.findById(updatedBounty.projectId), updatedBounty.amount];
+        })
+        .spread((foundProject, bountyAmount) => {
+            let fundsOnHold = foundProject.fundsOnHold;
+            let paidOut = foundProject.paidOut;
+
+            return foundProject.update({
+                fundsOnHold: fundsOnHold - bountyAmount,
+                paidOut: paidOut + bountyAmount
+            });
+        })
+        .then(updatedProject => {
+            if (updatedProject) {
+                res.json({ status: 'ok' })
+            }
         })
         .catch(console.error);
 });
