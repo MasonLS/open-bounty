@@ -1,9 +1,10 @@
 app.controller('EditBountyCtrl', ($scope, $state, project, ProjectsFactory, BountyFactory, $stateParams, $uibModal) => {
-    $scope.project = project[0];
+    console.log('PROJECT', project);
+    $scope.project = project;
     $scope.bountyId = +$stateParams.bountyId;
-    $scope.fundsAvailable = $scope.project.raised - $scope.project.fundsOnHold - $scope.project.paidOut;
-    $scope.bountyAmount = project[0].bounties.filter(bounty => bounty.id === +$stateParams.bountyId)[0].amount;
-    $scope.issue = project[0].bounties.filter(bounty => bounty.id === +$stateParams.bountyId)[0].issue;
+    $scope.fundsAvailable = project.raised - $scope.project.fundsOnHold - $scope.project.paidOut;
+    $scope.bountyAmount = project.bounties.filter(bounty => bounty.id === +$stateParams.bountyId)[0].amount;
+    $scope.issue = project.bounties.filter(bounty => bounty.id === +$stateParams.bountyId)[0].issue;
 
     const openErrorWindow = message => {
         $uibModal.open({
@@ -21,7 +22,7 @@ app.controller('EditBountyCtrl', ($scope, $state, project, ProjectsFactory, Boun
             BountyFactory.updateBounty(bountyId, amount)
                 .then(updatedBounty => {
                     $state.go('singleProject', {
-                        projectId: project[0].id
+                        projectId: project.id
                     })
                 });
         }
@@ -29,7 +30,7 @@ app.controller('EditBountyCtrl', ($scope, $state, project, ProjectsFactory, Boun
 
     $scope.deleteBounty = bountyId => BountyFactory.deleteOne(bountyId)
         .then(() => $state.go('singleProject', {
-            projectId: project[0].id
+            projectId: project.id
         }));
 
 });
