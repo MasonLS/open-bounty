@@ -1,4 +1,4 @@
-app.factory('PayoutFactory', function($http, $log) {
+app.factory('PayoutFactory', ($http, $log) => {
     let PayoutFactory = {};
     let getData = response => response.data;
 
