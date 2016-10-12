@@ -2,12 +2,14 @@
 const router = require('express').Router(); // eslint-disable-line new-cap
 const path = require('path');
 const paypal = require('paypal-rest-sdk');
+const sequelize = require('sequelize');
 
 const env = require(path.join(__dirname, '../../../env'));
 const Donation = require(path.join(__dirname, '../../../db/models/donation'));
 const Project = require(path.join(__dirname, '../../../db/models/project'));
 const Bounty = require(path.join(__dirname, '../../../db/models/bounty'));
 const PaypalHelper = require(path.join(__dirname, '../../helpers/paypal'));
+
 const Promise = require('bluebird');
 
 // Paypal configuration
@@ -130,6 +132,23 @@ router.post('/payout', ensureAuthenticated, (req, res) => {
                 res.json({ status: 'ok' })
             }
         })
+        .catch(console.error);
+});
+
+// Get Donations History
+router.get('/history/:projectId', (req, res) => {
+    Donation.findAll({
+            where: {
+                projectId: req.params.projectId
+            },
+            attributes: ['amount']
+            // attributes: [
+            //     [sequelize.fn('date_trunc', 'day', sequelize.col('createdAt')), 'day'],
+            //     ['amount', 'amount']
+            // ],
+            //group: ['day', 'amount']
+        })
+        .then(res.json.bind(res))
         .catch(console.error);
 });
 
