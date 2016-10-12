@@ -2,10 +2,11 @@
 
 const router = require('express').Router();
 const Bounty = require('../../../db/models/bounty');
+const Project = require('../../../db/models/project');
 const User = require('../../../db/models/user');
 module.exports = router;
 
-function ensureAuthenticated (req, res, next) {
+function ensureAuthenticated(req, res, next) {
     if (req.isAuthenticated()) {
         next()
     } else {
@@ -14,10 +15,17 @@ function ensureAuthenticated (req, res, next) {
 }
 
 router.post('/', (req, res, next) => {
-    const body = req.body
-    Bounty.create(body)
-        .then(bounty => {
-            res.status(201).send(bounty)
+    Project.findById(req.body.projectId)
+        .then(project => {
+            return project.update({
+                fundsOnHold: project.fundsOnHold + Number(req.body.amount)
+            })
+        })
+        .then(() => {
+            Bounty.create(req.body)
+                .then(bounty => {
+                    res.status(201).send(bounty)
+                })
         })
         .catch(next);
 });
@@ -38,9 +46,7 @@ router.param('bountyId', (req, res, next, bountyId) => {
 });
 
 router.get('/:bountyId', (req, res, next) => {
-    const bounty = req.bounty;
-
-    bounty.getProject()
+    req.bounty.getProject()
         .then(project => {
             return bounty.attachIssue(req.github, req.user.githubName, project.name);
         })
@@ -65,7 +71,7 @@ router.get('/:bountyId/untrack', (req, res, next) => {
 });
 
 router.put('/:bountyId', (req, res, next) => {
-    req.bounty.update(req.body)
+    req.bounty.updateAmount(req.body.amount)
         .then(updatedBounty => {
             res.send(updatedBounty);
         })
