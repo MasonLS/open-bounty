@@ -1,4 +1,4 @@
-<table class="table table-hover">
+<table ng-show="issues" class="table table-hover">
     <thead>
         <tr>
             <th>Issue</th>
@@ -16,7 +16,7 @@
             <td>{{issue.created_at | date: 'MM-dd-yyyy'}}</td>
             <td>{{issue.assignee.login || "Null"}}</td>
             <td>
-               $<input ng-model="bounty.amount" type="text" placeholder="dollar amount" required>
+               <input ng-model="bounty.amount" type="text" placeholder="$ amount" required>
             </td>
             <td>
                 <button ng-click="createBounty({ issueNumber: issue.number, issueId: issue.id, amount: bounty.amount})" class="btn btn-warning btn-sm">CREATE BOUNTY</button>

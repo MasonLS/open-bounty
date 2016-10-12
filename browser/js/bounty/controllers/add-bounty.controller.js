@@ -1,7 +1,6 @@
 app.controller('AddBountyCtrl', ($scope, project, $uibModal, ProjectsFactory, BountyFactory, $state) => {
     $scope.project = project;
-    console.log('project:', project);
-    $scope.fundsAvailable = project.raised;
+    $scope.fundsAvailable = project.raised - project.fundsOnHold - project.paidOut;
 
     $scope.searchIssues = function() {
         return ProjectsFactory.searchIssues(project.id, $scope.search.term)
