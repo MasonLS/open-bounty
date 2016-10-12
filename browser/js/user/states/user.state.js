@@ -7,8 +7,8 @@ app.config(function ($stateProvider) {
 		controller: 'UserCtrl',
 		templateUrl: 'js/user/templates/user.html',
 		resolve: {
-			user: AuthService => AuthService.getLoggedInUser(),
-			userBounties: BountyFactory => BountyFactory.getTracked(),
+			// user: AuthService => AuthService.getLoggedInUser(),
+			// userBounties: BountyFactory => BountyFactory.getTracked(),
 			starredProjects: UserFactory => UserFactory.getStarred()
 		}
 	});

@@ -1,7 +1,7 @@
 <table ng-show="issues" class="table table-hover">
     <thead>
         <tr>
-            <th>Issue</th>
+            <th>Issue #</th>
             <th>Title</th>
             <th>Created</th>
             <th>Assignee</th>
@@ -14,7 +14,7 @@
             <td>{{issue.number}}</td>
             <td><a href="{{issue.html_url}}">{{ issue.title | uppercase}}</a></td>
             <td>{{issue.created_at | date: 'MM-dd-yyyy'}}</td>
-            <td>{{issue.assignee.login || "Null"}}</td>
+            <td>{{issue.assignee.login || null}}</td>
             <td>
                <input ng-model="bounty.amount" type="text" placeholder="$ amount" required>
             </td>
