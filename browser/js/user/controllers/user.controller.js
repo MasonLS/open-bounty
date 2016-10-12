@@ -1,8 +1,8 @@
 'use strict';
 
-app.controller('UserCtrl', function($rootScope, $scope, starredProjects, ProjectsFactory, $uibModal) {
+app.controller('UserCtrl', function($rootScope, $scope, ProjectsFactory, $uibModal) {
 
-    detachAndScopeBounties(starredProjects);
+    // detachAndScopeBounties(starredProjects);
 
     function isNotUserBounty (bounty) {
     	return userBounties.every(userBounty => {
