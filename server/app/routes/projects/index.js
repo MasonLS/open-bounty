@@ -61,6 +61,7 @@ router.get('/search/:searchTerm', (req, res, next) => {
         .catch(next);
 });
 
+
 // put project with repo and bounties on req object
 router.param('projectId', (req, res, next, projectId) => {
     Project.findById(projectId)
@@ -87,6 +88,22 @@ router.put('/:projectId', (req, res, next) => {
             res.send(updatedProjectWithRepoAndBounties);
         })
         .catch(next);
+});
+
+// get issues for project
+router.get('/:projectId/issues', (req, res, next) => {
+    Project.findById(req.params.projectId)
+        .then(project => {
+            return req.github.issues.getForRepo({
+                user: req.user.githubName,
+                owner: req.user.githubName,
+                repo: project.name
+            })
+        })
+        .then(issues => {
+            res.send(issues);
+        })
+        .catch(next)
 });
 
 router.use('/:projectId/github', require('./github'));
