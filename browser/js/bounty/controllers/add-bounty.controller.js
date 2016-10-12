@@ -20,7 +20,7 @@ app.controller('AddBountyCtrl', ($scope, project, $uibModal, ProjectsFactory, Bo
     $scope.createBounty = function(bountyData) {
         if (Number(bountyData.amount) < 0 || Number(bountyData.amount) > $scope.fundsAvailable) {
             openErrorWindow('Insufficient Funds');
-        } else if (!bountyData.amount.match(/\d+/g)) {
+        } else if (isNaN(bountyData.amount)) {
             openErrorWindow('Amount must be an number.');
         } else {
             bountyData.projectId = project.id;
