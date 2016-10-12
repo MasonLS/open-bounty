@@ -6,11 +6,11 @@ app.config(function ($stateProvider) {
 		url: '/user',
 		controller: 'UserCtrl',
 		templateUrl: 'js/user/templates/user.html',
-		resolve: {
-			// user: AuthService => AuthService.getLoggedInUser(),
-			// userBounties: BountyFactory => BountyFactory.getTracked(),
-			starredProjects: UserFactory => UserFactory.getStarred()
-		}
+		// resolve: {
+		// 	// user: AuthService => AuthService.getLoggedInUser(),
+		// 	// userBounties: BountyFactory => BountyFactory.getTracked(),
+		// 	// starredProjects: UserFactory => UserFactory.getStarred()
+		// }
 	});
 
 	$stateProvider.state('myBounties', {
