@@ -79,9 +79,12 @@ router.put('/:bountyId', (req, res, next) => {
 });
 
 router.delete('/:bountyId', (req, res, next) => {
-    req.bounty.destroy()
-        .then(_ => {
-            res.sendStatus(204);
-        })
-        .catch(next);
+    req.bounty.updateAmount(0)
+	.then(() => {
+	    return req.bounty.destroy()
+		.then(() => {
+		    res.sendStatus(204)
+		})
+	})
+	.catch(next);
 });
