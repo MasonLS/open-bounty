@@ -52,7 +52,7 @@ module.exports = db.define('bounty', {
 				return updatedBounty.getProject()
 			})
 			.then(bountyProject => {
-			    const newFundsOnHold = bountyProject.fundsOnHold - oldAmount + newAmount;
+			    const newFundsOnHold = Number(bountyProject.fundsOnHold) - Number(oldAmount) + Number(newAmount);
 				return bountyProject.update({
 				    fundsOnHold: newFundsOnHold
 				});

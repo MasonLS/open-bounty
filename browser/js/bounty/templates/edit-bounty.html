@@ -1,6 +1,6 @@
 <div class="container-fluid">
-    <div class='row'>
-        <div class='col-sm-10 col-sm-offset-2'>
+    <div class="row">
+        <div class="col-sm-10 col-sm-offset-2">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a ui-sref="home">Home</a></li>
                 <li class="breadcrumb-item"><a ui-sref="projects">Projects</a></li>
@@ -8,27 +8,31 @@
             </ol>
         </div>
     </div>
-    <div class='row'>
-        <div class='col-sm-10 col-sm-offset-2'>
-            <h1>{{project.name}}</h1>
-            <h3>Bounty for <a href="issue.html_url"><strong>{{issue.title}}</strong></a></h3>
-            <p>Current Amount: ${{ bountyAmount}}</p>
-            <p>Funds Available: ${{ project.raised - project.fundsOnHold - project.paidOut + bountyAmount}}</p>
+
+    <div class="row">
+        <div class="col-sm-10 col-sm-offset-2">
+            <h1>{{ project.name }}</h1>
+            <p>Bounty for <a href="issue.html_url"><strong>{{issue.title}}</strong></a></p>
+            <p>Current Amount: <strong>${{ bountyAmount}}</strong></p>
+            <p>Funds Available: <strong>${{ project.raised - project.fundsOnHold - project.paidOut + bountyAmount}}</strong></p>
             <form class="form-inline">
                 <div class="form-group">
-                    <label class="sr-only">Email</label>
-                    <p class="form-control-static">Change Amount: $</p>
-                    <input type="number" class="form-control" placeholder="Change Amount" ng-model="amount">
+                    <label class="sr-only" for="exampleInputAmount">Amount</label>
+                    <div class="input-group">
+                        <div class="input-group-addon">$</div>
+                        <input type="text" class="form-control" id="exampleInputAmount" placeholder="Amount" ng-model="amount">
+                    </div>
                 </div>
-                <button type="submit" class="btn btn-primary" ng-click="changeBounty(bountyId, amount)">Change</button>
-            </form>
-        </div>
-        <div class='col-sm-10 col-sm-offset-2'>
-            <form class="form-inline">
-                <button type="submit" class="btn btn-primary btn-danger" ng-click="deleteBounty({bountyId: bountyId, projectId: project.id})">Delete Bounty</button>
+                <button type="submit" class="btn btn-primary" ng-click="changeBounty(bountyId, amount)">Change Amount</button>
             </form>
         </div>
     </div>
+    <div class="row">
+        <div class="col-sm-10 col-sm-offset-2">
+            <button class="btn btn-danger delete-button" ng-click="deleteBounty({bountyId: bountyId, projectId: project.id})">Delete Bounty</button>
+        </div>
+    </div>
+
     <div class="row">
         <sidebar></sidebar>
     </div>
