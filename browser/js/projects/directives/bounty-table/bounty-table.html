@@ -13,13 +13,17 @@
             <tr ng-repeat="bounty in bounties">
                 <td>{{ bounty.id | uppercase}} </td>
 
-                <td href="bounty.issue.html_url">{{ bounty.issue.title | uppercase}}</td>
+                <td href="bounty.issue.html_url">{{ bounty.issue.title | uppercase | limitTo:20 }}</td>
                 <td>{{ bounty.amount | currency }}</td>
                 <td>{{ bounty.status | uppercase }}</td>
-                <td>
+                <td ng-if="project.ownerId === user.id">
                     <button type="button" class="btn btn-warning btn-sm" ui-sref="editBounty({ bountyId: bounty.id, projectId: project.id })">Edit Bounty</button>
-                    <button type="button" ng-show="bounty.status !== 'paid'" ng-controller="PayModalCtrl" class="btn btn-success btn-sm" ng-click="openPaymentModal(bounty)">Pay</button>
+                    <button type="button" ng-show="bounty.status === 'closed'" ng-controller="PayModalCtrl" class="btn btn-success btn-sm" ng-click="openPaymentModal(bounty)">Pay</button>
                 </td>
+                <td ng-if="showTrackButton(bounty.id)">
+                    <button type="button" class="btn btn-warning btn-sm" ng-click="trackBounty(bounty.id)">Track</button>
+                </td>
+                <td ng-if="!showTrackButton(bounty.id)"></td>
             </tr>
         </tbody>
     </table>

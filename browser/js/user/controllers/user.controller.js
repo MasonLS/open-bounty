@@ -1,8 +1,6 @@
 'use strict';
 
-app.controller('UserCtrl', function($scope, starredProjects, ProjectsFactory, BountyFactory, user, userBounties) {
-	
-	$scope.user = user;
+app.controller('UserCtrl', function($rootScope, $scope, starredProjects, ProjectsFactory, $uibModal) {
 
     detachAndScopeBounties(starredProjects);
 
@@ -26,24 +24,33 @@ app.controller('UserCtrl', function($scope, starredProjects, ProjectsFactory, Bo
 	    console.log('BOUNTIES', $scope.bounties)
 	}
 
+    $scope.openDonationWindow = (project) => {
+
+        $uibModal.open({
+            templateUrl: '/js/donation/templates/donation.modal.template.html',
+            controller: 'DonationModalInstanceCtrl',
+            windowClass: 'donation-modal',
+            resolve: {
+                items: () => {
+                    return {
+                        project: project
+                    }
+                }
+            }
+        });
+    };
+
+    $scope.searchProjects = function (searchTerm) {
+        return ProjectsFactory.searchProjects(searchTerm)
+            .then(projects => {
+                $scope.projects = projects;
+            })
+    }
+
     $scope.searchBounties = function(searchTerm) {
         return ProjectsFactory.searchProjects(searchTerm)
             .then(projects => {
                 detachAndScopeBounties(projects);
-            });
-    }
-
-    $scope.trackBounty = function(bountyId) {
-        return BountyFactory.track(bountyId)
-            .then(_ => {
-                let indexOfTrackedBounty;
-                for (var i = 0; i < $scope.bounties.length; i++) {
-                    if ($scope.bounties[i].id === bountyId) {
-                        indexOfTrackedBounty = i;
-                        break;
-                    }
-                }
-                userBounties.push($scope.bounties.splice(i, 1)[0]);
             });
     }
 });

@@ -8,11 +8,11 @@
             </ol>
         </div>
     </div>
-    <div class="row">
-        <div class="col-sm-7 col-sm-offset-2">
-            <h1>{{ project.name }}</h1>
-            <p>Available funds: ${{ project.raised - project.fundsOnHold - project.paidOut }}</p>
-            <h2>Bounties <button class="btn btn-default" ui-sref-active="active" ui-sref="addBounty({ projectId: project.id })">+ add bounty</button></h2>
+    <div class='row'>
+        <div class='col-sm-7 col-sm-offset-2'>
+          <h1>{{ project.name }}</h1>
+	  <p>Available funds: {{ project.raised - project.fundsOnHold - project.paidOut | currency }}</p>
+            <h2>Bounties <button ng-if="user.id === project.ownerId" class="btn btn-default" ui-sref-active="active" ui-sref="addBounty({ projectId: project.id })">+ add bounty</button></h2>
         </div>
         <div class="col-sm-3">
             <jq-sparkline spark-data="sparklineData" opts="{{ {type:'line', width:'200px', height:'100px', lineColor: '#333333', fillColor: '#aad4ff', lineWidth: '2'} }}"></jq-sparkline>
@@ -20,6 +20,6 @@
     </div>
     <div class="row">
         <sidebar></sidebar>
-        <bounty-table ng-if="project.bounties" bounties="project.bounties" project="project.id"></bounty-table>
+        <bounty-table ng-if="bounties.length"</bounty-table>
     </div>
 </div>
