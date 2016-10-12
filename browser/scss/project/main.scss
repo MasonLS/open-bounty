@@ -51,12 +51,12 @@
     width: 100%;
     text-transform: uppercase;
 }
+
 .nav-sidebar > .active > a,
 .nav-sidebar > .active > a:hover,
 .nav-sidebar > .active > a:focus {
     color: white !important;
 }
-
 
 .nav-sidebar.nav > li {
     a {
@@ -77,4 +77,12 @@
     text-align: center;
     color: red;
     padding: 50px 0px
+}
+
+.jqstooltip {
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+    width: auto !important;
+    height: auto !important;
 }

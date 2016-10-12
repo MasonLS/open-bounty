@@ -1,3 +1,4 @@
-app.controller('SingleProjectCtrl', ($scope, project, $stateParams) => {
+app.controller('SingleProjectCtrl', ($scope, donationHistory, project) => {
     $scope.project = project;
+    $scope.sparklineData = donationHistory;
 });

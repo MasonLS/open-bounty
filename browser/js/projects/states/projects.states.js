@@ -32,7 +32,8 @@ app.config($stateProvider => {
         url: '/projects/:projectId',
         templateUrl: 'js/projects/templates/single.project.html',
         resolve: {
-            project: (ProjectsFactory, $stateParams) => ProjectsFactory.getOne($stateParams.projectId)
+            project: (ProjectsFactory, $stateParams) => ProjectsFactory.getOne($stateParams.projectId),
+            donationHistory: (DonationFactory, $stateParams) => DonationFactory.getDonationHistory($stateParams.projectId)
         },
         controller: 'SingleProjectCtrl',
         data: {

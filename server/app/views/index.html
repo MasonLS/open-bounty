@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <base href="/" />
     <title>Open Bounty</title>
@@ -8,10 +9,10 @@
     <link rel="stylesheet" type="text/css" href="/font-awesome/css/font-awesome.css" />
     <link rel="stylesheet" type="text/css" href="/style.css" />
     <link rel="stylesheet" type="text/css" href="/angular-loading-bar/build/loading-bar.min.css" />
-
     <script src="/lodash/index.js"></script>
     <script src="/jquery/dist/jquery.js"></script>
     <script src="/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="/assets/js/jquery.sparklines.js"></script>
     <script src="/angular/angular.js"></script>
     <script src="/angular-animate/angular-animate.js"></script>
     <script src="/angular-ui-router/release/angular-ui-router.js"></script>
@@ -21,8 +22,10 @@
     <script src="/socket.io-client/socket.io.js"></script>
     <script src="/main.js"></script>
 </head>
+
 <body ng-app="OpenBounty">
     <navbar></navbar>
     <div id="main" ui-view></div>
 </body>
+
 </html>
