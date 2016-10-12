@@ -13,12 +13,19 @@
     </div>
     <div class="row">
         <div class="col-sm-6 col-sm-offset-2">
-            <div class="input-group">
+            <div class="input-group searchRepo" ng-show="!typeAheadDisabled">
+                <input type="text" name="searchRepo" typeahead-editable='false' ng-model="searchRepo" placeholder="Search for your Repos" uib-typeahead="repo as repo.name for repo in userRepos | filter: {name: $viewValue}" typeahead-loading="loadingRepos" typeahead-no-results="noResults" class="form-control search-input" typeahead-template-url="/js/projects/templates/project-add.typeahead.item.template.html" typeahead-on-select="onSelect($item, $model, $label)" ng-disabled="typeAheadDisabled" autocomplete="off" />
+                <span class="input-group-addon" ng-show="!typeAheadDisabled"><span class="glyphicon glyphicon-search"></span> Search</span>
+            </div>
+            <div class="fake-input" ng-show="typeAheadDisabled">
+                <div ng-click="clearSearch()"> <span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span> {{searchRepo.name}} </div>
+            </div>
+            <!-- <div class="input-group">
                 <input type="text" class="form-control" placeholder="Search projects for bounties..." ng-model="search.term">
                 <span class="input-group-btn">
         <button class="btn btn-secondary" type="button" ng-click="searchBounties(search.term)">Search</button>
       </span>
-            </div>
+            </div> -->
         </div>
     </div>
     <div class="row">
