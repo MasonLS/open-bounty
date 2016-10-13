@@ -21,6 +21,7 @@
                         <th>Title</th>
                         <th>Amount</th>
                         <th>Status</th>
+                        <th>Difficulty</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -29,7 +30,8 @@
                         <td>{{ bounty.id | uppercase}}</td>
                         <td href="bounty.issue.html_url">{{ bounty.issue.title }}</td>
                         <td>{{ bounty.amount }}</td>
-                        <td>{{ bounty.status}}</td>
+                        <td>{{ bounty.status }}</td>
+                        <td>{{ bounty.difficulty }}</td>
                         <td>
                             <button type="button" class="btn btn-warning btn-sm" ng-click="untrackBounty(bounty.id)">Untrack Bounty</button>
                         </td>
