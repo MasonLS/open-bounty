@@ -6,7 +6,33 @@ const Promise = require('bluebird');
 const Project = require(path.join(__dirname, '../../../db/models/project'));
 const Bounty = require(path.join(__dirname, '../../../db/models/bounty'));
 const User = require(path.join(__dirname, '../../../db/models/user'));
+
 module.exports = router;
+
+function getSortedByColumn(model, column, limit, order) {
+    return model.findAll({
+        limit: limit,
+        order: [
+            [column, order]
+        ]
+    });
+}
+
+function getProject(bounty) {
+    return Project.findById(bounty.projectId)
+}
+
+function getBounties(project) {
+    return Bounty.findAll({
+            where: {
+                projectId: project.id
+            }
+        })
+        .then(bounties => {
+            project.setDataValue('bounties', bounties);
+            return project
+        });
+}
 
 // get all projects for user with repos and bounties
 router.get('/', (req, res, next) => {
@@ -29,14 +55,14 @@ router.post('/', (req, res, next) => {
     const projectData = req.body;
     projectData.ownerId = req.user.id;
     return req.github.issues.createLabel({
-	user: req.user.githubName,
+        user: req.user.githubName,
         repo: projectData.name,
         name: 'OpenBounty',
         color: '337ab7'
     }, function() {
-	Project.create(projectData)
-	    .then(project => res.send(project))
-	    .catch(next);
+        Project.create(projectData)
+            .then(project => res.send(project))
+            .catch(next);
     })
 });
 
@@ -58,6 +84,21 @@ router.get('/search/:searchTerm', (req, res, next) => {
         .catch(next);
 });
 
+// get featured projects for homepage
+router.get('/featured', (req, res, next) => {
+    getSortedByColumn(Bounty, 'updatedAt', 30, 'DESC')
+        .then(bounties => Promise.all(bounties.map(getProject))
+            .then(projects => Promise.all(projects.map(getBounties)))
+            .then(projectsWithBounties => Promise.all(projectsWithBounties.map(project => {
+                return req.github.repos.getById({
+                    id: project.repoId
+                }).then(repo => {
+                    project.setDataValue('repo', repo)
+                    return project;
+                })
+            })))
+            .then(projectWithRepoAndBounties => res.send(projectWithRepoAndBounties)))
+});
 
 // put project with repo and bounties on req object
 router.param('projectId', (req, res, next, projectId) => {
