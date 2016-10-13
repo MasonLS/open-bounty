@@ -1,24 +1,42 @@
 <div class="col-md-3 sidebar">
     <!-- Nav tabs -->
     <div class="card">
-        <span id="user-name-pic"><h1>{{ user.githubName }}</h1>
-            <img id="profile-pic" src="{{ user.githubPic }}"></span>
-            <p>
-            	Welcome, {{ user.githubName }}, to Open Bounty! This here's your handy user interface. If you're a bounty hunter, then click on 'hunt'. Maintain a project, then click 'maintain'. Elseif both, try clicking both!
-            </p>
+    	<div id="sidebar-title" class="card-block">
+    	<img id="profile-pic" src="{{ user.githubPic }}">
+    		<h1 class="card-title">{{ user.githubName }}</h1>
+    	</div>
+    	<div class="card-block">
         <ul class="nav nav-tabs" role="tablist">
-            <li role="presentation" class="active"><a href="#hunt" aria-controls="home" role="tab" data-toggle="tab">Hunt</a></li>
-            <li role="presentation"><a href="#maintain" aria-controls="profile" role="tab" data-toggle="tab">Maintain</a></li>
+        	<li role="presentation" class="active"><a href="#info" aria-controls="info" role="tab" data-toggle="tab">Info</a></li>
+            <li role="presentation"><a href="#hunt" aria-controls="hunt" role="tab" data-toggle="tab" id="hunt-tab">Hunt</a></li>
+            <li role="presentation"><a href="#maintain" aria-controls="maintain" role="tab" data-toggle="tab" id="maintain-tab">Maintain</a></li>
         </ul>
         <!-- Tab panes -->
         <div class="tab-content">
-            <div role="tabpanel" class="tab-pane active" id="hunt">
-            	<h2>Bounties I'm tracking</h2>
-                <a ng-repeat="bounty in bounties" href="javascript:void(0)" class="btn btn-raised">{{bounty.name}}</a>
+        	<div role="tabpanel" class="tab-pane active" id="info">
+        		<div class="card" id="welcome-user-text">
+        		<div class="card-block">
+                <p class="card-text">Welcome to Open Bounty! This here's your handy user interface.</p>
+                <p class="card-text">
+                	If you're a bounty hunter, then click on <a href="#hunt" id="hunt-link">hunt</a>. Maintain a project? Then click <a href="#maintain" id="maintain-link">maintain</a>.
+                </p>
+                <p class="card-text">
+                	Else if both, try clicking both!
+                </p>
+                </div>
+                </div>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="hunt">
+                <div class="card-block">
+                <h2>Bounties I'm tracking</h2>
+                <li style="list-style-type: none"><a ng-repeat="bounty in bounties" href="javascript:void(0)" class="btn btn-raised">{{bounty.name}}</a></li>
+                </div>
             </div>
             <div role="tabpanel" class="tab-pane" id="maintain">
-            	<h2>My Projects</h2><a href="javascript:void(0)" class="btn btn-sm" ui-sref="newProject">+ Add a project</a>
-            	<a ng-repeat="project in projects" href="javascript:void(0)" class="btn btn-raised" ui-sref="singleProject({ projectId: project.id })">{{project.name}}</a>
+            	<div class="card-block">
+                <h2>My Projects</h2><a href="javascript:void(0)" class="btn btn-sm" ui-sref="newProject">+ Add a project</a>
+                <li style="list-style-type: none"><a ng-repeat="project in projects" href="javascript:void(0)" class="btn btn-default btn-lg btn-block btn-raised" ui-sref="singleProject({ projectId: project.id })">{{project.name}}</a></li>
+                </div>
             </div>
         </div>
     </div>
