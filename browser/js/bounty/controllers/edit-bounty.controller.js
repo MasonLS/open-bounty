@@ -1,5 +1,4 @@
 app.controller('EditBountyCtrl', ($scope, $state, project, ProjectsFactory, BountyFactory, $stateParams, $uibModal) => {
-    console.log('PROJECT', project);
     $scope.project = project;
     $scope.bountyId = +$stateParams.bountyId;
     $scope.fundsAvailable = project.raised - $scope.project.fundsOnHold - $scope.project.paidOut;
@@ -8,23 +7,21 @@ app.controller('EditBountyCtrl', ($scope, $state, project, ProjectsFactory, Boun
 
     const openErrorWindow = message => {
         $uibModal.open({
-            template: `<h1 class="error-title">${message}</h1>`,
+            template: `<h1 class='error-title'>${message}</h1>`,
             windowClass: 'donation-modal'
         });
     };
 
     $scope.changeBounty = (bountyId, amount) => {
         if (amount > $scope.fundsAvailable) {
-            openErrorWindow("Insufficient Funds");
+            openErrorWindow('Insufficient Funds');
         } else if (isNaN(amount) || amount <= 0) {
-            openErrorWindow("Amount must be a number > 0")
+            openErrorWindow('Amount must be a number > 0')
         } else {
             BountyFactory.updateBounty(bountyId, amount)
-                .then(updatedBounty => {
-                    $state.go('singleProject', {
+                .then(updatedBounty => $state.go('singleProject', {
                         projectId: project.id
-                    })
-                });
+                    }));
         }
     };
 

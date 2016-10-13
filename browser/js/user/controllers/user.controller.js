@@ -20,8 +20,6 @@ app.controller('UserCtrl', function($rootScope, $scope, ProjectsFactory, $uibMod
 	    });
 
 	    $scope.bounties = bounties.filter(isNotUserBounty);
-
-	    console.log('BOUNTIES', $scope.bounties)
 	}
 
     $scope.openDonationWindow = (project) => {
