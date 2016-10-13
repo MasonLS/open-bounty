@@ -17,7 +17,10 @@ module.exports = db.define('bounty', {
 	},
 	amount: {
 		type: Sequelize.FLOAT
-	}
+	},
+    difficulty:{
+        type: Sequelize.INTEGER
+    }
 },{
 	instanceMethods: {
 		attachIssue: function (githubClient, githubName, projectName) {

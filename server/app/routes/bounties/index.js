@@ -15,19 +15,23 @@ function ensureAuthenticated(req, res, next) {
 }
 
 router.post('/', (req, res, next) => {
-    Project.findById(req.body.projectId)
-        .then(project => {
-            return project.update({
-                fundsOnHold: project.fundsOnHold + Number(req.body.amount)
-            })
-        })
-        .then(() => {
-            Bounty.create(req.body)
-                .then(bounty => {
-                    res.status(201).send(bounty)
-                })
-        })
-        .catch(next);
+    const updatingFundsOnHold = Project.findById(req.body.projectId)
+	  .then(project => project.update({
+	      fundsOnHold: project.fundsOnHold + Number(req.body.amount)
+	  }));
+
+    const addingLabel = req.github.issues.addLabels({
+	user: req.user.githubName,
+	repo: req.body.projectName,
+	number: req.body.issueNumber,
+	body: ['OpenBounty']
+    })
+
+    const creatingBounty = Bounty.create(req.body);
+    
+    Promise.all([updatingFundsOnHold, addingLabel, creatingBounty])
+	.then(([project, label, bounty]) => res.status(201).send(bounty))
+	.catch(next);
 });
 
 router.get('/tracked', (req, res, next) => {
@@ -80,11 +84,11 @@ router.put('/:bountyId', (req, res, next) => {
 
 router.delete('/:bountyId', (req, res, next) => {
     req.bounty.updateAmount(0)
-	.then(() => {
-	    return req.bounty.destroy()
-		.then(() => {
-		    res.sendStatus(204)
-		})
-	})
-	.catch(next);
+        .then(() => {
+            return req.bounty.destroy()
+                .then(() => {
+                    res.sendStatus(204)
+                })
+        })
+        .catch(next);
 });
