@@ -1,0 +1,25 @@
+<div class="col-md-3 sidebar">
+    <!-- Nav tabs -->
+    <div class="card">
+        <span id="user-name-pic"><h1>{{ user.githubName }}</h1>
+            <img id="profile-pic" src="{{ user.githubPic }}"></span>
+            <p>
+            	Welcome, {{ user.githubName }}, to Open Bounty! This here's your handy user interface. If you're a bounty hunter, then click on 'hunt'. Maintain a project, then click 'maintain'. Elseif both, try clicking both!
+            </p>
+        <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active"><a href="#hunt" aria-controls="home" role="tab" data-toggle="tab">Hunt</a></li>
+            <li role="presentation"><a href="#maintain" aria-controls="profile" role="tab" data-toggle="tab">Maintain</a></li>
+        </ul>
+        <!-- Tab panes -->
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="hunt">
+            	<h2>Bounties I'm tracking</h2>
+                <a ng-repeat="bounty in bounties" href="javascript:void(0)" class="btn btn-raised">{{bounty.name}}</a>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="maintain">
+            	<h2>My Projects</h2><a href="javascript:void(0)" class="btn btn-sm" ui-sref="newProject">+ Add a project</a>
+            	<a ng-repeat="project in projects" href="javascript:void(0)" class="btn btn-raised" ui-sref="singleProject({ projectId: project.id })">{{project.name}}</a>
+            </div>
+        </div>
+    </div>
+</div>

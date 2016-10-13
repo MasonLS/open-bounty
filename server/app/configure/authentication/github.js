@@ -30,6 +30,7 @@ module.exports = function (app, db) {
                     githubId: profile.id,
                     githubName: profile.username,
                     githubToken: accessToken,
+                    githubPic: profile._json.avatar_url
                   })
             
         }

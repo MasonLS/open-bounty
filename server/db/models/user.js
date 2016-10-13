@@ -8,12 +8,6 @@ const github = new GitHubApi();
 const db = require('../_db');
 
 module.exports = db.define('user', {
-    // password: {
-    //     type: Sequelize.STRING
-    // },
-    // salt: {
-    //     type: Sequelize.STRING
-    // },
     isAdmin: {
         type: Sequelize.BOOLEAN
     },
@@ -25,6 +19,9 @@ module.exports = db.define('user', {
     },
     githubName: {
         type: Sequelize.STRING
+    },
+    githubPic: {
+        type: Sequelize.TEXT
     },
     githubToken: {
         type: Sequelize.STRING

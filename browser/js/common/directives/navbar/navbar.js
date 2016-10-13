@@ -11,9 +11,9 @@ app.directive('navbar', function($rootScope, AuthService, AUTH_EVENTS, $state) {
                 { label: 'Fund your project', state: 'fundProject' },
             ];
 
-            scope.privateItems = [
-                { label: 'Manage Projects', state: 'projects', auth: true }
-            ]
+            // scope.privateItems = [
+            //     { label: 'Manage Projects', state: 'projects', auth: true }
+            // ]
 
             scope.user = null;
 
