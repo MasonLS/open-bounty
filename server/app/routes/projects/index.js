@@ -28,19 +28,16 @@ router.get('/', (req, res, next) => {
 router.post('/', (req, res, next) => {
     const projectData = req.body;
     projectData.ownerId = req.user.id;
-
-    req.github.issues.createLabel({
-        owner: req.user.githubName,
+    return req.github.issues.createLabel({
+	user: req.user.githubName,
         repo: projectData.name,
-        name: 'Open Bounty',
-        color: '42bcf4'
-    });
-
-    Project.create(projectData)
-        .then(project => {
-            res.send(project);
-        })
-        .catch(next);
+        name: 'OpenBounty',
+        color: '337ab7'
+    }, function() {
+	Project.create(projectData)
+	    .then(project => res.send(project))
+	    .catch(next);
+    })
 });
 
 //search projects 
