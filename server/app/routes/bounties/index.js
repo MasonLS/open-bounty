@@ -15,19 +15,45 @@ function ensureAuthenticated(req, res, next) {
 }
 
 router.post('/', (req, res, next) => {
-    Project.findById(req.body.projectId)
+    // Project.findById(req.body.projectId)
+    //     .then(project => {
+    //         return project.update({
+    //             fundsOnHold: project.fundsOnHold + Number(req.body.amount)
+    //         })
+    //     })
+    //     .then(() => {
+    //         Bounty.create(req.body)
+    //             .then(bounty => {
+    //                 res.status(201).send(bounty)
+    //             })
+    //     })
+    //     .catch(next);
+    console.log('req.body:', req.body);
+    let projectName;
+    const updatingProject = Project.findById(req.body.projectId)
         .then(project => {
+            projectName = project.name;
             return project.update({
                 fundsOnHold: project.fundsOnHold + Number(req.body.amount)
             })
         })
-        .then(() => {
-            Bounty.create(req.body)
-                .then(bounty => {
-                    res.status(201).send(bounty)
-                })
-        })
-        .catch(next);
+          .then(() => {
+	      return req.github.issues.addLabels({
+		  user: req.user.githubName,
+		  repo: projectName,
+		  number: req.body.issueNumber,
+		  body: ['OpenBounty']
+	      })
+	  });
+
+    const creatingBounty = Bounty.create(req.body);
+   
+    Promise.all([updatingProject, creatingBounty])
+	.then(([project, bounty]) => {
+	    console.log('project:', project);
+	    res.status(201).send(bounty);
+	})
+	.catch(next);
 });
 
 router.get('/tracked', (req, res, next) => {
@@ -80,11 +106,11 @@ router.put('/:bountyId', (req, res, next) => {
 
 router.delete('/:bountyId', (req, res, next) => {
     req.bounty.updateAmount(0)
-	.then(() => {
-	    return req.bounty.destroy()
-		.then(() => {
-		    res.sendStatus(204)
-		})
-	})
-	.catch(next);
+        .then(() => {
+            return req.bounty.destroy()
+                .then(() => {
+                    res.sendStatus(204)
+                })
+        })
+        .catch(next);
 });
