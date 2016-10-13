@@ -6,7 +6,8 @@
             <th>Created</th>
             <th>Assignee</th>
             <th>Amount</th>
-	    <th>Action</th>
+            <th>Difficulty</th>
+            <th>Action</th>
         </tr>
     </thead>
     <tbody>
@@ -16,10 +17,15 @@
             <td>{{issue.created_at | date: 'MM-dd-yyyy'}}</td>
             <td>{{issue.assignee.login || null}}</td>
             <td>
-               <input ng-model="bounty.amount" type="text" placeholder="$ amount" required>
+                <input class="form-control" id="exampleInputAmount" ng-model="bounty.amount" type="text" placeholder="$ amount" required>
             </td>
             <td>
-                <button ng-click="createBounty({ issueNumber: issue.number, issueId: issue.id, amount: bounty.amount})" class="btn btn-warning btn-sm">CREATE BOUNTY</button>
+                <div class="input-group">
+                    <input type="number" class="form-control" id="exampleInputAmount" ng-model="bounty.difficulty" min=1 max=10 required>
+                </div>
+            </td>
+            <td>
+                <button ng-click="createBounty({ issueNumber: issue.number, issueId: issue.id, amount: bounty.amount, difficulty: bounty.difficulty})" class="btn btn-warning btn-sm">CREATE BOUNTY</button>
             </td>
         </tr>
     </tbody>
