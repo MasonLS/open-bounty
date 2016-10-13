@@ -1,25 +1,27 @@
 <div class="container-fluid">
-    <div class='row'>
-        <div class='col-sm-9 col-sm-offset-3'>
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a ui-sref="home">Home</a></li>
-                <li class="breadcrumb-item"><a ui-sref="project/manage">Projects</a></li>
-                <li class="breadcrumb-item active">Bounties</li>
-            </ol>
+    <div id="card1" class="card">
+        <div class='row'>
+            <div class='col-sm-9 col-sm-offset-3'>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a ui-sref="home">Home</a></li>
+                    <li class="breadcrumb-item"><a ui-sref="projects">Projects</a></li>
+                    <li class="breadcrumb-item active">Bounties</li>
+                </ol>
+            </div>
         </div>
-    </div>
-    <div class='row'>
-        <div class='col-sm-7 col-sm-offset-3'>
-          <h1>{{ project.name }}</h1>
-	  <p>Available funds: {{ project.raised - project.fundsOnHold - project.paidOut | currency }}</p>
-            <h2>Bounties <button ng-if="user.id === project.ownerId" class="btn btn-default" ui-sref-active="active" ui-sref="addBounty({ projectId: project.id })">+ add bounty</button></h2>
+        <div class='row'>
+            <div class='col-sm-7 col-sm-offset-3'>
+                <h1>{{ project.name }}</h1>
+                <p>Available funds: {{ project.raised - project.fundsOnHold - project.paidOut | currency }}</p>
+                <h2>Bounties <button ng-if="user.id === project.ownerId" class="btn btn-raised btn-xs" ui-sref-active="active" ui-sref="addBounty({ projectId: project.id })">+ add bounty</button></h2>
+            </div>
+            <div class="col-sm-3">
+                <jq-sparkline spark-data="sparklineData" opts="{{ {type:'line', width:'200px', height:'100px', lineColor: '#333333', fillColor: '#aad4ff', lineWidth: '2'} }}"></jq-sparkline>
+            </div>
         </div>
-        <div class="col-sm-3">
-            <jq-sparkline spark-data="sparklineData" opts="{{ {type:'line', width:'200px', height:'100px', lineColor: '#333333', fillColor: '#aad4ff', lineWidth: '2'} }}"></jq-sparkline>
+        <div class="row">
+            <sidebar></sidebar>
+            <bounty-table ng-if="bounties.length"></bounty-table>
         </div>
-    </div>
-    <div class="row">
-        <sidebar></sidebar>
-        <bounty-table ng-if="bounties.length"</bounty-table>
     </div>
 </div>
