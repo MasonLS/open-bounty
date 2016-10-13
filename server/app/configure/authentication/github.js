@@ -48,7 +48,7 @@ module.exports = function (app, db) {
     app.get('/auth/github', passport.authenticate('github', {scope: ['user:email', 'repo']}))
 
   app.get('/auth/github/callback',
-	  passport.authenticate('github', {failureRedirect: '/', scope: ['user:email',]}),
+	  passport.authenticate('github', {failureRedirect: '/', scope: ['user:email']}),
     (req, res) => {
       res.redirect('/')
     })
