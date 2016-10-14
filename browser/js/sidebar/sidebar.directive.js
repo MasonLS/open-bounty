@@ -3,6 +3,21 @@ app.directive('sidebar', function () {
     restrict: 'E',
     templateUrl: '/js/sidebar/sidebar.html',
     scope: true,
+    compile: function (tElements, tAttrs) {
+    	let huntLink = tElements.find('#hunt-link');
+    	let maintainLink = tElements.find('#maintain-link');
+    	let huntTab = tElements.find('#hunt-tab');
+    	let maintainTab = tElements.find('#maintain-tab');
+
+    	huntLink.on('click', function (e) {
+    		huntTab.click();
+    	});
+
+    	maintainLink.on('click', function (e) {
+    		maintainTab.click();
+    	});
+
+    },
     controller: function ($scope, ProjectsFactory, BountyFactory) {
     	ProjectsFactory.getForUser()
     		.then(userProjects => {
@@ -13,6 +28,13 @@ app.directive('sidebar', function () {
     		.then(trackedBounties => {
     			$scope.bounties = trackedBounties;
     		});
+    },
+    link: function (scope) {
+    	scope.changeToTab = function (id) {
+    		console.log('WOrking!')
+    		document.getElementById(id).click();
+    		console.log('WOrking!')
+    	}
     }
   }
 });

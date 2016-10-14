@@ -19,12 +19,20 @@ app.factory('DonationFactory', ($http, $log) => {
 
   DonationFactory.getDonationHistory = (projectId) => {
     return $http.get('/api/donations/history/' + projectId)
-      .then(amounts => {
-        return amounts.data.map(el => {
-          return el.amount;
-        })
-      })
+      .then(getData)
       .catch($log.error);
+  }
+
+    DonationFactory.getPaidHistory = (projectId) => {
+    // return $http.get('/api/donations/history/' + projectId)
+    //   .then(amounts => {
+    //     return amounts.data.map(el => {
+    //       return el.amount;
+    //     })
+    //   })
+    //   .catch($log.error);
+    //return [[1426291200000, 12],[1426809600000, 21]]
+    return [];
   }
 
   return DonationFactory;
