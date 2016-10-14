@@ -2,7 +2,7 @@
     <div class='row'>
         <div class="col-sm-12">
             <div class='col-sm-9'>
-                <h1>{{ project.name }} </h1>
+                <h1>{{ project.name | uppercase }} </h1>
                 <p> Funds Available: {{ fundsAvailable | currency }}</p>
                 <h2>Issues</h2>
             </div>
