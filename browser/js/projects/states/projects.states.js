@@ -2,19 +2,19 @@
 
 app.config($stateProvider => {
 
-    $stateProvider.state('projects', {
-        url: '/projects',
-        templateUrl: 'js/projects/templates/projects.html',
-        controller: 'ProjectsCtrl',
-        resolve: {
-            projects: function(ProjectsFactory) {
-                return ProjectsFactory.getForUser();
-            }
-        },
-        data: {
-            authenticate: true
-        }
-    });
+    // $stateProvider.state('projects', {
+    //     url: '/projects',
+    //     templateUrl: 'js/projects/templates/projects.html',
+    //     controller: 'ProjectsCtrl',
+    //     resolve: {
+    //         projects: function(ProjectsFactory) {
+    //             return ProjectsFactory.getForUser();
+    //         }
+    //     },
+    //     data: {
+    //         authenticate: true
+    //     }
+    // });
 
     // $stateProvider.state('newProject', {
     //     url: '/projects/new',

@@ -1,10 +1,11 @@
 <div class="col-md-3 sidebar">
     <!-- Nav tabs -->
     <div class="card">
-    	<div id="sidebar-title" class="card-block">
+    	<span id="sidebar-title" class="card-block">
     	<img id="profile-pic" src="{{ user.githubPic }}">
-    		<h1 class="card-title">{{ user.githubName }}</h1>
-    	</div>
+    		<h2 class="card-title">{{ user.name }}</h2>
+    		<h3 class="card-text">{{ user.githubName }}</h3>
+    	</span>
     	<div class="card-block">
         <ul class="nav nav-tabs" role="tablist">
         	<li role="presentation" class="active"><a href="#info" aria-controls="info" role="tab" data-toggle="tab">Info</a></li>
@@ -35,6 +36,7 @@
             <div role="tabpanel" class="tab-pane" id="maintain">
             	<div class="card-block">
                 <h2>My Projects&nbsp; <button class="btn btn-raised btn-xs" ui-sref="user.newProject">+ Add a project</button></h2>
+                <br>
                 <li style="list-style-type: none"><a ng-repeat="project in projects" href="javascript:void(0)" class="btn btn-default btn-lg btn-block btn-raised" ui-sref="user.singleProject({ projectId: project.id })">{{project.name}}</a></li>
                 </div>
             </div>

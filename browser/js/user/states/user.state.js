@@ -9,7 +9,7 @@ app.config(function ($stateProvider) {
 	});
 
 	$stateProvider.state('user.singleProject', {
-		url: '/:projectId',
+		url: 'single-project/:projectId',
 		templateUrl: 'js/projects/templates/single.project.html',
 		resolve: {
             project: (ProjectsFactory, $stateParams) => ProjectsFactory.getOne($stateParams.projectId),
