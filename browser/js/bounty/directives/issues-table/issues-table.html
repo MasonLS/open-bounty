@@ -10,7 +10,7 @@
             <th>Action</th>
         </tr>
     </thead>
-    <tbody>
+    <tbody style="overflow: auto">
         <tr ng-repeat="issue in issues">
             <td>{{issue.number}}</td>
             <td><a href="{{issue.html_url}}">{{ issue.title | uppercase | limitTo:20}}</a></td>

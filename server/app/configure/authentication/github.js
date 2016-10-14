@@ -15,6 +15,7 @@ module.exports = function (app, db) {
   }
 
   var verifyCallback = (accessToken, refreshToken, profile, done) => {
+    console.log('PROFILE', profile)
     User.findOne({
       where: {
         githubId: profile.id
@@ -30,7 +31,8 @@ module.exports = function (app, db) {
                     githubId: profile.id,
                     githubName: profile.username,
                     githubToken: accessToken,
-                    githubPic: profile._json.avatar_url
+                    githubPic: profile.photos[0].value,
+                    name: profile.displayName
                   })
             
         }
