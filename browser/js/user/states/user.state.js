@@ -13,7 +13,7 @@ app.config(function($stateProvider) {
     });
 
     $stateProvider.state('user.singleProject', {
-        url: '/:projectId',
+        url: '/projects/:projectId',
         templateUrl: 'js/projects/templates/single.project.html',
         resolve: {
             project: (ProjectsFactory, $stateParams) => ProjectsFactory.getOne($stateParams.projectId),
@@ -50,7 +50,7 @@ app.config(function($stateProvider) {
     });
 
     $stateProvider.state('user.editBounty', {
-        url: '/:projectId/edit-bounty/:bountyId',
+        url: 'projects/:projectId/:bountyId/edit',
         templateUrl: 'js/bounty/templates/edit-bounty.html',
         controller: 'EditBountyCtrl',
         resolve: {
@@ -59,27 +59,27 @@ app.config(function($stateProvider) {
 
     });
 
-    $stateProvider.state('myBounties', {
-        url: '/:userId/bounties',
-        templateUrl: 'js/user/templates/my-bounties.html',
-        controller: function($scope, userBounties, user, BountyFactory) {
-            $scope.user = user;
-            $scope.bounties = userBounties;
-            $scope.untrackBounty = function(bountyId) {
-                return BountyFactory.untrack(bountyId)
-                    .then(_ => {
-                        for (var i = 0; i < $scope.bounties.length; i++) {
-                            if ($scope.bounties[i].id === bountyId) {
-                                $scope.bounties.splice(i, 1);
-                                break;
-                            }
-                        }
-                    });
-            }
-        },
-        resolve: {
-            user: AuthService => AuthService.getLoggedInUser(),
-            userBounties: BountyFactory => BountyFactory.getTracked()
-        }
-    });
+    // $stateProvider.state('myBounties', {
+    //     url: '/:userId/bounties',
+    //     templateUrl: 'js/user/templates/my-bounties.html',
+    //     controller: function($scope, userBounties, user, BountyFactory) {
+    //         $scope.user = user;
+    //         $scope.bounties = userBounties;
+    //         $scope.untrackBounty = function(bountyId) {
+    //             return BountyFactory.untrack(bountyId)
+    //                 .then(_ => {
+    //                     for (var i = 0; i < $scope.bounties.length; i++) {
+    //                         if ($scope.bounties[i].id === bountyId) {
+    //                             $scope.bounties.splice(i, 1);
+    //                             break;
+    //                         }
+    //                     }
+    //                 });
+    //         }
+    //     },
+    //     resolve: {
+    //         user: AuthService => AuthService.getLoggedInUser(),
+    //         userBounties: BountyFactory => BountyFactory.getTracked()
+    //     }
+    // });
 });

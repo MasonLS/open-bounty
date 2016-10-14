@@ -19,14 +19,14 @@ app.controller('EditBountyCtrl', ($scope, $state, project, ProjectsFactory, Boun
             openErrorWindow('Amount must be a number > 0')
         } else {
             BountyFactory.updateBounty(bountyId, amount)
-                .then(updatedBounty => $state.go('singleProject', {
+                .then(updatedBounty => $state.go('user.singleProject', {
                         projectId: project.id
                     }));
         }
     };
 
     $scope.deleteBounty = bountyId => BountyFactory.deleteOne(bountyId)
-        .then(() => $state.go('singleProject', {
+        .then(() => $state.go('user.singleProject', {
             projectId: project.id
         }));
 
