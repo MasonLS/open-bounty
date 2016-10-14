@@ -82,4 +82,4 @@ app.config(function($stateProvider) {
             userBounties: BountyFactory => BountyFactory.getTracked()
         }
     });
-}); 
+});

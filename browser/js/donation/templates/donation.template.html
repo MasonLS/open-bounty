@@ -25,7 +25,7 @@
                 </div>
                 <div class="col-md-3 name">
                     <span>{{ project.name }}</span>
-                    <button class="btn btn-xs btn-default" ng-click="redirectToGitHub(project.repoId)">GitHub</button>
+                    <button class="btn btn-raised btn-xs active" ng-click="redirectToGitHub(project.repoId)">GitHub</button>
                 </div>
                 <div class="col-md-3 description">
                     {{ project.description }}
@@ -39,7 +39,7 @@
                     </div>
                 </div>
                 <div class="col-md-2 donate">
-                    <button class='btn btn-success' ng-click="openDonationWindow(project)">Donate now!</button>
+                    <button class="btn btn-raised btn-primary btn-sm" ng-click="openDonationWindow(project)">Donate now!</button>
                 </div>
             </div>
         </div>

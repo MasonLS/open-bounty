@@ -1,14 +1,4 @@
-<!-- <div class="container-fluid">
-    <div id="card1" class="card"> -->
-        <!-- <div class='row'>
-            <div class='col-sm-9 col-sm-offset-3'>
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a ui-sref-active="active" ui-sref="home">Home</a></li>
-                    <li class="breadcrumb-item"><a ui-sref-active="active" ui-sref="projects">My Projects</a></li>
-                    <li class="breadcrumb-item active">New Project</li>
-                </ol>
-            </div>
-        </div> -->
+
         <div class='row'>
             <div class='col-sm-9 col-sm-offset-3'>
                 <h2>New Project</h2>
@@ -31,11 +21,8 @@
                         <textarea name="projectDescription" class="form-control" ng-model="projectDescription"></textarea>
                     </div>
                     <div class="form-group">
-                        <button type="submit" class="btn btn-submit-project" ng-disabled="!searchRepo" ng-click="addProject(searchRepo, projectDescription)">Submit your project</button>
+                        <button type="submit" class="btn btn-raised btn-primary" ng-click="addProject(searchRepo, projectDescription)">Submit your project</button>
                     </div>
                 </form>
             </div>
         </div>
-    
-<!-- </div>
-</div> -->

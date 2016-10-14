@@ -1,36 +1,22 @@
-<!-- <div class="container-fluid">
-    <div id="card1" class="card"> -->
-       <!--  <div class="row">
-            <div class="col-sm-9 col-sm-offset-3">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a ui-sref="home">Home</a></li>
-                    <li class="breadcrumb-item"><a ui-sref="projects">Projects</a></li>
-                    <li class="breadcrumb-item active">Add Bounty</li>
-                </ol>
-            </div>
-        </div> -->
-        <div class='row'>
-            <div class='col-sm-9 col-sm-offset-3'>
-                <h1>{{ project.name }} </h1>
-                <p> Funds Available: {{ fundsAvailable | currency }}</p>
-                <h2>Issues</h2>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-6 col-sm-offset-3">
-                <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search issues..." ng-model="search.term">
-                    <span class="input-group-btn">
-        <button class="btn btn-secondary" type="button" ng-click="searchIssues()">Search</button>
-      </span>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-8 col-sm-offset-3">
-                <issues-table></issues-table>
-            </div>
-        </div>
-<!--         <sidebar></sidebar>
+<div class='row'>
+    <div class='col-sm-9 col-sm-offset-3'>
+        <h1>{{ project.name }} </h1>
+        <p> Funds Available: {{ fundsAvailable | currency }}</p>
+        <h2>Issues</h2>
     </div>
-</div> -->
+</div>
+<div class="row">
+    <div class="col-sm-6 col-sm-offset-3">
+        <div class="input-group">
+            <input type="text" class="form-control" placeholder="Search issues..." ng-model="search.term">
+            <span class="input-group-btn">
+        <button class="btn btn-raised btn-default" type="button" ng-click="searchIssues()">Search</button>
+      </span>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-8 col-sm-offset-3">
+        <issues-table></issues-table>
+    </div>
+</div>
