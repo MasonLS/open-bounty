@@ -49,6 +49,11 @@ app.factory('ProjectsFactory', function($http, $log, AuthService) {
 	    .then(getData);
     }
 
+    function getFeatured () {
+	return $http.get(`api/projects/featured`)
+	    .then(getData)
+    }
+
     function searchProjects (searchTerm) {
         return $http.get(`/api/projects/search/${searchTerm}`)
             .then(getData);
@@ -59,6 +64,7 @@ app.factory('ProjectsFactory', function($http, $log, AuthService) {
         findProject,
         addProject,
 	getIssues,
+	getFeatured,
         getOne,
         searchIssues,
         searchProjects
