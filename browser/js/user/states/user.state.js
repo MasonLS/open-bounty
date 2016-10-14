@@ -1,17 +1,21 @@
 'use strict';
 
-app.config(function ($stateProvider) {
-	
-	$stateProvider.state('user', {
-		url: '/user',
-		controller: 'UserCtrl',
-		templateUrl: 'js/user/templates/user.html',
-	});
+app.config(function($stateProvider) {
 
-	$stateProvider.state('user.singleProject', {
-		url: 'single-project/:projectId',
-		templateUrl: 'js/projects/templates/single.project.html',
-		resolve: {
+    $stateProvider.state('user', {
+        url: '/user',
+        controller: 'UserCtrl',
+        templateUrl: 'js/user/templates/user.html',
+        resolve: {
+            featuredProjects: ProjectsFactory => ProjectsFactory.getFeatured().then(featured => featured)
+        }
+
+    });
+
+    $stateProvider.state('user.singleProject', {
+        url: '/:projectId',
+        templateUrl: 'js/projects/templates/single.project.html',
+        resolve: {
             project: (ProjectsFactory, $stateParams) => ProjectsFactory.getOne($stateParams.projectId),
             donationHistory: (DonationFactory, $stateParams) => DonationFactory.getDonationHistory($stateParams.projectId),
             paidHistory: (DonationFactory, $stateParams) => DonationFactory.getPaidHistory($stateParams.projectId),
@@ -21,9 +25,9 @@ app.config(function ($stateProvider) {
         data: {
             authenticate: true
         }
-	});
+    });
 
-	$stateProvider.state('user.newProject', {
+    $stateProvider.state('user.newProject', {
         url: '/new-project',
         templateUrl: 'js/projects/templates/new.project.html',
         controller: 'NewProjectCtrl',
@@ -41,7 +45,7 @@ app.config(function ($stateProvider) {
         controller: 'AddBountyCtrl',
         resolve: {
             project: (ProjectsFactory, $stateParams) => ProjectsFactory.getOne($stateParams.projectId),
-	    issues: (ProjectsFactory, $stateParams) => ProjectsFactory.getIssues($stateParams.projectId)
+            issues: (ProjectsFactory, $stateParams) => ProjectsFactory.getIssues($stateParams.projectId)
         }
     });
 
@@ -55,27 +59,27 @@ app.config(function ($stateProvider) {
 
     });
 
-	$stateProvider.state('myBounties', {
-		url: '/:userId/bounties',
-		templateUrl: 'js/user/templates/my-bounties.html',
-		controller: function ($scope, userBounties, user, BountyFactory) {
-			$scope.user = user;
-			$scope.bounties = userBounties;
-			$scope.untrackBounty = function (bountyId) {
-				return BountyFactory.untrack(bountyId)
-					.then(_ => {
-		                for (var i = 0; i < $scope.bounties.length; i++) {
-		                    if ($scope.bounties[i].id === bountyId) {
-		                        $scope.bounties.splice(i, 1);
-		                        break;
-		                    }
-		                }
-					});
-			}
-		},
-		resolve: {
-			user: AuthService => AuthService.getLoggedInUser(),
-			userBounties: BountyFactory => BountyFactory.getTracked()
-		}
-	});
+    $stateProvider.state('myBounties', {
+        url: '/:userId/bounties',
+        templateUrl: 'js/user/templates/my-bounties.html',
+        controller: function($scope, userBounties, user, BountyFactory) {
+            $scope.user = user;
+            $scope.bounties = userBounties;
+            $scope.untrackBounty = function(bountyId) {
+                return BountyFactory.untrack(bountyId)
+                    .then(_ => {
+                        for (var i = 0; i < $scope.bounties.length; i++) {
+                            if ($scope.bounties[i].id === bountyId) {
+                                $scope.bounties.splice(i, 1);
+                                break;
+                            }
+                        }
+                    });
+            }
+        },
+        resolve: {
+            user: AuthService => AuthService.getLoggedInUser(),
+            userBounties: BountyFactory => BountyFactory.getTracked()
+        }
+    });
 });
