@@ -37,7 +37,10 @@ app.controller('UserCtrl', function($rootScope, $scope, ProjectsFactory, $uibMod
         });
     };
 
-    $scope.featuredProjects = ProjectsFactory.getFeatured().then(featured => console.log(featured));
+    $scope.featuredProjects = ProjectsFactory.getFeatured().then(featured => {
+	console.log(featured);
+	return featured;
+    });
 
     $scope.searchProjects = function (searchTerm) {
         return ProjectsFactory.searchProjects(searchTerm)
