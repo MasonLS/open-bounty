@@ -2,6 +2,7 @@
 const router = require('express').Router(); // eslint-disable-line new-cap
 const path = require('path');
 const paypal = require('paypal-rest-sdk');
+const moment = require('moment');
 const sequelize = require('sequelize');
 
 const env = require(path.join(__dirname, '../../../env'));
@@ -138,15 +139,16 @@ router.post('/payout', ensureAuthenticated, (req, res) => {
 // Get Donations History
 router.get('/history/:projectId', (req, res) => {
     Donation.findAll({
+            attributes: ['id', 'amount', [sequelize.fn('date_trunc', 'day', sequelize.col('createdAt')), 'day']],
             where: {
                 projectId: req.params.projectId
             },
-            attributes: ['amount']
-            // attributes: [
-            //     [sequelize.fn('date_trunc', 'day', sequelize.col('createdAt')), 'day'],
-            //     ['amount', 'amount']
-            // ],
-            //group: ['day', 'amount']
+            order: [['createdAt', 'ASC']]
+        })
+        .then(donations => {
+            return donations.map(donation => {
+                return [moment(donation.dataValues.day).valueOf(), donation.amount];
+            });
         })
         .then(res.json.bind(res))
         .catch(console.error);

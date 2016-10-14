@@ -1,5 +1,5 @@
 'use strict';
-window.app = angular.module('OpenBounty', ['fsaPreBuilt', 'ui.router', 'ui.bootstrap', 'ngAnimate', 'angular-loading-bar']);
+window.app = angular.module('OpenBounty', ['fsaPreBuilt', 'ui.router', 'ui.bootstrap', 'ngAnimate', 'angular-loading-bar', 'highcharts-ng']);
 
 
 app.config(function($urlRouterProvider, $locationProvider) {
