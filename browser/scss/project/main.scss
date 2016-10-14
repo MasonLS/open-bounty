@@ -3,6 +3,13 @@
     // margin-left: -90px
     margin-top: -26px;
 }
+
+
+.table > tbody > tr > td
+{
+    vertical-align: center;
+}
+
 .form-group .form-control {
     margin-bottom: 7px;
     background: #edecec;

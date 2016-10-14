@@ -9,6 +9,7 @@ body {
     padding: 0;
 }
 
+
 h2 {
     font-size: 24px;
 }
@@ -25,6 +26,8 @@ h2 {
     padding-top: 45px;
     margin: 0 auto;
 }
+
+
 
 
 /*
@@ -80,6 +83,7 @@ h2 {
 .form-control {
     padding: 12px;
     background: #edecec;
+    margin-bottom: 0px;
 }
 
 
@@ -150,6 +154,7 @@ sidebar.card {
     border: none;
     color: #4285F4 !important;
     background: transparent;
+    font-weight: bold;
 }
 
 .nav-tabs > li > a::after {
@@ -210,6 +215,10 @@ a {
 
 input:focus {
     outline: none;
+}
+.table > tbody > tr > td
+{
+    vertical-align:middle;
 }
 
 @import 'directives/main';
