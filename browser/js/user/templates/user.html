@@ -1,62 +1,52 @@
 <div class="container-fluid">
-
-<div class="row">
-<div class="col-sm-3">
-<sidebar></sidebar>
-</div>
-    <div class="col-sm-9">
-    <div id="card1" class="card" ui-view>
-    <!-- <div class='row'>
-        <div class='col-sm-9 col-sm-offset-3'>
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a ui-sref-active="active" ui-sref="home">Home</a></li>
-            </ol>
-        </div>
-    </div> -->
     <div class="row">
-        <div class="col-sm-9 col-sm-offset-3">
-            <h1>Search Projects</h1>
+        <div class="col-sm-3">
+            <sidebar></sidebar>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-sm-6 col-sm-offset-3">
-            <div class="input-group">
-                <input type="text" class="form-control" placeholder="Search projects for bounties..." ng-model="search.term">
-                <span class="input-group-btn">
-        <button class="btn btn-secondary" type="button" ng-click="searchProjects(search.term)">Search</button>
+        <div class="col-sm-9">
+            <div  class="card" ui-view>
+                <div class="row">
+                    <div class="col-sm-9 col-sm-offset-1">
+                        <h1>Search Projects</h1>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6 col-sm-offset-1">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Search projects for bounties..." ng-model="search.term">
+                            <span class="input-group-btn">
+        <button class="btn btn-raised btn-default" type="button" ng-click="searchProjects(search.term)">Search</button>
       </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class='col-sm-9 col-sm-offset-1'>
+                        <table ng-show="projects.length" class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Title</th>
+                                    <th>Funds</th>
+                                    <th>Bounties</th>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="project in projects">
+                                    <th><a href="{{project.repo.html_url}}">{{ project.name | uppercase }}</a></th>
+                                    <td>${{ project.raised - project.fundsOnHold - project.paidOut }}</td>
+                                    <td>{{ project.bounties.length }}</td>
+                                    <td>
+                                        <button type="button" class="btn btn-warning btn-sm" ui-sref="singleProject({ projectId: project.id })"> View Bounties</button>
+                                        <button type="button" class="btn btn-warning btn-sm" ng-click="openDonationWindow(project)"> Donate</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-    <div class="row">
-        <div class='col-sm-9 col-sm-offset-3'>
-            <table ng-show="projects.length" class="table table-hover">
-                <thead>
-                    <tr>
-                        <th>Title</th>
-                        <th>Funds</th>
-                        <th>Bounties</th>
-                        <th></th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr ng-repeat="project in projects">
-                        <th><a href="{{project.repo.html_url}}">{{ project.name | uppercase }}</a></th>
-                        <td>${{ project.raised - project.fundsOnHold - project.paidOut }}</td>
-                        <td>{{ project.bounties.length }}</td>
-                        <td>
-                            <button type="button" class="btn btn-warning btn-sm" ui-sref="singleProject({ projectId: project.id })"> View Bounties</button>
-                            <button type="button" class="btn btn-warning btn-sm" ng-click="openDonationWindow(project)"> Donate</button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        <!-- <sidebar></sidebar> -->
-    </div>
-    </div>
-    </div>
-    </div>
-    <!-- <sidebar></sidebar> -->
 </div>

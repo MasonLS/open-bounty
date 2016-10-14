@@ -1,29 +1,25 @@
-<!-- <div class="container-fluid">
-    <div id="card1" class="card"> -->
-        <div class='row'>
-            <div class='col-sm-9 col-sm-offset-3'>
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a ui-sref-active="active" ui-sref="home">Home</a></li>
-                    <li class="breadcrumb-item active">Search Projects</li>
-                </ol>
-            </div>
-        </div>
-        <div class='row'>
-            <div class='col-sm-9 col-sm-offset-3'>
-                <h2>Search Project</h2>
-            </div>
-        </div>
-        <div class="row">
-            <!-- <project-sidebar></project-sidebar> -->
-            <div class="col-sm-9 col-sm-offset-3">
-                <div class="search-input">
-                    <form>
-                        <div class="form-group">
-                            <input type="text" ng-model="searchWord" placeholder="search for your repos" uib-typeahead="repo as repo.title for repo in searchProducts($viewValue)" typeahead-loading="loadingRepos" typeahead-no-results="noResults" class="form-control search-input" typeahead-template-url="/js/project/templates/project-add.typeahead.item.template.html">
-                        </div>
-                    </form>
+<div class='row'>
+    <div class='col-sm-9 col-sm-offset-3'>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a ui-sref-active="active" ui-sref="home">Home</a></li>
+            <li class="breadcrumb-item active">Search Projects</li>
+        </ol>
+    </div>
+</div>
+<div class='row'>
+    <div class='col-sm-9 col-sm-offset-3'>
+        <h2>Search Project</h2>
+    </div>
+</div>
+<div class="row">
+    <!-- <project-sidebar></project-sidebar> -->
+    <div class="col-sm-9 col-sm-offset-3">
+        <div class="search-input">
+            <form>
+                <div class="form-group">
+                    <input type="text" ng-model="searchWord" placeholder="search for your repos" uib-typeahead="repo as repo.title for repo in searchProducts($viewValue)" typeahead-loading="loadingRepos" typeahead-no-results="noResults" class="form-control search-input" typeahead-template-url="/js/project/templates/project-add.typeahead.item.template.html">
                 </div>
-            </div>
+            </form>
         </div>
-<!--     </div>
-</div> -->
+    </div>
+</div>
