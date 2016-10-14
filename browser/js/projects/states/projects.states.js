@@ -16,30 +16,30 @@ app.config($stateProvider => {
         }
     });
 
-    $stateProvider.state('newProject', {
-        url: '/projects/new',
-        templateUrl: 'js/projects/templates/new.project.html',
-        controller: 'NewProjectCtrl',
-        resolve: {
-            userRepos: UserFactory => UserFactory.getRepos()
-        },
-        data: {
-            authenticate: true
-        }
-    })
+    // $stateProvider.state('newProject', {
+    //     url: '/projects/new',
+    //     templateUrl: 'js/projects/templates/new.project.html',
+    //     controller: 'NewProjectCtrl',
+    //     resolve: {
+    //         userRepos: UserFactory => UserFactory.getRepos()
+    //     },
+    //     data: {
+    //         authenticate: true
+    //     }
+    // })
 
-    $stateProvider.state('singleProject', {
-        url: '/projects/:projectId',
-        templateUrl: 'js/projects/templates/single.project.html',
-        resolve: {
-            project: (ProjectsFactory, $stateParams) => ProjectsFactory.getOne($stateParams.projectId),
-            donationHistory: (DonationFactory, $stateParams) => DonationFactory.getDonationHistory($stateParams.projectId),
-            paidHistory: (DonationFactory, $stateParams) => DonationFactory.getPaidHistory($stateParams.projectId),
-            userBounties: BountyFactory => BountyFactory.getTracked()
-        },
-        controller: 'SingleProjectCtrl',
-        data: {
-            authenticate: true
-        }
-    });
+    // $stateProvider.state('singleProject', {
+    //     url: '/projects/:projectId',
+    //     templateUrl: 'js/projects/templates/single.project.html',
+    //     resolve: {
+    //         project: (ProjectsFactory, $stateParams) => ProjectsFactory.getOne($stateParams.projectId),
+    //         donationHistory: (DonationFactory, $stateParams) => DonationFactory.getDonationHistory($stateParams.projectId),
+    //         paidHistory: (DonationFactory, $stateParams) => DonationFactory.getPaidHistory($stateParams.projectId),
+    //         userBounties: BountyFactory => BountyFactory.getTracked()
+    //     },
+    //     controller: 'SingleProjectCtrl',
+    //     data: {
+    //         authenticate: true
+    //     }
+    // });
 });
