@@ -18,7 +18,7 @@
             <td>{{ bounty.status | uppercase }}</td>
             <td>{{ bounty.difficulty }}</td>
             <td ng-if="project.ownerId === user.id">
-                <button type="button" class="btn btn-raised btn-warning btn-xs" ui-sref="editBounty({ bountyId: bounty.id, projectId: project.id })">Edit Bounty</button>
+                <button type="button" class="btn btn-raised btn-warning btn-xs" ui-sref="user.editBounty({ bountyId: bounty.id, projectId: project.id })">Edit Bounty</button>
                 <button type="button" class="btn btn-raised btn-primary btn-xs" ng-show="bounty.status === 'pull request'" ng-controller="PayModalCtrl" class="btn btn-success btn-sm" ng-click="openPaymentModal(bounty)">Pay</button>
             </td>
             <td ng-if="showTrackButton(bounty.id)">
