@@ -12,14 +12,14 @@ app.controller('NewProjectCtrl', function($scope, userRepos, ProjectsFactory, $s
       $scope.searchRepo = null;
     };
 
-    // $scope.addProject = function() {
-    //   ProjectsFactory.addProject($scope.searchRepo, $scope.submitProject.projectDescription)
-    //     .then(function (project) {
-    //       $state.go('singleProject', {projectId: project.id});
-    //     })
-    //     .catch(function (project) {
-    //       $state.go('addProjectKO');
-    //     })
-    // };
+    $scope.addProject = function() {
+      ProjectsFactory.addProject($scope.searchRepo, $scope.submitProject.projectDescription)
+        .then(function (project) {
+          $state.go('user.singleProject', {projectId: project.id});
+        })
+        .catch(function (project) {
+          $state.go('addProjectKO');
+        })
+    };
 
 });
