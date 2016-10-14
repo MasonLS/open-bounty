@@ -34,6 +34,7 @@ app.config($stateProvider => {
         resolve: {
             project: (ProjectsFactory, $stateParams) => ProjectsFactory.getOne($stateParams.projectId),
             donationHistory: (DonationFactory, $stateParams) => DonationFactory.getDonationHistory($stateParams.projectId),
+            paidHistory: (DonationFactory, $stateParams) => DonationFactory.getPaidHistory($stateParams.projectId),
             userBounties: BountyFactory => BountyFactory.getTracked()
         },
         controller: 'SingleProjectCtrl',
