@@ -1,87 +1,85 @@
 navbar {
-
-  display: block;
-  background: white;
-  border-bottom: 1px solid black;
-  box-shadow: 1px 1px 14px -3px black;
-
-  .container {
-    width: 91%;
-    max-width: 1340px;
-    padding-top: 20px;
-  }
-
-  app-logo {
-    margin-top: -10px;
-    width: 42px;
-  }
-
-  a {
-    color: black;
-    font-size: 16px;
-  }
-
-  .nav > li > a {
-    cursor: pointer;
-    transition: color 0.2s;
-    font-size: 14px;
-    text-transform: uppercase;
-    &.active {
-      color: darken(#f31214, 10%);
+    display: block;
+    background: white;
+    box-shadow: 1px 1px 14px -3px black;
+    .container {
+        width: 91%;
+        max-width: 1340px;
+        padding-top: 20px;
     }
-    &:hover {
-      background: none;
-      color: #f31214;
-    }
-    &:focus {
-      background: none;
-    }
-  }
-
-  .login-button {
-    float: right;
-    border: 1px solid black;
-    margin-top: 10px;
-    background: none;
-    outline: none !important;
-  }
-
-  .welcome {
-    float: right;
-    margin-top: 12px;
-    span {
-      color: black;
-      font-size: 16px;
-      margin-right: 5px;
+    app-logo {
+        margin-top: -6px;
+        width: 42px;
     }
     a {
-      color: #f30046;
-      cursor: pointer;
+        color: black;
+        font-size: 16px;
     }
-  }
-}
-.login-modal {
-  .modal-body {
-    padding: 0;
-    margin-top: 60px;
-  }
-  .modal-content {
-    border-radius: 0;
-    .left {
-      background-color: #f5f5f5;
-      padding: 30px;
-      height: 250px;
+    .navbar .navbar-nav > li > a:hover,
+    .navbar .navbar-nav > li > a:focus {
+        font-weight: bold;
+        color:#4285F4;
     }
-    .right {
-      padding: 30px;
-      height: 250px;
+    .nav > li > a {
+        cursor: pointer;
+        transition: color 0.2s;
+        font-size: 14px;
+        text-transform: uppercase;
+        &.active {
+            // color: darken(#f31214, 10%);
+        }
+        &:hover {
+            background: none;
+            color: black;
+        }
+        &:focus {
+            background: red;
+        }
     }
-    h4 {
-      margin-bottom: 30px;
+    .login-button {
+        float: right;
+        border: 1px solid black;
+        margin-top: 10px;
+        background: none;
+        outline: none !important;
     }
-  }
-}
-.modal-backdrop {
-  display: none;
+    .welcome {
+        float: right;
+        margin-top: 12px;
+        span {
+            color: black;
+            font-size: 16px;
+            margin-right: 5px;
+        }
+        a {
+            color: #f30046;
+            cursor: pointer;
+        }
+    }
 }
 
+.login-modal {
+    .modal-body {
+        padding: 0;
+        margin-top: 60px;
+    }
+    .modal-content {
+        border-radius: 0;
+        .left {
+            background-color: #f5f5f5;
+            padding: 30px;
+            height: 250px;
+        }
+        .right {
+            padding: 30px;
+            height: 250px;
+        }
+        h4 {
+            margin-bottom: 30px;
+        }
+    }
+}
+
+.modal-backdrop {
+    display: none;
+}
