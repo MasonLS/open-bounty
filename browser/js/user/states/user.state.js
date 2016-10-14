@@ -6,9 +6,57 @@ app.config(function($stateProvider) {
         url: '/user',
         controller: 'UserCtrl',
         templateUrl: 'js/user/templates/user.html',
-	resolve: {
+        resolve: {
             featuredProjects: ProjectsFactory => ProjectsFactory.getFeatured().then(featured => featured)
-	}
+        }
+
+    });
+
+    $stateProvider.state('user.singleProject', {
+        url: '/:projectId',
+        templateUrl: 'js/projects/templates/single.project.html',
+        resolve: {
+            project: (ProjectsFactory, $stateParams) => ProjectsFactory.getOne($stateParams.projectId),
+            donationHistory: (DonationFactory, $stateParams) => DonationFactory.getDonationHistory($stateParams.projectId),
+            paidHistory: (DonationFactory, $stateParams) => DonationFactory.getPaidHistory($stateParams.projectId),
+            userBounties: BountyFactory => BountyFactory.getTracked()
+        },
+        controller: 'SingleProjectCtrl',
+        data: {
+            authenticate: true
+        }
+    });
+
+    $stateProvider.state('user.newProject', {
+        url: '/new-project',
+        templateUrl: 'js/projects/templates/new.project.html',
+        controller: 'NewProjectCtrl',
+        resolve: {
+            userRepos: UserFactory => UserFactory.getRepos()
+        },
+        data: {
+            authenticate: true
+        }
+    });
+
+    $stateProvider.state('user.addBounty', {
+        url: '/add-bounty/:projectId',
+        templateUrl: 'js/bounty/templates/add-bounty.html',
+        controller: 'AddBountyCtrl',
+        resolve: {
+            project: (ProjectsFactory, $stateParams) => ProjectsFactory.getOne($stateParams.projectId),
+            issues: (ProjectsFactory, $stateParams) => ProjectsFactory.getIssues($stateParams.projectId)
+        }
+    });
+
+    $stateProvider.state('user.editBounty', {
+        url: '/:projectId/edit-bounty/:bountyId',
+        templateUrl: 'js/bounty/templates/edit-bounty.html',
+        controller: 'EditBountyCtrl',
+        resolve: {
+            project: (ProjectsFactory, $stateParams) => ProjectsFactory.getOne($stateParams.projectId)
+        }
+
     });
 
     $stateProvider.state('myBounties', {
@@ -31,7 +79,7 @@ app.config(function($stateProvider) {
         },
         resolve: {
             user: AuthService => AuthService.getLoggedInUser(),
-            userBounties: BountyFactory => BountyFactory.getTracked(),
+            userBounties: BountyFactory => BountyFactory.getTracked()
         }
     });
-});
+}); 

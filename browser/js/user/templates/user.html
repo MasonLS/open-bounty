@@ -1,16 +1,21 @@
 <div class="container-fluid">
-    <div id="card1" class="card">
-        <div class='row'>
-            <div class='col-sm-9 col-sm-offset-3'>
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a ui-sref-active="active" ui-sref="home">Home</a></li>
-                </ol>
-            </div>
+
+<div class="row">
+<div class="col-sm-3">
+<sidebar></sidebar>
+</div>
+    <div class="col-sm-9">
+    <div id="card1" class="card" ui-view>
+    <!-- <div class='row'>
+        <div class='col-sm-9 col-sm-offset-3'>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a ui-sref-active="active" ui-sref="home">Home</a></li>
+            </ol>
         </div>
-        <div class="row">
-            <div class="col-sm-9 col-sm-offset-3">
-                <h1>Search Projects</h1>
-            </div>
+    </div> -->
+    <div class="row">
+        <div class="col-sm-9 col-sm-offset-3">
+            <h1>Search Projects</h1>
         </div>
         <div class="row">
             <div class="col-sm-6 col-sm-offset-3">
@@ -22,10 +27,9 @@
                 </div>
             </div>
         </div>
-        <div class="row">
-
-            <div class="col-sm-9 col-sm-offset-3">
-               
+    </div>
+    <div class="row">
+        <div class='col-sm-9 col-sm-offset-3'>
             <table ng-show="projects.length" class="table table-hover">
                  <thead>
                      <tr>
@@ -50,5 +54,10 @@
              </table>
             <sidebar></sidebar>
         </div>
+        <!-- <sidebar></sidebar> -->
     </div>
+    </div>
+    </div>
+    </div>
+    <!-- <sidebar></sidebar> -->
 </div>

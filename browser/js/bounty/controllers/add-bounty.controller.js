@@ -23,7 +23,7 @@ app.controller('AddBountyCtrl', ($scope, project, issues, $uibModal, ProjectsFac
         } else {
             bountyData.projectId = project.id;
             return BountyFactory.createOne(bountyData)
-                .then(() => $state.go('singleProject', {
+                .then(createdBounty => $state.go('user.singleProject', {
                     projectId: project.id
                 }));
         }
