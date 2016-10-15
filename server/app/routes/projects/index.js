@@ -73,9 +73,9 @@ router.get('/search/:searchTerm', (req, res, next) => {
                 name: {
                     $iLike: `%${req.params.searchTerm}%`
                 },
-                ownerId: {
-                    $ne: req.user.id
-                }
+                // ownerId: {
+                //     $ne: req.user.id
+                // }
             },
             include: [Bounty]
         })

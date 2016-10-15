@@ -60,6 +60,17 @@ app.config(function($stateProvider) {
 
     });
 
+    $stateProvider.state('user.searchProjects', {
+        url: '/search/:searchTerm',
+        templateUrl: 'js/user/templates/search.html',
+        controller: function ($scope, projectResults) {
+            $scope.projects = _.chunk(projectResults, 3);
+        },
+        resolve: {
+            projectResults: (ProjectsFactory, $stateParams) => ProjectsFactory.searchProjects($stateParams.searchTerm)
+        }
+    });
+
     // $stateProvider.state('myBounties', {
     //     url: '/:userId/bounties',
     //     templateUrl: 'js/user/templates/my-bounties.html',

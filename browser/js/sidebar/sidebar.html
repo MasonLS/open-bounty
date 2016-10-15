@@ -6,8 +6,8 @@
                 <img src="{{ user.githubPic }}">
             </div>
             <div class="col-sm-5 col-sm-offset-1 username">
-            <h2 class="card-title">{{ user.name }}</h2>
-            <h4>{{ user.githubName }}</h4>
+                <h2 class="card-title">{{ user.name }}</h2>
+                <h4>{{ user.githubName }}</h4>
             </div>
         </div>
         <div class="card-block">
@@ -33,20 +33,24 @@
                 </div>
                 <div ng-show="show === 'hunt'" role="tabpanel" class="tab-pane active" id="hunt">
                     <div class="card-block">
-                        <h2>Bounties I'm tracking</h2>
-                        <li><a ng-repeat="bounty in bounties" href="javascript:void(0)" class="btn btn-raised">{{bounty.name}}</a></li>
+                        <h2>Search Projects</h2>
+                        <div class="input-group card-block">
+                            <input type="text" class="form-control" placeholder="Search projects for bounties..." ng-model="search.term">
+                            <span class="input-group-btn">
+        <button class="btn btn-raised btn-default" type="button" ui-sref="user.searchProjects({searchTerm: search.term})">Search</button>
+      </span>
+                        </div>
                     </div>
-                </div>
-                <div ng-show="show === 'maintain'" role="tabpanel" class="tab-pane active" id="maintain">
-                    <div class="card-block">
-                        <h2>My Projects&nbsp; <button class="btn btn-raised btn-xs" ui-sref="user.newProject">+ Add a project</button></h2>
-                        
-                        <div class="user-projects-list">
-                            <li style="list-style-type: none"><a ng-repeat="project in projects" href="javascript:void(0)" class="btn btn-default btn-lg btn-block btn-raised" ui-sref="user.singleProject({ projectId: project.id })">{{project.name}}</a></li>
+                    </div>
+                    <div ng-show="show === 'maintain'" role="tabpanel" class="tab-pane active" id="maintain">
+                        <div class="card-block">
+                            <h2>My Projects&nbsp; <button class="btn btn-raised btn-xs" ui-sref="user.newProject">+ Add a project</button></h2>
+                            <div class="user-projects-list">
+                                <li style="list-style-type: none"><a ng-repeat="project in projects" href="javascript:void(0)" class="btn btn-default btn-lg btn-block btn-raised" ui-sref="user.singleProject({ projectId: project.id })">{{project.name}}</a></li>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
