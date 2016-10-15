@@ -1,22 +1,22 @@
-        <div class="row">
-            <div class="col-sm-9 col-sm-offset-3">
-                <h2>Bounty for <a href="issue.html_url"><strong>{{issue.title | uppercase }}</strong></a>
+<div class="card">
+    <div class="row">
+        <div class="col-sm-9 col-sm-offset-1">
+            <h2>Bounty for <a href="issue.html_url"><strong>{{issue.title | uppercase }}</strong></a>
                   <button class="btn btn-raised btn-danger btn-xs" ng-click="deleteBounty(bountyId)">Delete Bounty</button>
                   </h2>
-                <p>Project Name: <strong>{{ project.name }}</strong></p>
-                <p>Current Amount: <strong>{{ bountyAmount | currency}}</strong></p>
-                <p>Funds Available: <strong>{{fundsAvailable | currency}}</strong></p>
-                <form class="form-inline">
-                    <div class="form-group">
-                        <label class="sr-only" for="exampleInputAmount">Amount</label>
-                        <div class="input-group">
-                            <div class="input-group-addon">$</div>
-                            <input type="text" class="form-control" id="exampleInputAmount" placeholder="Amount" ng-model="amount">
-                        </div>
+            <p>Project Name: <strong>{{ project.name }}</strong></p>
+            <p>Current Amount: <strong>{{ bountyAmount | currency}}</strong></p>
+            <p>Funds Available: <strong>{{fundsAvailable | currency}}</strong></p>
+            <form class="form-inline">
+                <div class="form-group">
+                    <label class="sr-only" for="exampleInputAmount">Amount</label>
+                    <div class="input-group">
+
+                        <input type="text" class="form-control" id="exampleInputAmount" placeholder="Amount" ng-model="amount">
                     </div>
-                    <button type="submit" class="btn btn-raised btn-primary btn-xs" ng-click="changeBounty(bountyId, amount)">Change Amount</button>
-                </form>
-            </div>
+                </div>
+                <button type="submit" class="btn btn-raised btn-primary btn-xs" ng-click="changeBounty(bountyId, amount)">Change Amount</button>
+            </form>
         </div>
-        <div class="row">
-        </div>
+    </div>
+</div>

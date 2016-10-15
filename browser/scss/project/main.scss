@@ -5,6 +5,16 @@
 }
 
 
+.table > tbody > tr > td
+{
+    vertical-align: center;
+}
+
+.form-group .form-control {
+    margin-bottom: 7px;
+    background: #edecec;
+}
+
 .breadcrumb {
     margin-top: 20px;
     background-color: #edecec;

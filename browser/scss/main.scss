@@ -9,6 +9,7 @@ body {
     padding: 0;
 }
 
+
 h2 {
     font-size: 24px;
 }
@@ -22,9 +23,11 @@ h2 {
 }
 
 #main {
-    padding-top: 70px;
+    padding-top: 45px;
     margin: 0 auto;
 }
+
+
 
 
 /*
@@ -34,13 +37,13 @@ h2 {
 
 /* Hide for mobile, show later */
 
-
 @media (min-width: 768px) {
     .sidebar {
         position: fixed;
         top: 75px;
         bottom: 0;
         left: 0;
+        margin-left: 40px;
         z-index: 1000;
         display: block;
         padding: 20px;
@@ -77,9 +80,13 @@ h2 {
     background-color: #428bca;
 }
 
-.form-control{
-    background:#edecec;
+.form-control {
+    padding: 12px;
+    background: #edecec;
+    margin-bottom: 0px;
 }
+
+
 /*** new sidebar ***/
 
 sidebar.card {
@@ -103,6 +110,7 @@ sidebar.card {
     }
     .username {
     padding-left: 0px;
+
     }
 }
 
@@ -122,25 +130,84 @@ sidebar.card {
     }
 }
 
-.nav-tabs { border-bottom: 2px solid #DDD; }
-    .nav-tabs > li.active > a, .nav-tabs > li.active > a:focus, .nav-tabs > li.active > a:hover { border-width: 0; }
-    .nav-tabs > li > a { border: none; color: #666; }
-        .nav-tabs > li.active > a, .nav-tabs > li > a:hover { border: none; color: #4285F4 !important; background: transparent; }
-        .nav-tabs > li > a::after {content: ""; background: #4285F4; height: 2px; position: absolute; width: 100%; left: 0px; bottom: -1px; transition: all 250ms ease 0s; transform: scale(0); }
-    .nav-tabs > li.active > a::after, .nav-tabs > li:hover > a::after { transform: scale(1); }
-.tab-nav > li > a::after { background: #21527d none repeat scroll 0% 0%; color: #000; }
-.tab-pane { padding: 15px 0; }
-.tab-content{padding:20px}
+.nav-tabs {
+    border-bottom: 2px solid #DDD;
+}
 
-.card {background: #FFF none repeat scroll 0% 0%; box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.3); margin-bottom: 30px; }
-body{ background: #EDECEC; padding:50px}
+.nav-tabs > li.active > a,
+.nav-tabs > li.active > a:focus,
+.nav-tabs > li.active > a:hover {
+    border-width: 0;
+}
+
+.nav-tabs > li > a {
+    border: none;
+    background: yellow;
+}
+
+.nav-tabs > li > a,
+.nav-tabs > li > a:hover,
+.nav-tabs > li > a:focus {
+    color: gray !important;
+}
+
+.nav-tabs > li.active > a,
+.nav-tabs > li > a:hover {
+    border: none;
+    color: #4285F4 !important;
+    background: transparent;
+    font-weight: bold;
+}
+
+.nav-tabs > li > a::after {
+    content: "";
+    background: #4285F4;
+    height: 2px;
+    position: absolute;
+    width: 100%;
+    left: 0px;
+    bottom: -1px;
+    transition: all 250ms ease 0s;
+    transform: scale(0);
+}
+
+.nav-tabs > li.active > a::after,
+.nav-tabs > li:hover > a::after {
+    transform: scale(1);
+}
+
+.tab-nav > li > a::after {
+    background: #21527d none repeat scroll 0% 0%;
+    color: #000;
+}
+
+.tab-pane {
+    padding: 15px 0;
+}
+
+.tab-content {
+    padding: 20px
+}
+
+.card {
+    background: #FFF none repeat scroll 0% 0%;
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.3);
+    margin-bottom: 30px;
+    padding: 20px;
+}
+
+body {
+    background: #EDECEC;
+    padding: 50px
+}
 
 // navbar
 .navbar .navbar-nav > li > a {
     color: #4285F4;
 }
 
-.navbar, .navbar.navbar-default {
+.navbar,
+.navbar.navbar-default {
     background-color: white;
 }
 
@@ -150,6 +217,10 @@ a {
 
 input:focus {
     outline: none;
+}
+.table > tbody > tr > td
+{
+    vertical-align:middle;
 }
 
 .project-card {
