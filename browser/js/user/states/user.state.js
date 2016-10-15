@@ -7,7 +7,8 @@ app.config(function($stateProvider) {
         controller: 'UserCtrl',
         templateUrl: 'js/user/templates/user.html',
         resolve: {
-            featuredProjects: ProjectsFactory => ProjectsFactory.getFeatured().then(featured => featured)
+            featuredProjects: ProjectsFactory => ProjectsFactory.getFeatured().then(featured => featured),
+            userProjects: ProjectsFactory => ProjectsFactory.getForUser()
         }
 
     });
@@ -57,6 +58,17 @@ app.config(function($stateProvider) {
             project: (ProjectsFactory, $stateParams) => ProjectsFactory.getOne($stateParams.projectId)
         }
 
+    });
+
+    $stateProvider.state('user.searchProjects', {
+        url: '/search/:searchTerm',
+        templateUrl: 'js/user/templates/search.html',
+        controller: function ($scope, projectResults) {
+            $scope.projects = _.chunk(projectResults, 3);
+        },
+        resolve: {
+            projectResults: (ProjectsFactory, $stateParams) => ProjectsFactory.searchProjects($stateParams.searchTerm)
+        }
     });
 
     // $stateProvider.state('myBounties', {

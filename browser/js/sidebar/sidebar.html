@@ -1,25 +1,29 @@
 <div class="col-md-3 sidebar">
     <!-- Nav tabs -->
     <div class="card">
-        <span id="sidebar-title" class="card-block">
-            <img class="circle" id="profile-pic" src="{{ user.githubPic }}">
-            <h2 class="card-title">{{ user.name }}</h2>
-            <p class="card-text">{{ user.githubName }}</p>
-        </span>
+        <div class="row" id="sidebar-title">
+            <div class="col-sm-5 col-sm-offset-1 user-pic">
+                <img src="{{ user.githubPic }}">
+            </div>
+            <div class="col-sm-5 col-sm-offset-1 username">
+                <h2 class="card-title">{{ user.name }}</h2>
+                <h4>{{ user.githubName }}</h4>
+            </div>
+        </div>
         <div class="card-block">
             <ul class="nav nav-tabs" role="tablist">
-                <li role="presentation" class="active"><a href="#info" aria-controls="info" role="tab" data-toggle="tab">Info</a></li>
-                <li role="presentation"><a href="#hunt" aria-controls="hunt" role="tab" data-toggle="tab" id="hunt-tab">Hunt</a></li>
-                <li role="presentation"><a href="#maintain" aria-controls="maintain" role="tab" data-toggle="tab" id="maintain-tab">Maintain</a></li>
+                <li role="presentation" class="active"><a href="" ng-click="show = 'profile'" aria-controls="profile" role="tab" data-toggle="tab">Profile</a></li>
+                <li role="presentation"><a href="" ng-click="show = 'hunt'" aria-controls="hunt" role="tab" data-toggle="tab" id="hunt-tab">Hunt</a></li>
+                <li role="presentation"><a href="" ng-click="show = 'maintain'" aria-controls="maintain" role="tab" data-toggle="tab" id="maintain-tab">Maintain</a></li>
             </ul>
             <!-- Tab panes -->
             <div class="tab-content">
-                <div role="tabpanel" class="tab-pane active" id="info">
+                <div ng-show="show === 'profile'" role="tabpanel" class="tab-pane active" id="profile">
                     <div class="card" id="welcome-user-text">
                         <div class="card-block">
                             <p class="card-text">Welcome to Open Bounty! This here's your handy user interface.</p>
                             <p class="card-text">
-                                If you're a bounty hunter, then click on <a href="#hunt" id="hunt-link">hunt</a>. Maintain a project? Then click <a href="#maintain" id="maintain-link">maintain</a>.
+                                If you're a bounty hunter, then click on <a href="" ng-click="show = 'hunt'" id="hunt-link">hunt</a>. Maintain a project? Then click <a href="" ng-click="show = 'maintain'" id="maintain-link">maintain</a>.
                             </p>
                             <p class="card-text">
                                 Else if both, try clicking both!
@@ -27,17 +31,24 @@
                         </div>
                     </div>
                 </div>
-                <div role="tabpanel" class="tab-pane" id="hunt">
+                <div ng-show="show === 'hunt'" role="tabpanel" class="tab-pane active" id="hunt">
                     <div class="card-block">
-                        <h2>Bounties I'm tracking</h2>
-                        <li style="list-style-type: none"><a ng-repeat="bounty in bounties" href="javascript:void(0)" class="btn btn-raised">{{bounty.name}}</a></li>
+                        <h2>Search Projects</h2>
+                        <div class="input-group card-block">
+                            <input type="text" class="form-control" placeholder="Search projects for bounties..." ng-model="search.term">
+                            <span class="input-group-btn">
+        <button class="btn btn-raised btn-default" type="button" ui-sref="user.searchProjects({searchTerm: search.term})">Search</button>
+      </span>
+                        </div>
                     </div>
-                </div>
-                <div role="tabpanel" class="tab-pane" id="maintain">
-                    <div class="card-block">
-                        <h2>My Projects&nbsp; <button class="btn btn-raised btn-xs" ui-sref="user.newProject">+ Add a project</button></h2>
-                        <br>
-                        <li style="list-style-type: none"><a ng-repeat="project in projects" href="javascript:void(0)" class="btn btn-default btn-lg btn-block btn-raised" ui-sref="user.singleProject({ projectId: project.id })">{{project.name}}</a></li>
+                    </div>
+                    <div ng-show="show === 'maintain'" role="tabpanel" class="tab-pane active" id="maintain">
+                        <div class="card-block">
+                            <h2>My Projects&nbsp; <button class="btn btn-raised btn-xs" ui-sref="user.newProject">+ Add a project</button></h2>
+                            <div class="user-projects-list">
+                                <li style="list-style-type: none"><a ng-repeat="project in projects" href="javascript:void(0)" class="btn btn-default btn-lg btn-block btn-raised" ui-sref="user.singleProject({ projectId: project.id })">{{project.name}}</a></li>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

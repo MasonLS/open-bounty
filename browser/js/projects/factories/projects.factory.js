@@ -7,7 +7,6 @@ app.factory('ProjectsFactory', function($http, $log, AuthService) {
     function getForUser() {
         return $http.get('/api/projects/')
         .then(getData)
-        .catch($log.error);
     }
 
     function addProject (repo, description) {
@@ -20,7 +19,6 @@ app.factory('ProjectsFactory', function($http, $log, AuthService) {
 
         return $http.post('/api/projects', data)
             .then(getData)
-            .catch($log.error);
     }
 
     function findProject (user) {
@@ -63,8 +61,8 @@ app.factory('ProjectsFactory', function($http, $log, AuthService) {
         getForUser,
         findProject,
         addProject,
-	getIssues,
-	getFeatured,
+	    getIssues,
+	    getFeatured,
         getOne,
         searchIssues,
         searchProjects
