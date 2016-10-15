@@ -37,10 +37,20 @@ app.controller('UserCtrl', function($rootScope, featuredProjects, $scope, Projec
         });
     };
     console.log('featuredProjects:', featuredProjects);
-    $scope.featuredProjects = featuredProjects // ProjectsFactory.getFeatured().then(featured => {
-    // 	console.log('first featuredProject:', featured[0]);
-    // 	return featured;
-    // });
+    
+    let projects = [];
+    let tempArr = [];
+
+    for (let i = 0; i < featuredProjects.length; i++) {
+        if (i % 3 === 0) {
+            projects.push(tempArr);
+            tempArr = [];
+        } else {
+            tempArr.push(featuredProjects[i]);
+        }
+    }
+
+    $scope.featuredProjects = projects;
 
     $scope.searchProjects = function (searchTerm) {
         return ProjectsFactory.searchProjects(searchTerm)
