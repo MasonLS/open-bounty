@@ -19,7 +19,9 @@ app.directive('sidebar', function () {
 
     },
     controller: function ($scope, ProjectsFactory, BountyFactory) {
-    	ProjectsFactory.getForUser()
+    	$scope.show = 'profile';
+
+        ProjectsFactory.getForUser()
     		.then(userProjects => {
     			$scope.projects = userProjects;
     		});
@@ -31,9 +33,7 @@ app.directive('sidebar', function () {
     },
     link: function (scope) {
     	scope.changeToTab = function (id) {
-    		console.log('WOrking!')
     		document.getElementById(id).click();
-    		console.log('WOrking!')
     	}
     }
   }

@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller('UserCtrl', function($rootScope, featuredProjects, $scope, ProjectsFactory, $uibModal) {
+app.controller('UserCtrl', function($rootScope, userProjects, featuredProjects, $scope, ProjectsFactory, $uibModal) {
     // detachAndScopeBounties(starredProjects);
 
     function isNotUserBounty (bounty) {
@@ -36,21 +36,8 @@ app.controller('UserCtrl', function($rootScope, featuredProjects, $scope, Projec
             }
         });
     };
-    console.log('featuredProjects:', featuredProjects);
-    
-    let projects = [];
-    let tempArr = [];
 
-    for (let i = 0; i < featuredProjects.length; i++) {
-        if (i % 3 === 0) {
-            projects.push(tempArr);
-            tempArr = [];
-        } else {
-            tempArr.push(featuredProjects[i]);
-        }
-    }
-
-    $scope.featuredProjects = projects;
+    $scope.featuredProjects = _.chunk(userProjects, 3);
 
     $scope.searchProjects = function (searchTerm) {
         return ProjectsFactory.searchProjects(searchTerm)
