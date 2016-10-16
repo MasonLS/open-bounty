@@ -12,7 +12,8 @@ const supertest = require('supertest');
 describe('Project Routes', () => {
     let agent,
         testApp,
-        githubCall;
+        githubCall,
+	projectIssue;
 
     // models
     const Project = db.model('project');
@@ -44,16 +45,22 @@ describe('Project Routes', () => {
     }
 
     const exampleUser = {
+	name: 'one',
         isAdmin: false
     }
 
     const exampleUser2 = {
+	name: 'two',
         isAdmin: false
     }
     const bounty = {
 	issueNumber: 777,
 	issueId: 22222,
 	projectId: 1
+    }
+
+    projectIssue = {
+	issue: 'issue'
     }
 
     beforeEach('Sync database', function() {
@@ -79,6 +86,12 @@ describe('Project Routes', () => {
 
     beforeEach('Summon test agent', function() {
 
+	const githubCallCreator = function(value) {
+	    return function() {
+		return Promise.resolve(value);
+	    }
+	}
+	
         githubCall = () => Promise.resolve(true)
 
         testApp = express();
@@ -91,7 +104,7 @@ describe('Project Routes', () => {
                     get: githubCall
                 },
                 issues: {
-                    getForRepo: githubCall,
+                    getForRepo: githubCallCreator(projectIssue),
 		    createLabel: githubCall,
 		    get: githubCall
                 },
@@ -156,5 +169,20 @@ describe('Project Routes', () => {
                 }
             });
     });
+
+    it('should return issues for project', function(done) {
+        agent.get('/api/projects/1/issues')
+            .expect(200)
+            .end(function(err, response) {
+                if (err) {
+                    done(err);
+                } else {
+		    console.log('response.body:', response.body)
+                    expect(response.body.issue).to.equal(projectIssue.issue);
+                    done();
+                }
+            });
+    });
+
 
 });
