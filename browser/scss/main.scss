@@ -37,26 +37,29 @@ h2 {
 
 /* Hide for mobile, show later */
 
-@media (min-width: 768px) {
-    .sidebar {
-        position: fixed;
-        top: 75px;
-        bottom: 0;
-        left: 0;
-        margin-left: 40px;
-        z-index: 1000;
-        display: block;
-        padding: 20px;
-        overflow-x: visible;
-        overflow-y: visible;
-        // overflow-x: hidden;
-        // overflow-y: auto;
-        /* Scrollable contents if viewport is shorter than content. */
-        background-color: #EEEEEE;
-        border-right: 1px solid #eee;
-    }
-}
+// @media (min-width: 768px) {
+//     .sidebar {
+//         position: fixed;
+//         top: 75px;
+//         bottom: 0;
+//         left: 0;
+//         margin-left: 40px;
+//         z-index: 1000;
+//         display: block;
+//         padding: 20px;
+//         overflow-x: visible;
+//         overflow-y: visible;
+//         // overflow-x: hidden;
+//         // overflow-y: auto;
+//         /* Scrollable contents if viewport is shorter than content. */
+//         background-color: #EEEEEE;
+//         border-right: 1px solid #eee;
+//     }
+// }
 
+.sidebar {
+    margin-bottom: 60px;
+}
 
 /* Sidebar navigation */
 
@@ -98,24 +101,26 @@ sidebar.card {
 }
 
 #sidebar-title {
+    padding: 15px;
+    padding-top: 25px;
     img {
-        display: inline;
-        padding: 10px;
-        padding-top: 20px;
-        padding-left: 20px;
+    height: 120px;
+    width: 120px;
     }
-    h2 {
-        display: inline;
-        padding: 10px;
-        padding-top: 20px;
-        padding-left: 20px;
-        padding-right: 25px;
+    .user-pic {
+    padding-right: 0;
+    padding-left: 0;
+    }
+    .username {
+    padding-left: 0px;
+
     }
 }
 
-#profile-pic {
-    height: 100px;
-    width: 100px;
+#featured-projects {
+    font-weight: bold;
+    color: #4285F4;
+    padding-bottom: 30px;
 }
 
 #welcome-user-text {
@@ -123,7 +128,6 @@ sidebar.card {
     background-color: #EDECEC;
     p {
         padding: 10px;
-        // font-weight: bold;
         font-size: 15px;
     }
 }
@@ -154,7 +158,6 @@ sidebar.card {
     border: none;
     color: #4285F4 !important;
     background: transparent;
-    font-weight: bold;
 }
 
 .nav-tabs > li > a::after {
@@ -188,10 +191,11 @@ sidebar.card {
 }
 
 .card {
-    background: #FFF none repeat scroll 0% 0%;
-    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.3);
-    margin-bottom: 30px;
-    padding: 20px;
+    // background: #FFF none repeat scroll 0% 0%;
+    // box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.3);
+    // margin-bottom: 30px;
+    // padding: 20px;
+    padding-bottom: 20px;
 }
 
 body {
@@ -219,6 +223,96 @@ input:focus {
 .table > tbody > tr > td
 {
     vertical-align:middle;
+}
+
+.project-card {
+    height: 300px;
+    padding-bottom: 20px;
+    .tab-content {
+        padding-top: 0;
+    }
+    .javascript {
+    background-color: purple;
+    }
+    .python {
+        background-color: green;
+    }
+    .ruby {
+        background-color: red;
+    }
+    .go {
+        background-color: blue;
+    }
+    .html {
+        background-color: orange;
+    }
+    .css {
+        background-color: yellow;
+    }
+}
+
+
+.project-bounties {
+        height: 250px;
+        overflow-y: auto;
+        padding: 0;
+        padding-top: 7px;
+    }
+
+li {
+    list-style-type: none;
+}
+
+
+.bounty-card {
+    .btn {
+        color: #4285F4;
+    },
+    p {
+        padding: 6.5px;
+    }
+    .very-easy {
+    background-color: green;
+    }
+    .easy {
+        background-color: blue;
+    }
+    .moderate {
+        background-color: yellow;
+    }
+    .hard {
+        background-color: orange;
+    }
+    .very-hard {
+        background-color: red;
+    }
+}
+
+.featured-projects-card {
+    text-align: center;
+}
+
+.user-projects-list {
+    height: 300px;
+    overflow-y: auto;
+    padding-bottom: 0;
+    li {
+        padding-right: 15px;
+        padding-left: 15px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+}
+
+#maintain {
+    padding-top: 0;
+    h2 {
+        padding-top: 0;
+    }
+}
+
+.featured-project-row {
+    padding-bottom: 20px;
 }
 
 @import 'directives/main';

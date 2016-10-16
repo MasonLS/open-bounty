@@ -4,10 +4,10 @@ app.directive('sidebar', function () {
     templateUrl: '/js/sidebar/sidebar.html',
     scope: true,
     compile: function (tElements, tAttrs) {
-    	let huntLink = tElements.find('#hunt-link');
-    	let maintainLink = tElements.find('#maintain-link');
-    	let huntTab = tElements.find('#hunt-tab');
-    	let maintainTab = tElements.find('#maintain-tab');
+    	const huntLink = tElements.find('#hunt-link');
+    	const maintainLink = tElements.find('#maintain-link');
+    	const huntTab = tElements.find('#hunt-tab');
+    	const maintainTab = tElements.find('#maintain-tab');
 
     	huntLink.on('click', function (e) {
     		huntTab.click();
@@ -19,7 +19,9 @@ app.directive('sidebar', function () {
 
     },
     controller: function ($scope, ProjectsFactory, BountyFactory) {
-    	ProjectsFactory.getForUser()
+    	$scope.show = 'profile';
+
+        ProjectsFactory.getForUser()
     		.then(userProjects => {
     			$scope.projects = userProjects;
     		});
@@ -31,9 +33,7 @@ app.directive('sidebar', function () {
     },
     link: function (scope) {
     	scope.changeToTab = function (id) {
-    		console.log('WOrking!')
     		document.getElementById(id).click();
-    		console.log('WOrking!')
     	}
     }
   }

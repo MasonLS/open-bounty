@@ -1,0 +1,42 @@
+<div class="col-sm-4">
+    <div class="card project-card">
+        <div class="card-block">
+            <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="active"><a href="" ng-click="show = 'projectInfo'" aria-controls="project-info" role="tab" data-toggle="tab">Project Info</a></li>
+                <li role="presentation"><a href="" ng-click="show = 'bounties'" aria-controls="project-bounties" role="tab" data-toggle="tab">Available Bounties</a></li>
+            </ul>
+            <!-- Tab panes -->
+            <div class="tab-content">
+                <div ng-show="show === 'projectInfo'" role="tabpanel" class="tab-pane active" id="project-info">
+                    <div class="card-block">
+                        <span class="label label-info" ng-class="project.repo.language.toLowerCase()">{{ project.repo.language }}</span>
+                    </div>
+                    <br>
+                    <div class="card-block project-info">
+                        <h4 class="card-title">{{ project.repo.full_name }}</h4>
+                        <br>
+                        <p class="card-text">
+                            Description:
+                        </p>
+                        <p class="card-text">
+                            {{ project.repo.description }}
+                        </p>
+                    </div>
+                </div>
+                <div ng-show="show === 'bounties'" role="tabpanel" class="tab-pane active project-bounties" id="project-bounties">
+                    <div class="card-block project-bounties">
+                        <div class="card-block bounty-card" ng-repeat="bounty in project.bounties">
+                            <p class="card-text">
+                                {{ bounty.issue.title | limitTo:20 }}
+                            </p>
+                            <span class="label label-success">{{ bounty.amount | currency }}</span>
+                            <span class="label label-info" ng-class="difficultyColor(bounty.difficulty)">Difficulty level {{ bounty.difficulty }}</span>
+                            <span class="label"></span>
+                            <a href="{{ bounty.issue.html_url }}" class="btn btn-xs">GitHub</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
