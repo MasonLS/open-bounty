@@ -1,4 +1,4 @@
-<div class="col-md-3 sidebar">
+<div class="sidebar">
     <!-- Nav tabs -->
     <div class="card">
         <div class="row" id="sidebar-title">
@@ -41,16 +41,16 @@
       </span>
                         </div>
                     </div>
-                    </div>
-                    <div ng-show="show === 'maintain'" role="tabpanel" class="tab-pane active" id="maintain">
-                        <div class="card-block">
-                            <h2>My Projects&nbsp; <button class="btn btn-raised btn-xs" ui-sref="user.newProject">+ Add a project</button></h2>
-                            <div class="user-projects-list">
-                                <li style="list-style-type: none"><a ng-repeat="project in projects" href="javascript:void(0)" class="btn btn-default btn-lg btn-block btn-raised" ui-sref="user.singleProject({ projectId: project.id })">{{project.name}}</a></li>
-                            </div>
+                </div>
+                <div ng-show="show === 'maintain'" role="tabpanel" class="tab-pane active" id="maintain">
+                    <div class="card-block">
+                        <h2>My Projects&nbsp; <button class="btn btn-raised btn-xs" ui-sref="user.newProject">+ Add a project</button></h2>
+                        <div class="user-projects-list">
+                            <li style="list-style-type: none"><a ng-repeat="project in projects" href="javascript:void(0)" class="btn btn-default btn-lg btn-block btn-raised" ui-sref="user.singleProject({ projectId: project.id })">{{project.name}}</a></li>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</div>

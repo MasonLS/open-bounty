@@ -128,7 +128,7 @@ app.factory('ChartFactory', () => {
                 shadow: false,
                 useHTML: true,
                 percentageDecimals: 2,
-                backgroundColor: "rgba(255,255,255,.7)",
+                backgroundColor: 'rgba(255,255,255,.7)',
                 style: {
                     padding: 0
                 },
