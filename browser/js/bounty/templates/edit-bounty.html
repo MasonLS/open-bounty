@@ -1,22 +1,17 @@
-<div class="card">
+<div class="card single-project">
     <div class="row">
-        <div class="col-sm-9 col-sm-offset-1">
-            <h2>Bounty for <a href="issue.html_url"><strong>{{issue.title | uppercase }}</strong></a>
-                  <button class="btn btn-raised btn-danger btn-xs" ng-click="deleteBounty(bountyId)">Delete Bounty</button>
-                  </h2>
-            <p>Project Name: <strong>{{ project.name }}</strong></p>
-            <p>Current Amount: <strong>{{ bountyAmount | currency}}</strong></p>
-            <p>Funds Available: <strong>{{fundsAvailable | currency}}</strong></p>
-            <form class="form-inline">
-                <div class="form-group">
-                    <label class="sr-only" for="exampleInputAmount">Amount</label>
-                    <div class="input-group">
+        <div class="col-sm-12">
+            <h1>{{ project.name | uppercase }}</h1>
+            <p>Available Funds: {{fundsAvailable | currency}}</p>
+            <h2><a href="issue.html_url">{{issue.title | uppercase }}</a></h2>
+            <div class="form-group" style="margin-top: 2px;">
+                    <input style="width:228px;" type="text" class="form-control" id="exampleInputAmount" placeholder="Current Amount : {{ bountyAmount | currency}}" ng-model="amount">
 
-                        <input type="text" class="form-control" id="exampleInputAmount" placeholder="Amount" ng-model="amount">
-                    </div>
-                </div>
+            </div>
+            <div style="vertical-align: middle;">
                 <button type="submit" class="btn btn-raised btn-primary btn-xs" ng-click="changeBounty(bountyId, amount)">Change Amount</button>
-            </form>
+                <button class="btn btn-raised btn-danger btn-xs" ng-click="deleteBounty(bountyId)">Delete Bounty</button>
+            </div>
         </div>
     </div>
 </div>
