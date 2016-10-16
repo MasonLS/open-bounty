@@ -17,6 +17,7 @@ describe('Project Routes', () => {
     // models
     const Project = db.model('project');
     const User = db.model('user');
+    const Bounty = db.model('bounty');
 
     const exampleProject = {
         repoId: 1,
@@ -49,6 +50,11 @@ describe('Project Routes', () => {
     const exampleUser2 = {
         isAdmin: false
     }
+    const bounty = {
+	issueNumber: 777,
+	issueId: 22222,
+	projectId: 1
+    }
 
     beforeEach('Sync database', function() {
         return db.sync({
@@ -67,7 +73,8 @@ describe('Project Routes', () => {
                 const projects = createProjects()
                     .map(project => Project.create(project));
                 return Promise.all(projects)
-            });
+            })
+	    .then(() => Bounty.create(bounty))
     });
 
     beforeEach('Summon test agent', function() {
@@ -85,7 +92,8 @@ describe('Project Routes', () => {
                 },
                 issues: {
                     getForRepo: githubCall,
-		    createLabel: githubCall
+		    createLabel: githubCall,
+		    get: githubCall
                 },
                 search: {
                     issues: githubCall
@@ -98,6 +106,7 @@ describe('Project Routes', () => {
             };
 
 	    req.project = {
+		id: 1,
 		name: 'wizard'
 	    }
             next();
@@ -121,7 +130,6 @@ describe('Project Routes', () => {
             })
     });
 
-
     it('should get project by id', function(done) {
         agent.get('/api/projects/1')
             .expect(200)
@@ -135,15 +143,15 @@ describe('Project Routes', () => {
             });
     });
 
-
-    it('search route should return correct project', function(done) {
-        agent.get('/api/projects/search/wizard')
+    it('should return an array of projects', function(done) {
+        agent.get('/api/projects/featured')
             .expect(200)
             .end(function(err, response) {
                 if (err) {
                     done(err);
                 } else {
-                    expect(response.body[0].name).to.equal(exampleProject.name);
+                    expect(Array.isArray(response.body)).to.equal(true);
+		    expect(response.body[0].name).to.equal(exampleProject.name)
                     done();
                 }
             });
