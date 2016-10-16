@@ -15,6 +15,11 @@ router.get('/issues/:searchTerm', (req, res, next) => {
     .catch(next);
 });
 
+router.get('/issues/:searchTerm/force', (req, res, next) => {
+    res.send('string')
+});
+
+
 // search all github repos
 router.get('/repos/search/:query', (req, res, next) => {
     req.github.search.repos({

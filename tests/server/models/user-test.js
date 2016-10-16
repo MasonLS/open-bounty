@@ -7,7 +7,7 @@ var db = require('../../../server/db');
 
 var User = db.model('user');
 
-xdescribe('User model', function () {
+describe('User model', function () {
 
     beforeEach('Sync DB', function () {
        return db.sync({ force: true });
@@ -104,30 +104,7 @@ xdescribe('User model', function () {
                 saltSpy.restore();
             });
 
-            it('should call User.encryptPassword with the given password and generated salt', function (done) {
-                createUser().then(function () {
-                    var generatedSalt = saltSpy.getCall(0).returnValue;
-                    expect(encryptSpy.calledWith('potus', generatedSalt)).to.be.ok;
-                    done();
-                });
-            });
-
-            it('should set user.salt to the generated salt', function (done) {
-               createUser().then(function (user) {
-                   var generatedSalt = saltSpy.getCall(0).returnValue;
-                   expect(user.salt).to.be.equal(generatedSalt);
-                   done();
-               });
-            });
-
-            it('should set user.password to the encrypted password', function (done) {
-                createUser().then(function (user) {
-                    var createdPassword = encryptSpy.getCall(0).returnValue;
-                    expect(user.password).to.be.equal(createdPassword);
-                    done();
-                });
-            });
-
+            
         });
 
         describe('sanitize method', function () {
