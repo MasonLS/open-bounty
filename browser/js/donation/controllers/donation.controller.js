@@ -1,4 +1,4 @@
-app.controller('DonationCTRL', function($scope, $log, $window, $uibModal, $timeout, SearchFactory, DonationFactory) {
+app.controller('DonationCTRL', ($scope, $log, $window, $uibModal, $timeout, SearchFactory, DonationFactory) => {
 
     $scope.allProjects = [];
 
@@ -37,7 +37,6 @@ app.controller('DonationCTRL', function($scope, $log, $window, $uibModal, $timeo
             }
         });
     };
-
 });
 
 app.controller('DonationModalInstanceCtrl', ($scope, $uibModalInstance, $log, $window, items, DonationFactory) => {
@@ -62,4 +61,4 @@ app.controller('DonationModalInstanceCtrl', ($scope, $uibModalInstance, $log, $w
     $scope.cancel = () => {
         $uibModalInstance.dismiss('cancel');
     };
-})
+});
