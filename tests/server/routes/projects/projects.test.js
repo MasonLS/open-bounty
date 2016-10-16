@@ -130,7 +130,7 @@ describe('Project Routes', () => {
         agent = supertest.agent(testApp);
     });
 
-    it('should get all projects for user', function(done) {
+    it('gets all projects for user', function(done) {
         agent.get('/api/projects')
             .expect(200)
             .end(function(err, response) {
@@ -144,7 +144,7 @@ describe('Project Routes', () => {
             })
     });
 
-    it('should get projects by search term', function(done) {
+    it('gets projects by search term', function(done) {
         agent.get(`/api/projects/search/${exampleProject.name}`)
             .expect(200)
             .end(function(err, response) {
@@ -157,7 +157,7 @@ describe('Project Routes', () => {
             });
     });
 
-    it('should get project by id', function(done) {
+    it('gets project by id', function(done) {
         agent.get('/api/projects/1')
             .expect(200)
             .end(function(err, response) {
@@ -170,7 +170,7 @@ describe('Project Routes', () => {
             });
     });
 
-    it('should return an array of projects', function(done) {
+    it('gets an array of projects', function(done) {
         agent.get('/api/projects/featured')
             .expect(200)
             .end(function(err, response) {
@@ -184,14 +184,13 @@ describe('Project Routes', () => {
             });
     });
 
-    it('should return issues for project', function(done) {
+    it('gets issues for project', function(done) {
         agent.get('/api/projects/1/issues')
             .expect(200)
             .end(function(err, response) {
                 if (err) {
                     done(err);
                 } else {
-		    console.log('response.body:', response.body)
                     expect(response.body.issue).to.equal(projectIssue.issue);
                     done();
                 }
