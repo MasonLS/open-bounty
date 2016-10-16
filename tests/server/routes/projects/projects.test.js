@@ -91,7 +91,7 @@ describe('Project Routes', () => {
 		return Promise.resolve(value);
 	    }
 	}
-	
+
         githubCall = () => Promise.resolve(true)
 
         testApp = express();
@@ -138,9 +138,23 @@ describe('Project Routes', () => {
                     done(err)
                 } else {
                     expect(response.body.length).to.equal(numOfProjects);
+
                     done();
                 }
             })
+    });
+
+    it('should get projects by search term', function(done) {
+        agent.get(`/api/projects/search/${exampleProject.name}`)
+            .expect(200)
+            .end(function(err, response) {
+                if (err) {
+                    done(err);
+                } else {
+                    expect(response.body[0].description).to.equal(exampleProject.description);
+                    done();
+                }
+            });
     });
 
     it('should get project by id', function(done) {
@@ -183,6 +197,5 @@ describe('Project Routes', () => {
                 }
             });
     });
-
 
 });
