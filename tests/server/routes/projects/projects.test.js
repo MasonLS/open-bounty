@@ -36,6 +36,7 @@ describe('Project Routes', () => {
         for (let i = 0; i < numOfProjects; i++) {
             projects.push({
                 repoId: repoId,
+		name: `project ${i}`,
                 description: description + repoId,
                 ownerId: 2
             })
