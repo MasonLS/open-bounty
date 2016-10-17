@@ -6,7 +6,6 @@ app.config(function ($stateProvider) {
         templateUrl: '/js/donation/templates/donation.template.html'
     });
 
-
     $stateProvider.state('donateId', {
         url: '/donate/:projectId',
         controller: 'DonationCTRL',

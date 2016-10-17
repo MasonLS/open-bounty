@@ -27,6 +27,8 @@ app.controller('PayModalInstanceCtrl', ($scope, $uibModalInstance, $log, $state,
                 if (data.status === 'ok') {
                     $state.reload();
                     $uibModalInstance.close();
+                } else {
+                    throw new Error(data);
                 }
             })
             .catch($log.error);
