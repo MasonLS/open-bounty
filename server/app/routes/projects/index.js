@@ -62,7 +62,7 @@ router.post('/', (req, res, next) => {
         name: 'OpenBounty',
         color: '337ab7'
     });
-    const gettingRepo = req.github.repos({
+    const gettingRepo = req.github.repos.get({
         user: req.user.githubName,
         repo: projectData.name
     });

@@ -24,8 +24,7 @@ app.factory('SearchFactory', ($http, $log) => {
     };
 
     SearchFactory.getProjectsByLanguage = searchTerm => {
-	console.log('searchTerm:', searchTerm)
-        return $http.get(`/api/public/language/${searchTerm.searchTerm}`)
+        return $http.get(`/api/public/language/${searchTerm}`)
             .then(getData)
             .catch($log.error);
     };

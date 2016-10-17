@@ -18,25 +18,18 @@ router.get('/search/all', (req, res, next) => {
         .catch(next);
 })
 
-
-// // get projects by search term
-// router.get('/search/:searchTerm', (req, res, next) => {
-//     Project.findAll({
-//             where: {
-//                 name: {
-//                     $iLike: `%${req.params.searchTerm}%`
-//                 }
-//             }
-//         })
-//         .then(res.json.bind(res))
-//         .catch(next);
-// });
-
-function findAll(model, field, search, attachment) {
+/**
+ * Gets model rows by field
+ * @param {object} model - database model.
+ * @param {string} field - table column to query.
+ * @param {string} search - the term to query.
+ * @param {object} attachment - model for eager loading.
+ */
+function getByField(model, field, search, attachment) {
     const query = {};
     query.where = {};
     query.where[field] = {
-        $iLike: `%{search}%`
+        $iLike: `%${search}%`
     };
     query.include = [attachment];
     return model.findAll(query);
@@ -44,17 +37,15 @@ function findAll(model, field, search, attachment) {
 
 // get projects by search term
 router.get('/search/:searchTerm', (req, res, next) => {
-    findAll(Project, 'name', req.params.searchTerm, Bounty)
+    getByField(Project, 'name', req.params.searchTerm, Bounty)
         .then(res.json.bind(res))
         .catch(next);
 });
 
+// get projects by language
 router.get('/language/:searchTerm', (req, res, next) => {
-    findAll(Project, 'language', req.params.searchTerm, Bounty)
-        .then(data => {
-	    console.log('data', data)
-	    res.json(data);
-	})
+    getByField(Project, 'language', req.params.searchTerm, Bounty)
+        .then(res.json.bind(res))
         .catch(next);
 });
 
