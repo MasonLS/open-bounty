@@ -28,7 +28,7 @@
                 </div>
                 <div ng-show="show === 'bounties'" role="tabpanel" class="tab-pane active" id="project-bounties">
                     <div class="card-block project-bounties">
-                        <h3 ng-if="!bounties.length" class="card-title">No available bounties</h3>
+                        <h3 ng-if="!project.bounties.length" class="card-title">No available bounties</h3>
                         <bounty-post bounty="bounty" ng-repeat="bounty in project.bounties | filterTakenBounties:userBountyIds"></bounty-post>
                     </div>
                 </div>
