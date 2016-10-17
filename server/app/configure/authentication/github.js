@@ -32,7 +32,8 @@ module.exports = function (app, db) {
                     githubName: profile.username,
                     githubToken: accessToken,
                     githubPic: profile.photos[0].value,
-                    name: profile.displayName
+                    name: profile.displayName,
+                    githubUrl: profile._json.html_url
                   })
             
         }

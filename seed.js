@@ -22,19 +22,8 @@ name in the environment files.
 const chalk = require('chalk');
 const db = require('./server/db');
 const User = db.model('user');
-// const Project = db.model('project');
-// const Donation = db.model('donation');
 const Promise = require('sequelize').Promise;
-// const GitHubApi = require('github');
-// const gitHubConfig = require('./server/env').GITHUB;
-// const github = new GitHubApi();
 
-// github.authenticate({
-//         type: 'oauth',
-//         token: '6f4d4cfe93d46512f811154c02eaae0c12fdb52c',
-//         // key: gitHubConfig.clientID,
-//         // secret: gitHubConfig.clientSecret
-//     });
 
 const Faker = require('faker');
 const _ = require('lodash');
@@ -81,14 +70,6 @@ const seedUsers = function () {
 };
 
 db.sync({ force: true })
-    // .then(function () {
-    //     console.log(chalk.blue('Seeding users...'));
-    //     return seedUsers();
-    // })
-    // .then(function (seededUsers) {
-    //     console.log(chalk.green('Seeding projects...'));
-    //     return Promise.map(seededUsers, seedProjects);
-    // })
     .then(function () {
         console.log(chalk.green('Seed successful!'));
         process.exit(0);
