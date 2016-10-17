@@ -1,6 +1,9 @@
 app.factory('SearchFactory', ($http, $log) => {
     const SearchFactory = {};
-    const getData = function(data) { return data.data; };
+    const getData = function(data) {
+	console.log('data:', data.data);
+        return data.data;
+    };
 
     SearchFactory.getRepoByUser = userId => {
         return $http.get('/api/users/' + userId + '/github/repos/')
@@ -10,6 +13,19 @@ app.factory('SearchFactory', ($http, $log) => {
 
     SearchFactory.getProjectsBySearchTerm = searchTerm => {
         return $http.get('/api/public/search/' + searchTerm)
+            .then(getData)
+            .catch($log.error);
+    };
+
+    SearchFactory.getProjectsByName = searchTerm => {
+        return $http.get(`/api/public/search/${searchTerm}`)
+            .then(getData)
+            .catch($log.error);
+    };
+
+    SearchFactory.getProjectsByLanguage = searchTerm => {
+	console.log('searchTerm:', searchTerm)
+        return $http.get(`/api/public/language/${searchTerm.searchTerm}`)
             .then(getData)
             .catch($log.error);
     };
