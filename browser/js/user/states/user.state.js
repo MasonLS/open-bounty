@@ -8,7 +8,8 @@ app.config(function($stateProvider) {
         templateUrl: 'js/user/templates/user.html',
         resolve: {
             featuredProjects: ProjectsFactory => ProjectsFactory.getFeatured().then(featured => featured),
-            userProjects: ProjectsFactory => ProjectsFactory.getForUser()
+            userProjects: ProjectsFactory => ProjectsFactory.getForUser(),
+            userBounties: BountyFactory => BountyFactory.getTracked()
         }
 
     });
@@ -20,7 +21,6 @@ app.config(function($stateProvider) {
             project: (ProjectsFactory, $stateParams) => ProjectsFactory.getOne($stateParams.projectId),
             donationHistory: (DonationFactory, $stateParams) => DonationFactory.getDonationHistory($stateParams.projectId),
             paidHistory: (DonationFactory, $stateParams) => DonationFactory.getPaidHistory($stateParams.projectId),
-            userBounties: BountyFactory => BountyFactory.getTracked()
         },
         controller: 'SingleProjectCtrl',
         data: {
@@ -71,27 +71,4 @@ app.config(function($stateProvider) {
         }
     });
 
-    // $stateProvider.state('myBounties', {
-    //     url: '/:userId/bounties',
-    //     templateUrl: 'js/user/templates/my-bounties.html',
-    //     controller: function($scope, userBounties, user, BountyFactory) {
-    //         $scope.user = user;
-    //         $scope.bounties = userBounties;
-    //         $scope.untrackBounty = function(bountyId) {
-    //             return BountyFactory.untrack(bountyId)
-    //                 .then(_ => {
-    //                     for (var i = 0; i < $scope.bounties.length; i++) {
-    //                         if ($scope.bounties[i].id === bountyId) {
-    //                             $scope.bounties.splice(i, 1);
-    //                             break;
-    //                         }
-    //                     }
-    //                 });
-    //         }
-    //     },
-    //     resolve: {
-    //         user: AuthService => AuthService.getLoggedInUser(),
-    //         userBounties: BountyFactory => BountyFactory.getTracked()
-    //     }
-    // });
 });

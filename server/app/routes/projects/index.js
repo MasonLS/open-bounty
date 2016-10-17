@@ -86,10 +86,10 @@ router.get('/search/:searchTerm', (req, res, next) => {
                 // ownerId: {
                 //     $ne: req.user.id
                 // }
-            },
-            include: [Bounty]
+            }
         })
         .then(projects => Promise.map(projects, project => project.attachRepo(req.github, req.user.githubName)))
+        .then(projectsWithRepos => Promise.map(projectsWithRepos, project => project.attachBounties(req.github, req.user.githubName)))
         .then(res.json.bind(res))
         .catch(next);
 });

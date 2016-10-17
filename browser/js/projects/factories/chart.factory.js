@@ -84,8 +84,7 @@ app.factory('ChartFactory', () => {
                     min: 0,
                     allowDecimals: false,
                     title: {
-                        // text: 'Total paid out',
-                        text: '',
+                        text: 'Paid out',
                         style: {
                             color: '#c680ca'
                         }
@@ -140,7 +139,7 @@ app.factory('ChartFactory', () => {
         },
         series: [{
             name: 'Donations ',
-            type: 'spline',
+            type: 'column',
             yAxis: 0,
             tooltip: {
                 valueSuffix: ' $'

@@ -12,41 +12,39 @@
         </div>
         <div class="card-block">
             <ul class="nav nav-tabs" role="tablist">
-                <li role="presentation" class="active"><a href="" ng-click="show = 'profile'" aria-controls="profile" role="tab" data-toggle="tab">Profile</a></li>
-                <li role="presentation"><a href="" ng-click="show = 'hunt'" aria-controls="hunt" role="tab" data-toggle="tab" id="hunt-tab">Hunt</a></li>
-                <li role="presentation"><a href="" ng-click="show = 'maintain'" aria-controls="maintain" role="tab" data-toggle="tab" id="maintain-tab">Maintain</a></li>
+                <li role="presentation" class="active"><a href="" ng-click="show = 'search'" aria-controls="search" role="tab" data-toggle="tab" id="search-tab">Search</a></li>
+                <li role="presentation"><a href="" ng-click="show = 'bounties'" aria-controls="profile" role="tab" data-toggle="tab">Bounties</a></li>
+                <li role="presentation"><a href="" ng-click="show = 'projects'" aria-controls="projects" role="tab" data-toggle="tab" id="projects-tab">Projects</a></li>
             </ul>
             <!-- Tab panes -->
             <div class="tab-content">
-                <div ng-show="show === 'profile'" role="tabpanel" class="tab-pane active" id="profile">
-                    <div class="card" id="welcome-user-text">
-                        <div class="card-block">
-                            <p class="card-text">Welcome to Open Bounty! This here's your handy user interface.</p>
-                            <p class="card-text">
-                                If you're a bounty hunter, then click on <a href="" ng-click="show = 'hunt'" id="hunt-link">hunt</a>. Maintain a project? Then click <a href="" ng-click="show = 'maintain'" id="maintain-link">maintain</a>.
-                            </p>
-                            <p class="card-text">
-                                Else if both, try clicking both!
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div ng-show="show === 'hunt'" role="tabpanel" class="tab-pane active" id="hunt">
+                <div ng-show="show === 'search'" role="tabpanel" class="tab-pane active" id="search">
                     <div class="card-block">
                         <h2>Search Projects</h2>
                         <div class="input-group card-block">
-                            <input type="text" class="form-control" placeholder="Search projects for bounties..." ng-model="search.term">
-                            <span class="input-group-btn">
-        <button class="btn btn-raised btn-default" type="button" ng-click="getProjectsByLanguage({searchTerm: search.term})">Search</button>
-      </span>
+                            <input type="text" class="form-control" ng-model="search.term">
+                        </div>
+                        <div class="input-group-btn" id="search-button">
+                            <button class="btn btn-raised btn-default" type="button" ui-sref="user.searchProjects({searchTerm: search.term})">Search</button>
                         </div>
                     </div>
                 </div>
-                <div ng-show="show === 'maintain'" role="tabpanel" class="tab-pane active" id="maintain">
+                <div ng-show="show === 'bounties'" role="tabpanel" class="tab-pane active" id="bounties">
+            
+                        <div class="card-block">
+                        <h2>My Bounties</h2>
+                        <div class="user-projects-list">
+                            <bounty-post ng-repeat="bounty in userBounties"></bounty-post>
+                        </div>
+                        </div>
+              
+                </div>
+                <div ng-show="show === 'projects'" role="tabpanel" class="tab-pane active" id="projects">
                     <div class="card-block">
                         <h2>My Projects&nbsp; <button class="btn btn-raised btn-xs" ui-sref="user.newProject">+ Add a project</button></h2>
+                        <br>
                         <div class="user-projects-list">
-                            <li style="list-style-type: none"><a ng-repeat="project in projects" href="javascript:void(0)" class="btn btn-default btn-lg btn-block btn-raised" ui-sref="user.singleProject({ projectId: project.id })">{{project.name}}</a></li>
+                            <li style="list-style-type: none"><a ng-repeat="project in userProjects" href="javascript:void(0)" class="btn btn-default btn-lg btn-block btn-raised" ui-sref="user.singleProject({ projectId: project.id })">{{project.name | limitTo:15}}</a></li>
                         </div>
                     </div>
                 </div>

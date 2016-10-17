@@ -1,45 +1,21 @@
-app.directive('sidebar', function() {
-    return {
-        restrict: 'E',
-        templateUrl: '/js/sidebar/sidebar.html',
-        scope: true,
-        compile: function(tElements, tAttrs) {
-            const huntLink = tElements.find('#hunt-link');
-            const maintainLink = tElements.find('#maintain-link');
-            const huntTab = tElements.find('#hunt-tab');
-            const maintainTab = tElements.find('#maintain-tab');
+app.directive('sidebar', function () {
+  return {
+    restrict: 'E',
+    templateUrl: '/js/sidebar/sidebar.html',
+    // scope: true,
+    controller: function ($scope, ProjectsFactory, BountyFactory) {
+    	$scope.show = 'search';
 
-            huntLink.on('click', function(e) {
-                huntTab.click();
-            });
+        $scope.$on('bounty taken', (e, bounty) => {
+            $scope.userBounties.push(bounty);
+        })
 
-            maintainLink.on('click', function(e) {
-                maintainTab.click();
-            });
+        $scope.$on('bounty untaken', (e, bounty) => {
+            _.pull($scope.userBounties, bounty)
+        })
 
-        },
-        controller: function($scope, ProjectsFactory, BountyFactory, SearchFactory) {
-
-            $scope.getProjectsByName = SearchFactory.getProjectsByName;
-
-            $scope.getProjectsByLanguage = SearchFactory.getProjectsByLanguage;
-
-            $scope.show = 'profile';
-
-            ProjectsFactory.getForUser()
-                .then(userProjects => {
-                    $scope.projects = userProjects;
-                });
-
-            BountyFactory.getTracked()
-                .then(trackedBounties => {
-                    $scope.bounties = trackedBounties;
-                });
-        },
-        link: function(scope) {
-            scope.changeToTab = function(id) {
-                document.getElementById(id).click();
-            }
-        }
+        $scope.$on('project added', (e, project) => {
+            $scope.userProjects.push(project);
+        })
     }
 });

@@ -1,0 +1,15 @@
+<div class="card-block bounty-card">
+    <p class="card-text">
+        {{ bounty.issue.title | limitTo:20 }}
+    </p>
+    <span class="label label-success">{{ bounty.amount | currency }}</span>
+    <span class="label label-info" ng-class="difficultyColor(bounty.difficulty)">Difficulty level {{ bounty.difficulty }}</span>
+    <span class="label"></span>
+    <span>
+    <a href="{{ bounty.issue.html_url }}" class="btn btn-xs">GitHub</a>
+    </span>
+    <div class="card-block bounty-buttons">
+        <a href="javascript:void(0)" class="btn btn-raised btn-sm" ng-show="!taken" ng-click="takeBounty(bounty)">Take Bounty</a>
+        <a href="javascript:void(0)" class="btn btn-raised btn-sm" ng-show="taken" ng-click="untakeBounty(bounty)">Untake</a>
+    </div>
+</div>
