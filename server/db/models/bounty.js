@@ -1,7 +1,9 @@
 'use strict'
 const Sequelize = require('sequelize');
-
+const Project = require('./project');
+const User = require('./user');
 const db = require('../_db');
+const Promise = require('bluebird');
 
 module.exports = db.define('bounty', {
 	issueNumber: {
@@ -60,6 +62,14 @@ module.exports = db.define('bounty', {
 				    fundsOnHold: newFundsOnHold
 				});
 			})
+		}
+	},
+	classMethods: {
+		getForUser: function (githubClient, githubName, userId) {
+			return User.findById(userId)
+				.then(user => user.getBounties({ include: [Project] }))
+				.then(bounties => Promise.map(bounties, bounty => bounty.attachIssue(githubClient, githubName, bounty.project.name)));
+
 		}
 	}
 });

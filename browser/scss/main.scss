@@ -191,10 +191,6 @@ sidebar.card {
 }
 
 .card {
-    // background: #FFF none repeat scroll 0% 0%;
-    // box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.3);
-    // margin-bottom: 30px;
-    // padding: 20px;
     padding-bottom: 20px;
 }
 
@@ -226,8 +222,13 @@ input:focus {
 }
 
 .project-card {
-    height: 300px;
+    min-height: 300px;
+    max-height: 500px;
     padding-bottom: 20px;
+    .donate-button {
+        padding-top: 20px;
+        padding-left: 30px;
+    }
     .tab-content {
         padding-top: 0;
     }
@@ -251,18 +252,25 @@ input:focus {
     }
 }
 
-
+#project-bounties {
+    padding-top: 7px;
+    padding-bottom: 0;
+    padding-left: 0;
+    padding-right: 0;
+}
 .project-bounties {
-        height: 250px;
+        height: 300px;
         overflow-y: auto;
         padding: 0;
-        padding-top: 7px;
     }
 
 li {
     list-style-type: none;
 }
 
+.tab-content {
+    padding-bottom: 0;
+}
 
 .bounty-card {
     .btn {
@@ -309,6 +317,12 @@ li {
     h2 {
         padding-top: 0;
     }
+}
+
+#search-button {
+    padding-left: 100px;
+    padding-top: 40px;
+    padding-bottom: 0;
 }
 
 .featured-project-row {
