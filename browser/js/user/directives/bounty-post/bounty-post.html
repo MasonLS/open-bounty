@@ -1,6 +1,6 @@
 <div class="card-block bounty-card">
     <p class="card-text">
-        {{ bounty.issueTitle | limitTo:20 }}
+        {{ bounty.issueTitle | limitTo:20 }}<span ng-if="bounty.issueTitle.length > 19">...</span>
     </p>
     <span class="label label-success">{{ bounty.amount | currency }}</span>
     <span class="label label-info" ng-class="difficultyColor(bounty.difficulty)">Difficulty level {{ bounty.difficulty }}</span>

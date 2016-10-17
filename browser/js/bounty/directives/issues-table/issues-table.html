@@ -13,7 +13,7 @@
     <tbody>
         <tr ng-repeat="issue in issues">
             <td>{{issue.number}}</td>
-            <td><a href="{{issue.html_url}}">{{ issue.title | uppercase | limitTo:20}}</a></td>
+            <td><a href="{{issue.html_url}}">{{ issue.title | uppercase | limitTo:20}}<span ng-if="issue.title.length > 19">...</span></a></td>
             <td>{{issue.created_at | date: 'MM-dd-yyyy'}}</td>
             <td class="td">{{issue.assignee.login || null}}</td>
             <td>

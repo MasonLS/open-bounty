@@ -22,6 +22,7 @@ router.post('/', (req, res, next) => {
 
     const addingLabel = req.github.issues.addLabels({
 	user: req.user.githubName,
+	owner: req.user.githubName,
 	repo: req.body.projectName,
 	number: req.body.issueNumber,
 	body: ['OpenBounty']
