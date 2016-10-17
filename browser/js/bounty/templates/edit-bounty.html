@@ -1,6 +1,6 @@
 <div class="card single-project">
     <div class="row">
-        <div class="col-sm-12">
+        <div class="col-sm-6">
             <h1>{{ project.name | uppercase }}</h1>
             <p>Available Funds: {{fundsAvailable | currency}}</p>
             <h2><a href="issue.html_url">{{issue.title | uppercase }}</a></h2>
@@ -12,6 +12,11 @@
                 <button type="submit" class="btn btn-raised btn-primary btn-xs" ng-click="changeBounty(bountyId, amount)">Change Amount</button>
                 <button class="btn btn-raised btn-danger btn-xs" ng-click="deleteBounty(bountyId)">Delete Bounty</button>
             </div>
+        </div>
+        <h2 class="card-title">Hunters working on this bounty:</h2>
+        <br>
+        <div class="col-sm-6 card-block">
+            <a href="{{ user.githubUrl }}" class="btn btn-raised btn-sm">{{ user.githubName }}</a>
         </div>
     </div>
 </div>

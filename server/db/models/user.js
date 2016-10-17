@@ -32,6 +32,9 @@ module.exports = db.define('user', {
     githubEmail: {
         type: Sequelize.STRING
     },
+    githubUrl: {
+        type: Sequelize.STRING
+    },
     glory: {
         type: Sequelize.INTEGER
     }

@@ -7,7 +7,7 @@ app.config(function($stateProvider) {
         controller: 'UserCtrl',
         templateUrl: 'js/user/templates/user.html',
         resolve: {
-            featuredProjects: ProjectsFactory => ProjectsFactory.getFeatured().then(featured => featured),
+            featuredProjects: ProjectsFactory => ProjectsFactory.getFeatured(),
             userProjects: ProjectsFactory => ProjectsFactory.getForUser(),
             userBounties: BountyFactory => BountyFactory.getTracked()
         }
