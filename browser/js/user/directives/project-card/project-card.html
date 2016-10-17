@@ -22,18 +22,14 @@
                             {{ project.repo.description }}
                         </p>
                     </div>
+                    <div class="card-block donate-button">
+                        <a href="javascript:void(0)" class="btn btn-raised btn-sm btn-success" ng-click="openDonationWindow(project)">Donate to this project</a>
+                    </div>
                 </div>
-                <div ng-show="show === 'bounties'" role="tabpanel" class="tab-pane active project-bounties" id="project-bounties">
+                <div ng-show="show === 'bounties'" role="tabpanel" class="tab-pane active" id="project-bounties">
                     <div class="card-block project-bounties">
-                        <div class="card-block bounty-card" ng-repeat="bounty in project.bounties">
-                            <p class="card-text">
-                                {{ bounty.issue.title | limitTo:20 }}
-                            </p>
-                            <span class="label label-success">{{ bounty.amount | currency }}</span>
-                            <span class="label label-info" ng-class="difficultyColor(bounty.difficulty)">Difficulty level {{ bounty.difficulty }}</span>
-                            <span class="label"></span>
-                            <a href="{{ bounty.issue.html_url }}" class="btn btn-xs">GitHub</a>
-                        </div>
+                        <h3 ng-if="!bounties.length" class="card-title">No available bounties</h3>
+                        <bounty-post bounty="bounty" ng-repeat="bounty in bounties | filterTakenBounties:userBountyIds"></bounty-post>
                     </div>
                 </div>
             </div>

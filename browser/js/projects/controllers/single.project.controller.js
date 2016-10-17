@@ -1,7 +1,7 @@
-app.controller('SingleProjectCtrl', ($scope, project, BountyFactory, userBounties, donationHistory, paidHistory, ChartFactory) => {
+app.controller('SingleProjectCtrl', ($scope, project, BountyFactory, donationHistory, paidHistory, ChartFactory) => {
     $scope.project = project;
     $scope.bounties = project.bounties;
-    $scope.userBountyIds = userBounties.map(bounty => bounty.id);
+    $scope.userBountyIds = $scope.userBounties.map(bounty => bounty.id);
     $scope.chartConfig = ChartFactory.chartConfig;
     $scope.chartConfig.series[0].data = donationHistory;
     $scope.chartConfig.series[1].data = paidHistory;
