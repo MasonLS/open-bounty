@@ -32,7 +32,7 @@ module.exports = db.define('bounty', {
 					number: this.issueNumber
 				})
 				.then(issue => {
-					if (issue.state === 'closed') {
+					if (issue.state === 'closed' && this.status !== 'paid') {
 						return this.update({ status: 'pull request' })
 							.then(updatedBounty => {
 								updatedBounty.setDataValue('issue', issue);
