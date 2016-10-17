@@ -34,7 +34,7 @@ function getBounties(project) {
         });
 }
 
-// get all projects for user with repos and bounties
+// get all projects for user with repos and bounties 
 router.get('/', (req, res, next) => {
     Project.findAll({
             where: {
