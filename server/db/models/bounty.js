@@ -67,9 +67,11 @@ module.exports = db.define('bounty', {
 	classMethods: {
 		getForUser: function (githubClient, githubName, userId) {
 			return User.findById(userId)
-				.then(user => user.getBounties({ include: [Project] }).then(userBounties => Promise.map(userBounties, userBounty => userBounty.getHunters().then(hunters => userBounty.setDataValue('hunters', hunters)))))
-				.then(bounties => Promise.map(bounties, bounty => bounty.attachIssue(githubClient, githubName, bounty.project.name)));
+				.then(user => user.getBounties({ include: [Project] })
+				.then(bounties => Promise.map(bounties, bounty => bounty.attachIssue(githubClient, githubName, bounty.project.name))));
 
 		}
 	}
 });
+
+// .then(userBounties => Promise.map(userBounties, userBounty => userBounty.getHunters().then(hunters => userBounty.setDataValue('hunters', hunters)))))
