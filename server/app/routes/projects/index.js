@@ -53,14 +53,24 @@ router.get('/', (req, res, next) => {
 // create a project
 router.post('/', (req, res, next) => {
     const projectData = req.body;
+
     projectData.ownerId = req.user.id;
-    return req.github.issues.createLabel({
+
+    const creatingLabel = req.github.issues.createLabel({
         user: req.user.githubName,
         repo: projectData.name,
         name: 'OpenBounty',
         color: '337ab7'
-    }, function() {
-        Project.create(projectData)
+    });
+    const gettingRepo = req.github.repos.get({
+        user: req.user.githubName,
+        repo: projectData.name
+    });
+
+    return Promise.all([creatingLabel, gettingRepo])
+	.then(([label, repo]) => {
+	    projectData.language = repo.language;
+	    Project.create(projectData)
             .then(project => res.send(project))
             .catch(next);
     })

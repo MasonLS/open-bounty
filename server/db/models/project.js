@@ -13,6 +13,9 @@ module.exports = db.define('project', {
     name: {
         type: Sequelize.STRING
     },
+    language: {
+	type: Sequelize.STRING
+    },
     description: {
         type: Sequelize.TEXT
     },
