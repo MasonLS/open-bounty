@@ -6,6 +6,7 @@ const Promise = require('bluebird');
 const Project = require(path.join(__dirname, '../../../db/models/project'));
 const Bounty = require(path.join(__dirname, '../../../db/models/bounty'));
 const User = require(path.join(__dirname, '../../../db/models/user'));
+const _ = require('lodash');
 
 module.exports = router;
 
@@ -15,7 +16,7 @@ function getSortedByColumn(model, column, limit, order) {
         order: [
             [column, order]
         ]
-    });
+    })
 }
 
 function getProject(bounty) {
@@ -68,12 +69,12 @@ router.post('/', (req, res, next) => {
     });
 
     return Promise.all([creatingLabel, gettingRepo])
-	.then(([label, repo]) => {
-	    projectData.language = repo.language;
-	    Project.create(projectData)
-            .then(project => res.send(project))
-            .catch(next);
-    })
+        .then(([label, repo]) => {
+            projectData.language = repo.language;
+            Project.create(projectData)
+                .then(project => res.send(project))
+                .catch(next);
+        })
 });
 
 //search projects 
@@ -97,17 +98,20 @@ router.get('/search/:searchTerm', (req, res, next) => {
 // get featured projects for homepage
 router.get('/featured', (req, res, next) => {
     getSortedByColumn(Bounty, 'updatedAt', 30, 'DESC')
-        .then(bounties => Promise.all(bounties.map(getProject))
-            .then(projects => Promise.all(projects.map(getBounties)))
-            .then(projectsWithBounties => Promise.all(projectsWithBounties.map(project => {
-                return req.github.repos.getById({
-                    id: project.repoId
-                }).then(repo => {
-                    project.setDataValue('repo', repo)
-                    return project;
-                })
-            })))
-            .then(projectWithRepoAndBounties => res.send(projectWithRepoAndBounties)))
+        .then(bounties => {
+            const uniqueProjects = _.uniq(bounties, 'projectId');
+            return Promise.all(uniqueProjects.map(getProject))
+        })
+        .then(projects => Promise.all(projects.map(getBounties)))
+        .then(projectsWithBounties => Promise.all(projectsWithBounties.map(project => {
+            return req.github.repos.getById({
+                id: project.repoId
+            }).then(repo => {
+                project.setDataValue('repo', repo)
+                return project;
+            })
+        })))
+        .then(projectWithRepoAndBounties => res.send(projectWithRepoAndBounties))
 });
 
 // put project with repo and bounties on req object
