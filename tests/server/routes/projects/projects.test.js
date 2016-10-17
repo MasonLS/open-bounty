@@ -9,7 +9,7 @@ const projectsRouter = require('../../../../server/app/routes/projects');
 const expect = require('chai').expect;
 const supertest = require('supertest');
 
-describe('Project Routes', () => {
+xdescribe('Project Routes', () => {
     let agent,
         testApp,
         githubCall,
