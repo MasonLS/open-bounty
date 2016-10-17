@@ -154,4 +154,22 @@ router.get('/history/:projectId', (req, res) => {
         .catch(console.error);
 });
 
+// Get Paid Bounties History
+router.get('/history/paid/:projectId', (req, res) => {
+    Bounty.findAll({
+            attributes: ['id', 'status', 'amount', [sequelize.fn('date_trunc', 'day', sequelize.col('createdAt')), 'day']],
+            where: {
+                projectId: req.params.projectId
+            },
+            order: [['createdAt', 'ASC']]
+        })
+        .then(paidBounties => {
+            return paidBounties.map(bounty => {
+                return bounty.status === 'paid' && [moment(bounty.dataValues.day).valueOf(), bounty.amount];
+            });
+        })
+        .then(res.json.bind(res))
+        .catch(console.error);
+});
+
 module.exports = router;
