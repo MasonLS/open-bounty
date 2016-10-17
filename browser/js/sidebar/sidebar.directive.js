@@ -2,17 +2,16 @@ app.directive('sidebar', function () {
   return {
     restrict: 'E',
     templateUrl: '/js/sidebar/sidebar.html',
-    scope: true,
+    // scope: true,
     controller: function ($scope, ProjectsFactory, BountyFactory) {
     	$scope.show = 'search';
-        $scope.bounties = $scope.$parent.userBounties;
 
         $scope.$on('bounty taken', (e, bounty) => {
-            $scope.bounties.push(bounty);
+            $scope.userBounties.push(bounty);
         })
 
         $scope.$on('bounty untaken', (e, bounty) => {
-            $scope.bounties = $scope.bounties.filter(userBounty => userBounty.id !== bounty.id);
+            _.pull($scope.userBounties, bounty)
         })
 
         $scope.$on('project added', (e, project) => {

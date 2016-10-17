@@ -13,7 +13,6 @@ app.directive('bountyPost', function () {
 
 			$scope.takeBounty = bounty => {
 				$rootScope.$broadcast('bounty taken', bounty);
-				$scope.$emit('bounty taken', bounty);
 				return BountyFactory.track(bounty.id);
 			}
 
@@ -21,6 +20,20 @@ app.directive('bountyPost', function () {
 				$rootScope.$broadcast('bounty untaken', bounty);
 				return BountyFactory.untrack(bounty.id);
 			}
+
+			$scope.difficultyColor = function(difficulty) {
+                if (difficulty < 3) {
+                    return 'very-easy';
+                } else if (difficulty < 5) {
+                    return 'easy';
+                } else if (difficulty < 7) {
+                    return 'moderate';
+                } else if (difficulty < 9) {
+                    return 'hard';
+                } else {
+                    return 'very-hard';
+                }
+            }
 		}
 	}
 });
