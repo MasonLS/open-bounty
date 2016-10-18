@@ -3,7 +3,13 @@ app.directive('sidebar', function() {
         restrict: 'E',
         templateUrl: '/js/sidebar/sidebar.html',
         // scope: true,
-        controller: function($scope, ProjectsFactory, BountyFactory) {
+        controller: function($scope, ProjectsFactory, BountyFactory, SearchFactory) {
+
+	    SearchFactory.getLanguages().then(languages => {
+		languages = languages.map(language => language['DISTINCT']);
+		$scope.languages = languages;
+		console.log('languages:', languages);
+	    });
             $scope.show = 'search';
 
             $scope.$on('bounty taken', (e, bounty) => {
