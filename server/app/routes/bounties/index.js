@@ -13,26 +13,51 @@ function ensureAuthenticated(req, res, next) {
         res.status(401).end()
     }
 }
+// router.post('/', (req, res, next) => {
+//     const updatingFundsOnHold = Project.findById(req.body.projectId)
+// 	  .then(project => project.update({
+// 	      fundsOnHold: project.fundsOnHold + Number(req.body.amount)
+// 	  }));
+
+//     const addingLabel = req.github.issues.addLabels({
+// 	user: req.user.githubName,
+// 	owner: req.user.githubName,
+// 	repo: req.body.projectName,
+// 	number: req.body.issueNumber,
+// 	body: ['OpenBounty']
+//     })
+
+//     const creatingBounty = Bounty.create(req.body);
+
+//     Promise.all([updatingFundsOnHold, addingLabel, creatingBounty])
+// 	.then(([project, label, bounty]) => res.status(201).send(bounty))
+// 	.catch(next);
+// });
 
 router.post('/', (req, res, next) => {
-    const updatingFundsOnHold = Project.findById(req.body.projectId)
-	  .then(project => project.update({
-	      fundsOnHold: project.fundsOnHold + Number(req.body.amount)
-	  }));
+    req.github.issues.addLabels({
+        user: req.user.githubName,
+        owner: req.user.githubName,
+        repo: req.body.projectName,
+        number: req.body.issueNumber,
+        body: ['OpenBounty']
+    }, function(err, response) {
+	console.log('err:', err);
+	console.log('response:', response);
 
-    const addingLabel = req.github.issues.addLabels({
-	user: req.user.githubName,
-	owner: req.user.githubName,
-	repo: req.body.projectName,
-	number: req.body.issueNumber,
-	body: ['OpenBounty']
+        const updatingFundsOnHold = Project.findById(req.body.projectId)
+            .then(project => project.update({
+                fundsOnHold: project.fundsOnHold + Number(req.body.amount)
+            }));
+
+        const creatingBounty = Bounty.create(req.body);
+
+	Promise.all([updatingFundsOnHold, creatingBounty])
+            .then(([project, bounty]) => res.status(201).send(bounty))
+            .catch(next);
+
     })
 
-    const creatingBounty = Bounty.create(req.body);
-    
-    Promise.all([updatingFundsOnHold, addingLabel, creatingBounty])
-	.then(([project, label, bounty]) => res.status(201).send(bounty))
-	.catch(next);
 });
 
 router.get('/tracked', (req, res, next) => {
