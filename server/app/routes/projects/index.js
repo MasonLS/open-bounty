@@ -62,6 +62,12 @@ router.post('/', (req, res, next) => {
         repo: projectData.name,
         name: 'OpenBounty',
         color: '337ab7'
+    }, function (err, response) {
+	if (err) {
+	    console.log('creating label failed:', err)
+	} else {
+	    console.log('creating label successful:', response)
+	}
     });
     const gettingRepo = req.github.repos.get({
         user: req.user.githubName,
