@@ -39,7 +39,8 @@ app.factory('ChartFactory', () => {
             plotOptions: {
                 series: {
                     lineWidth: 1,
-                    fillOpacity: 0.5
+                    fillOpacity: 0.5,
+                    pointWidth: 25
 
                 },
                 column: {
@@ -51,12 +52,12 @@ app.factory('ChartFactory', () => {
                         enabled: false
                     }
                 }
-
             },
             exporting: false,
             xAxis: [{
                 type: 'datetime',
                 minTickInterval: 86400000,
+                maxTickInterval: 86400000 * 7,
                 stackLabels: {
                     enabled: true
                 },
@@ -145,8 +146,7 @@ app.factory('ChartFactory', () => {
                 valueSuffix: ' $'
             },
             color: '#80a3ca',
-        },
-        {
+        }, {
             name: 'Bounties ',
             type: 'line',
             yAxis: 1,

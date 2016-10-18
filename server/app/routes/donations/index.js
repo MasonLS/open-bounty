@@ -16,7 +16,7 @@ const Promise = require('bluebird');
 // Paypal configuration
 paypal.configure(env.PAYPAL);
 
-let ensureAuthenticated = (req, res, next) => {
+const ensureAuthenticated = (req, res, next) => {
     if (req.isAuthenticated()) {
         next();
     } else {
@@ -61,6 +61,7 @@ router.post('/collect', (req, res, next) => {
         .catch(console.error);
 });
 
+
 // Collect $$$ / OK response from Paypal
 router.get('/collect/ok', (req, res, next) => {
 
@@ -94,6 +95,7 @@ router.get('/collect/ok', (req, res, next) => {
         })
         .catch(next);
 });
+
 
 // Collect $$$ / KO response from Paypal
 router.get('/collect/ko', (req, res) => {
@@ -136,6 +138,7 @@ router.post('/payout', ensureAuthenticated, (req, res) => {
         .catch(console.error);
 });
 
+
 // Get Donations History
 router.get('/history/:projectId', (req, res) => {
     Donation.findAll({
@@ -143,7 +146,9 @@ router.get('/history/:projectId', (req, res) => {
             where: {
                 projectId: req.params.projectId
             },
-            order: [['createdAt', 'ASC']]
+            order: [
+                ['createdAt', 'ASC']
+            ]
         })
         .then(donations => {
             return donations.map(donation => {
@@ -154,19 +159,27 @@ router.get('/history/:projectId', (req, res) => {
         .catch(console.error);
 });
 
+
 // Get Paid Bounties History
 router.get('/history/paid/:projectId', (req, res) => {
     Bounty.findAll({
             attributes: ['id', 'status', 'amount', [sequelize.fn('date_trunc', 'day', sequelize.col('createdAt')), 'day']],
             where: {
-                projectId: req.params.projectId
+                projectId: req.params.projectId,
+                status: 'paid'
             },
-            order: [['createdAt', 'ASC']]
+            order: [
+                ['createdAt', 'ASC']
+            ]
         })
         .then(paidBounties => {
-            return paidBounties.map(bounty => {
-                return bounty.status === 'paid' && [moment(bounty.dataValues.day).valueOf(), bounty.amount];
-            });
+            if (paidBounties.length && paidBounties) {
+                return paidBounties.map(bounty => {
+                    return bounty.status === 'paid' && [moment(bounty.dataValues.day).valueOf(), bounty.amount];
+                });
+            } else {
+                return [];
+            }
         })
         .then(res.json.bind(res))
         .catch(console.error);

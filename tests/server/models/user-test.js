@@ -104,7 +104,7 @@ describe('User model', function () {
                 saltSpy.restore();
             });
 
-            
+
         });
 
         describe('sanitize method', function () {
