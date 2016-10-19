@@ -30,14 +30,12 @@
                     </div>
                 </div>
                 <div ng-show="show === 'bounties'" role="tabpanel" class="tab-pane active" id="bounties">
-            
-                        <div class="card-block">
+                    <div class="card-block">
                         <h2>My Bounties</h2>
                         <div class="user-projects-list">
                             <bounty-post ng-repeat="bounty in userBounties"></bounty-post>
                         </div>
-                        </div>
-              
+                    </div>
                 </div>
                 <div ng-show="show === 'projects'" role="tabpanel" class="tab-pane active" id="projects">
                     <div class="card-block">

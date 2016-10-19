@@ -1,4 +1,5 @@
 'use strict';
+
 const router = require('express').Router(); // eslint-disable-line new-cap
 const GitHubApi = require('github');
 const github = new GitHubApi();

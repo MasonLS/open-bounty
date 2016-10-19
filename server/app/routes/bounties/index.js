@@ -16,23 +16,23 @@ function ensureAuthenticated(req, res, next) {
 
 router.post('/', (req, res, next) => {
     const updatingFundsOnHold = Project.findById(req.body.projectId)
-	  .then(project => project.update({
-	      fundsOnHold: project.fundsOnHold + Number(req.body.amount)
-	  }));
+        .then(project => project.update({
+            fundsOnHold: project.fundsOnHold + Number(req.body.amount)
+        }));
 
     const addingLabel = req.github.issues.addLabels({
-	user: req.user.githubName,
-	owner: req.user.githubName,
-	repo: req.body.projectName,
-	number: req.body.issueNumber,
-	body: ['OpenBounty']
+        user: req.user.githubName,
+        owner: req.user.githubName,
+        repo: req.body.projectName,
+        number: req.body.issueNumber,
+        body: ['OpenBounty']
     })
 
     const creatingBounty = Bounty.create(req.body);
-    
+
     Promise.all([updatingFundsOnHold, addingLabel, creatingBounty])
-	.then(([project, label, bounty]) => res.status(201).send(bounty))
-	.catch(next);
+        .then(([project, label, bounty]) => res.status(201).send(bounty))
+        .catch(next);
 });
 
 router.get('/tracked', (req, res, next) => {

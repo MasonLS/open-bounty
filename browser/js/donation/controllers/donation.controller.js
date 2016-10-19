@@ -1,3 +1,5 @@
+'use strict';
+
 app.controller('DonationCTRL', ($scope, $log, $window, $uibModal, $timeout, SearchFactory, DonationFactory) => {
 
     $scope.allProjects = [];

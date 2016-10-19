@@ -1,4 +1,5 @@
 'use strict';
+
 var Sequelize = require('sequelize');
 
 var db = require('../_db');

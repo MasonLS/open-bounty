@@ -1,3 +1,5 @@
+'use strict';
+
 app.directive('searchEnter', function(SearchFactory, $log) {
     return {
         scope: {

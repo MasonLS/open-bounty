@@ -2,11 +2,10 @@
     <div class="row">
         <div class="col-sm-6">
             <h1>{{ project.name | uppercase }}</h1>
-            <p>Available Funds: {{fundsAvailable | currency}}</p>
-            <h2><a href="issue.html_url">{{issue.title | uppercase }}</a></h2>
+            <p>Available Funds: {{ fundsAvailable | currency }}</p>
+            <h2><a href="issue.html_url">{{ issue.title | uppercase }}</a></h2>
             <div class="form-group" style="margin-top: 2px;">
-                    <input style="width:228px;" type="text" class="form-control" id="exampleInputAmount" placeholder="Current Amount : {{ bountyAmount | currency}}" ng-model="amount">
-
+                <input style="width:228px;" type="text" class="form-control" id="exampleInputAmount" placeholder="Current Amount : {{ bountyAmount | currency}}" ng-model="amount">
             </div>
             <div style="vertical-align: middle;">
                 <button type="submit" class="btn btn-raised btn-primary btn-xs" ng-click="changeBounty(bountyId, amount)">Change Amount</button>

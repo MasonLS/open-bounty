@@ -1,3 +1,5 @@
+'use strict';
+
 app.factory('DonationFactory', ($http, $log) => {
     const DonationFactory = {};
     const getData = data => data.data;

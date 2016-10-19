@@ -1,9 +1,11 @@
-app.directive('sidebar', function() {
+'use strict';
+
+app.directive('sidebar', () => {
     return {
         restrict: 'E',
         templateUrl: '/js/sidebar/sidebar.html',
         // scope: true,
-        controller: function($scope, ProjectsFactory, BountyFactory) {
+        controller: ($scope, ProjectsFactory, BountyFactory) => {
             $scope.show = 'search';
 
             $scope.$on('bounty taken', (e, bounty) => {

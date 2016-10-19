@@ -1,3 +1,5 @@
+'use strict';
+
 app.factory('ChartFactory', () => {
     let ChartFactory = {}
 
@@ -145,8 +147,7 @@ app.factory('ChartFactory', () => {
                 valueSuffix: ' $'
             },
             color: '#80a3ca',
-        },
-        {
+        }, {
             name: 'Bounties ',
             type: 'line',
             yAxis: 1,

@@ -1,15 +1,16 @@
 'use strict';
-var path = require('path');
-var chalk = require('chalk');
-var util = require('util');
 
-var rootPath = path.join(__dirname, '../../../');
-var indexPath = path.join(rootPath, './server/app/views/index.html');
-var faviconPath = path.join(rootPath, './server/app/views/favicon.ico');
+const path = require('path');
+const chalk = require('chalk');
+const util = require('util');
 
-var env = require(path.join(rootPath, './server/env'));
+const rootPath = path.join(__dirname, '../../../');
+const indexPath = path.join(rootPath, './server/app/views/index.html');
+const faviconPath = path.join(rootPath, './server/app/views/favicon.ico');
 
-var logMiddleware = (req, res, next) => {
+const env = require(path.join(rootPath, './server/env'));
+
+const logMiddleware = (req, res, next) => {
     util.log(('---NEW REQUEST---'));
     console.log(util.format(chalk.red('%s: %s %s'), 'REQUEST ', req.method, req.path));
     console.log(util.format(chalk.yellow('%s: %s'), 'QUERY   ', util.inspect(req.query)));

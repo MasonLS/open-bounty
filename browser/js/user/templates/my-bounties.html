@@ -1,6 +1,6 @@
 <div class="container-fluid">
-    <div class='row'>
-        <div class='col-sm-9 col-sm-offset-3'>
+    <div class="row">
+        <div class="col-sm-9 col-sm-offset-3">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a ui-sref-active="active" ui-sref="home">Home</a></li>
                 <li class="breadcrumb-item">Bounties</li>
@@ -27,7 +27,7 @@
                 </thead>
                 <tbody>
                     <tr ng-repeat="bounty in bounties">
-                        <td>{{ bounty.id | uppercase}}</td>
+                        <td>{{ bounty.id | uppercase }}</td>
                         <td href="bounty.issue.html_url">{{ bounty.issue.title }}</td>
                         <td>{{ bounty.amount }}</td>
                         <td>{{ bounty.status }}</td>

@@ -1,3 +1,5 @@
+'use strict';
+
 app.controller('PayModalCtrl', ($scope, $uibModal) => {
     $scope.openPaymentModal = (bounty) => {
         $uibModal.open({
@@ -22,16 +24,16 @@ app.controller('PayModalInstanceCtrl', ($scope, $uibModalInstance, $log, $state,
     $scope.completePayment = () => {
         if ($scope.form.payoutForm.$valid) {
 
-          PayoutFactory.payout($scope.bounty, $scope.form.payoutForm)
-            .then(data => {
-                if (data.status === 'ok') {
-                    $state.reload();
-                    $uibModalInstance.close();
-                } else {
-                    throw new Error(data);
-                }
-            })
-            .catch($log.error);
+            PayoutFactory.payout($scope.bounty, $scope.form.payoutForm)
+                .then(data => {
+                    if (data.status === 'ok') {
+                        $state.reload();
+                        $uibModalInstance.close();
+                    } else {
+                        throw new Error(data);
+                    }
+                })
+                .catch($log.error);
         }
     };
 });

@@ -1,5 +1,6 @@
 'use strict';
-module.exports = function (app, db) {
+
+module.exports = (app, db) => {
 
     // setValue and getValue are merely alias
     // for app.set and app.get used in the less

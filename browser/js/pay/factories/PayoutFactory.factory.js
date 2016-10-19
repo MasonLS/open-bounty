@@ -1,3 +1,5 @@
+'use strict';
+
 app.factory('PayoutFactory', ($http, $log) => {
     let PayoutFactory = {};
     let getData = response => response.data;

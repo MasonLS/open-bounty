@@ -1,4 +1,5 @@
 'use strict';
+
 const router = require('express').Router(); // eslint-disable-line new-cap
 const path = require('path');
 const paypal = require('paypal-rest-sdk');
@@ -143,7 +144,9 @@ router.get('/history/:projectId', (req, res) => {
             where: {
                 projectId: req.params.projectId
             },
-            order: [['createdAt', 'ASC']]
+            order: [
+                ['createdAt', 'ASC']
+            ]
         })
         .then(donations => {
             return donations.map(donation => {
@@ -161,7 +164,9 @@ router.get('/history/paid/:projectId', (req, res) => {
             where: {
                 projectId: req.params.projectId
             },
-            order: [['createdAt', 'ASC']]
+            order: [
+                ['createdAt', 'ASC']
+            ]
         })
         .then(paidBounties => {
             return paidBounties.map(bounty => {

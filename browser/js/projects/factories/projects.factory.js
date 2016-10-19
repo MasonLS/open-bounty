@@ -1,15 +1,18 @@
-app.factory('ProjectsFactory', function($http, $log, AuthService) {
-    
-    function getData (res) {
+'use strict';
+
+app.factory('ProjectsFactory', ($http, $log, AuthService) => {
+
+    function getData(res) {
         return res.data;
     }
 
     function getForUser() {
         return $http.get('/api/projects/')
-        .then(getData)
+            .then(getData)
+            .catch($log.error);
     }
 
-    function addProject (repo, description) {
+    function addProject(repo, description) {
 
         let data = {
             repoId: repo.id,
@@ -19,11 +22,12 @@ app.factory('ProjectsFactory', function($http, $log, AuthService) {
 
         return $http.post('/api/projects', data)
             .then(getData)
+            .catch($log.error);
     }
 
-    function findProject (user) {
+    function findProject(user) {
         return AuthService.getLoggedInUser()
-            .then(function(user) {
+            .then(user => {
                 return $http.get('/api/projects/all/owner/' + user.id);
             })
             .then(function(project) {
@@ -32,37 +36,42 @@ app.factory('ProjectsFactory', function($http, $log, AuthService) {
 
     }
 
-    function getOne (projectId) {
+    function getOne(projectId) {
         return $http.get(`/api/projects/${projectId}`)
-            .then(getData);
+            .then(getData)
+            .catch($log.error);
     }
 
-    function searchIssues (projectId, searchTerm) {
+    function searchIssues(projectId, searchTerm) {
         return $http.get(`/api/projects/${projectId}/github/issues/${searchTerm}`)
-            .then(getData);
+            .then(getData)
+            .catch($log.error);
     }
 
-    function getIssues (projectId) {
-	return $http.get(`/api/projects/${projectId}/issues`)
-	    .then(getData);
+    function getIssues(projectId) {
+        return $http.get(`/api/projects/${projectId}/issues`)
+            .then(getData)
+            .catch($log.error);
     }
 
-    function getFeatured () {
-	return $http.get(`api/projects/featured`)
-	    .then(getData)
+    function getFeatured() {
+        return $http.get(`api/projects/featured`)
+            .then(getData)
+            .catch($log.error);
     }
 
-    function searchProjects (searchTerm) {
+    function searchProjects(searchTerm) {
         return $http.get(`/api/projects/search/${searchTerm}`)
-            .then(getData);
+            .then(getData)
+            .catch($log.error);
     }
 
     return {
         getForUser,
         findProject,
         addProject,
-	    getIssues,
-	    getFeatured,
+        getIssues,
+        getFeatured,
         getOne,
         searchIssues,
         searchProjects

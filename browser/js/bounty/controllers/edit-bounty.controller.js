@@ -1,3 +1,5 @@
+'use strict';
+
 app.controller('EditBountyCtrl', ($scope, $state, project, ProjectsFactory, BountyFactory, $stateParams, $uibModal) => {
     $scope.project = project;
     $scope.bountyId = +$stateParams.bountyId;
@@ -7,7 +9,7 @@ app.controller('EditBountyCtrl', ($scope, $state, project, ProjectsFactory, Boun
 
     const openErrorWindow = message => {
         $uibModal.open({
-            template: `<h1 class='error-title'>${message}</h1>`,
+            template: `<h1 class="error-title:>${message}</h1>`,
             windowClass: 'donation-modal'
         });
     };
@@ -20,8 +22,8 @@ app.controller('EditBountyCtrl', ($scope, $state, project, ProjectsFactory, Boun
         } else {
             BountyFactory.updateBounty(bountyId, amount)
                 .then(updatedBounty => $state.go('user.singleProject', {
-                        projectId: project.id
-                    }));
+                    projectId: project.id
+                }));
         }
     };
 

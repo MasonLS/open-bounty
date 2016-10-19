@@ -1,4 +1,5 @@
-'use strict'
+'use strict';
+
 const Sequelize = require('sequelize');
 const Project = require('./project');
 const User = require('./user');
@@ -17,7 +18,7 @@ module.exports = db.define('bounty', {
         type: Sequelize.STRING
     },
     issueUrl: {
-	type: Sequelize.STRING
+        type: Sequelize.STRING
     },
     status: {
         type: Sequelize.ENUM('open', 'pull request', 'paid', 'deleted'),
