@@ -71,4 +71,15 @@ app.config($stateProvider => {
         }
     });
 
+    $stateProvider.state('user.searchProjectsByLanguage', {
+        url: '/language/:searchTerm',
+        templateUrl: 'js/user/templates/search.html',
+        controller: function ($scope, projectResults) {
+            $scope.projects = _.chunk(projectResults, 3);
+        },
+        resolve: {
+            projectResults: (SearchFactory, $stateParams) => SearchFactory.getProjectsByLanguage($stateParams.searchTerm)
+        }
+    });
+
 });

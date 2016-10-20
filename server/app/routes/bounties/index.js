@@ -35,6 +35,7 @@ router.post('/', (req, res, next) => {
         .catch(next);
 });
 
+
 router.get('/tracked', (req, res, next) => {
     // req.user.getBounties({ include: [Project] })
     //     .then(userBounties => {

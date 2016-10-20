@@ -46,8 +46,33 @@ router.get('/search/:searchTerm', (req, res, next) => {
 
 // get projects by language
 router.get('/language/:searchTerm', (req, res, next) => {
+    github.authenticate({
+        type: 'oauth',
+        token: req.user.githubToken
+    })
+    req.github = github;
     getByField(Project, 'language', req.params.searchTerm, Bounty)
+        .then(projects => Promise.all(projects.map(project => {
+            return req.github.repos.getById({
+                    id: project.repoId
+                })
+                .then(repo => {
+                    project.setDataValue('repo', repo)
+                    return project;
+                })
+        })))
         .then(res.json.bind(res))
+        .catch(next);
+});
+// get projects by language
+router.get('/languages', (req, res, next) => {
+    Project.aggregate('language', 'DISTINCT', {
+            plain: false
+        })
+        .then(languages => {
+	    console.log('languages:', languages);
+	    res.json(languages)
+	})
         .catch(next);
 });
 
