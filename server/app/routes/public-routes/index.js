@@ -49,7 +49,7 @@ router.get('/language/:searchTerm', (req, res, next) => {
     github.authenticate({
         type: 'oauth',
         token: req.user.githubToken
-    })
+    });
     req.github = github;
     getByField(Project, 'language', req.params.searchTerm, Bounty)
         .then(projects => Promise.all(projects.map(project => {
@@ -57,7 +57,7 @@ router.get('/language/:searchTerm', (req, res, next) => {
                     id: project.repoId
                 })
                 .then(repo => {
-                    project.setDataValue('repo', repo)
+                    project.setDataValue('repo', repo);
                     return project;
                 })
         })))
@@ -70,9 +70,8 @@ router.get('/languages', (req, res, next) => {
             plain: false
         })
         .then(languages => {
-	    console.log('languages:', languages);
-	    res.json(languages)
-	})
+	    res.json(languages);
+	    })
         .catch(next);
 });
 

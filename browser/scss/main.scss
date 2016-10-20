@@ -27,35 +27,13 @@ h2 {
     margin: 0 auto;
 }
 
-
-
+.form-group .checkbox label, .form-group .radio label, .form-group label, .form-check-label {
+    color: black;
+}
 
 /*
  * Sidebar
  */
-
-
-/* Hide for mobile, show later */
-
-// @media (min-width: 768px) {
-//     .sidebar {
-//         position: fixed;
-//         top: 75px;
-//         bottom: 0;
-//         left: 0;
-//         margin-left: 40px;
-//         z-index: 1000;
-//         display: block;
-//         padding: 20px;
-//         overflow-x: visible;
-//         overflow-y: visible;
-//         // overflow-x: hidden;
-//         // overflow-y: auto;
-//         /* Scrollable contents if viewport is shorter than content. */
-//         background-color: #EEEEEE;
-//         border-right: 1px solid #eee;
-//     }
-// }
 
 .sidebar {
     margin-bottom: 60px;

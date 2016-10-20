@@ -6,11 +6,11 @@ app.directive('sidebar', () => {
         templateUrl: '/js/sidebar/sidebar.html',
         controller: function($scope, ProjectsFactory, BountyFactory, SearchFactory) {
 
-	    SearchFactory.getLanguages().then(languages => {
-		languages = languages.map(language => language['DISTINCT']);
-		$scope.languages = languages;
-		console.log('languages:', languages);
-	    });
+    	    SearchFactory.getLanguages().then(languages => {
+        		languages = languages.map(language => language['DISTINCT']);
+        		$scope.languages = languages;
+        	});
+
             $scope.show = 'search';
 
             $scope.$on('bounty taken', (e, bounty) => {

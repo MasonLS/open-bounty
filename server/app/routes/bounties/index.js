@@ -37,15 +37,6 @@ router.post('/', (req, res, next) => {
 
 
 router.get('/tracked', (req, res, next) => {
-    // req.user.getBounties({ include: [Project] })
-    //     .then(userBounties => {
-    //         return Promise.all(userBounties, bounty => bounty.attachIssue(req.github, req.user.githubName, bounty.project.name));
-    //     })
-    //     .then(userBountiesWithIssue => {
-    //         console.log(userBountiesWithIssue[0].toJSON().issue)
-    //         res.send(userBountiesWithIssue)
-    //     })
-    //     .catch(next);
     Bounty.getForUser(req.github, req.user.githubName, req.user.id)
         .then(bounties => res.send(bounties))
         .catch(next);

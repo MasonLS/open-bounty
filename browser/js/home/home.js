@@ -11,9 +11,8 @@ app.config($stateProvider => {
                 return AuthService.getLoggedInUser()
                     .then(user => {
                         if (!user) return;
-                        $rootScope.loggedInUser = user;
                         $state.go('user');
-                    })
+                    });
             }
         }
     });

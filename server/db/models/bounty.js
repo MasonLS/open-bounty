@@ -28,7 +28,11 @@ module.exports = db.define('bounty', {
         type: Sequelize.FLOAT
     },
     difficulty: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        validate: {
+            min: 1,
+            max: 10
+        }
     }
 }, {
     instanceMethods: {
@@ -79,10 +83,10 @@ module.exports = db.define('bounty', {
                 .then(user => user.getBounties({
                         include: [Project]
                     })
-                    .then(bounties => Promise.map(bounties, bounty => bounty.attachIssue(githubClient, githubName, bounty.project.name))));
+                    .then(bounties => Promise.map(bounties, bounty => {
+                        return bounty.attachIssue(githubClient, githubName, bounty.project.name);
+                    })));
 
         }
     }
 });
-
-// .then(userBounties => Promise.map(userBounties, userBounty => userBounty.getHunters().then(hunters => userBounty.setDataValue('hunters', hunters)))))
