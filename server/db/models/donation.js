@@ -35,15 +35,22 @@ module.exports = db.define('donation', {
     },
     selfUrl: {
         type: Sequelize.STRING,
-        allowNull: false
+        allowNull: false,
+        isUrl: true
     },
     approvalUrl: {
         type: Sequelize.STRING,
-        allowNull: false
+        allowNull: false,
+        validate: {
+            isUrl: true
+        }
     },
     executeUrl: {
         type: Sequelize.STRING,
-        allowNull: false
+        allowNull: false,
+        validate: {
+            isUrl: true
+        }
     },
     token: {
         type: Sequelize.STRING
@@ -52,7 +59,10 @@ module.exports = db.define('donation', {
         type: Sequelize.STRING
     },
     paypalEmail: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        validate: {
+            isEmail: true
+        }
     },
     donorName: {
         type: Sequelize.STRING

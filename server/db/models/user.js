@@ -19,22 +19,28 @@ module.exports = db.define('user', {
         type: Sequelize.STRING
     },
     githubId: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        allowNull: false
     },
     githubName: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false
     },
     githubPic: {
         type: Sequelize.TEXT
     },
     githubToken: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false
     },
     githubEmail: {
         type: Sequelize.STRING
     },
     githubUrl: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        valide: {
+            isUrl: true
+        }
     },
     glory: {
         type: Sequelize.INTEGER
