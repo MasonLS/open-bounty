@@ -1,4 +1,5 @@
-'use strict'
+'use strict';
+
 const Sequelize = require('sequelize');
 const Promise = require('bluebird');
 
@@ -14,7 +15,7 @@ module.exports = db.define('project', {
         type: Sequelize.STRING
     },
     language: {
-	type: Sequelize.STRING
+        type: Sequelize.STRING
     },
     description: {
         type: Sequelize.TEXT
@@ -31,19 +32,19 @@ module.exports = db.define('project', {
         type: Sequelize.FLOAT,
         defaultValue: 0.00
     }
-},{
+}, {
     instanceMethods: {
-        attachRepo: function (githubClient, githubName) {
+        attachRepo: function(githubClient, githubName) {
             return githubClient.repos.get({
-                user: githubName,
-                repo: this.name
-            })
-            .then(repo => {
-                this.setDataValue('repo', repo);
-                return this;
-            })
+                    user: githubName,
+                    repo: this.name
+                })
+                .then(repo => {
+                    this.setDataValue('repo', repo);
+                    return this;
+                })
         },
-        attachBounties: function (githubClient, githubName) {
+        attachBounties: function(githubClient, githubName) {
             return this.getBounties()
                 .then(bounties => {
                     return Promise.map(bounties, bounty => {
@@ -54,13 +55,13 @@ module.exports = db.define('project', {
                     this.setDataValue('bounties', bountiesWithIssue);
                     return this;
                 })
-                
+
         },
-        attachRepoAndBounties: function (githubClient, githubName) {
+        attachRepoAndBounties: function(githubClient, githubName) {
             return this.attachRepo(githubClient, githubName)
-                    .then(projectWithRepo => {
-                        return this.attachBounties(githubClient, githubName)
-                    });
+                .then(projectWithRepo => {
+                    return this.attachBounties(githubClient, githubName)
+                });
         }
     }
 });

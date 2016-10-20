@@ -1,4 +1,5 @@
-'use strict'
+'use strict';
+
 const crypto = require('crypto');
 const _ = require('lodash');
 const Sequelize = require('sequelize');
@@ -38,23 +39,23 @@ module.exports = db.define('user', {
     glory: {
         type: Sequelize.INTEGER
     }
-},{
+}, {
     instanceMethods: {
-        sanitize: function () {
+        sanitize: function() {
             return _.omit(this.toJSON(), ['password', 'salt']);
         },
-        correctPassword: function (candidatePassword) {
+        correctPassword: function(candidatePassword) {
             return this.Model.encryptPassword(candidatePassword, this.salt) === this.password;
         },
-        incrementGlory: function (amountOfGlory) {
-            this.glory =+ amountOfGlory;
+        incrementGlory: function(amountOfGlory) {
+            this.glory = +amountOfGlory;
         }
     },
     classMethods: {
-        generateSalt: function () {
+        generateSalt: function() {
             return crypto.randomBytes(16).toString('base64');
         },
-        encryptPassword: function (plainText, salt) {
+        encryptPassword: function(plainText, salt) {
             var hash = crypto.createHash('sha1');
             hash.update(plainText);
             hash.update(salt);
@@ -64,7 +65,7 @@ module.exports = db.define('user', {
     hooks: {
         beforeCreate: setSaltAndPassword,
         beforeUpdate: setSaltAndPassword,
-        afterCreate: function (user) {
+        afterCreate: function(user) {
             if (user.githubToken) {
                 github.authenticate({
                     type: 'oauth',
@@ -75,8 +76,8 @@ module.exports = db.define('user', {
                         response.forEach(emailObj => {
                             if (emailObj.primary) {
                                 return user.update({
-                                        githubEmail: emailObj.email
-                                       });
+                                    githubEmail: emailObj.email
+                                });
                             }
                         })
                     })

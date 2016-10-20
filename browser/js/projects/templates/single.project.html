@@ -1,6 +1,6 @@
-<div class='card single-project'>
-    <div class='row'>
-        <div class='col-sm-6'>
+<div class="card single-project">
+    <div class="row">
+        <div class="col-sm-6">
             <h1>{{ project.name | uppercase }}</h1>
             <p>Available funds: {{ project.raised - project.fundsOnHold - project.paidOut | currency }}</p>
             <h2>Bounties <button ng-if="user.id === project.ownerId" class="btn btn-raised btn-xs" ui-sref-active="active" ui-sref="user.addBounty({ projectId: project.id })">+ add bounty</button></h2>

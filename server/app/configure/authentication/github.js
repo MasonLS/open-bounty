@@ -1,59 +1,60 @@
-'use strict'
-var passport = require('passport')
-var GitHubStrategy = require('passport-github').Strategy
-var GitHubApi = require('github')
+'use strict';
 
-module.exports = function (app, db) {
-  var User = db.model('user')
+const passport = require('passport');
+const GitHubStrategy = require('passport-github').Strategy
+const GitHubApi = require('github');
 
-  var githubConfig = app.getValue('env').GITHUB
+module.exports = (app, db) => {
+    let User = db.model('user')
 
-  var githubCredentials = {
-    clientID: githubConfig.clientID,
-    clientSecret: githubConfig.clientSecret,
-    callbackURL: githubConfig.callbackURL
-  }
+    let githubConfig = app.getValue('env').GITHUB
 
-  var verifyCallback = (accessToken, refreshToken, profile, done) => {
-    console.log('PROFILE', profile)
-    User.findOne({
-      where: {
-        githubId: profile.id
-      }
-    })
-      .then(user => {
-        if (user) {
-          return user.update({
-            githubToken: accessToken
-          })
-        } else {
-          return  User.create({
-                    githubId: profile.id,
-                    githubName: profile.username,
-                    githubToken: accessToken,
-                    githubPic: profile.photos[0].value,
-                    name: profile.displayName,
-                    githubUrl: profile._json.html_url
-                  })
-            
-        }
-      })
-      .then(userToLogin => {
-        done(null, userToLogin)
-      })
-      .catch(err => {
-        console.error('Error creating user from GitHub authentication', err)
-        done(err)
-      })
-  }
+    let githubCredentials = {
+        clientID: githubConfig.clientID,
+        clientSecret: githubConfig.clientSecret,
+        callbackURL: githubConfig.callbackURL
+    }
 
-  passport.use(new GitHubStrategy(githubCredentials, verifyCallback))
+    const verifyCallback = (accessToken, refreshToken, profile, done) => {
 
-    app.get('/auth/github', passport.authenticate('github', {scope: ['user:email', 'repo']}))
+        User.findOne({
+                where: {
+                    githubId: profile.id
+                }
+            })
+            .then(user => {
+                if (user) {
+                    return user.update({
+                        githubToken: accessToken
+                    })
+                } else {
+                    return User.create({
+                        githubId: profile.id,
+                        githubName: profile.username,
+                        githubToken: accessToken,
+                        githubPic: profile.photos[0].value,
+                        name: profile.displayName,
+                        githubUrl: profile._json.html_url
+                    })
 
-  app.get('/auth/github/callback',
-	  passport.authenticate('github', {failureRedirect: '/', scope: ['user:email']}),
-    (req, res) => {
-      res.redirect('/')
-    })
- }
+                }
+            })
+            .then(userToLogin => {
+                done(null, userToLogin)
+            })
+            .catch(err => {
+                console.error('Error creating user from GitHub authentication', err)
+                done(err)
+            })
+    }
+
+    passport.use(new GitHubStrategy(githubCredentials, verifyCallback))
+
+    app.get('/auth/github', passport.authenticate('github', { scope: ['user:email', 'repo'] }))
+
+    app.get('/auth/github/callback',
+        passport.authenticate('github', { failureRedirect: '/', scope: ['user:email'] }),
+        (req, res) => {
+            res.redirect('/')
+        })
+}

@@ -1,9 +1,10 @@
 'use strict';
+
 var path = require('path');
 var express = require('express');
 var app = express();
 
-module.exports = function (db) {
+module.exports = function(db) {
 
     // Pass our express application pipeline into the configuration
     // function located at server/app/configure/index.js
@@ -44,4 +45,3 @@ module.exports = function (db) {
     return app;
 
 };
-

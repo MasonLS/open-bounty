@@ -9,10 +9,10 @@ router.get('/issues/:searchTerm', (req, res, next) => {
     let queryString = `${searchTerm}+type:issue+repo:${req.user.githubName}/${req.project.name}+is:open`;
 
     req.github.search.issues({
-        q: queryString
-    })
-    .then(searchResultsObj => res.send(searchResultsObj.items))
-    .catch(next);
+            q: queryString
+        })
+        .then(searchResultsObj => res.send(searchResultsObj.items))
+        .catch(next);
 });
 
 // search all github repos

@@ -1,9 +1,8 @@
+'use strict';
+
 app.factory('SearchFactory', ($http, $log) => {
     const SearchFactory = {};
-    const getData = function(data) {
-	console.log('data:', data.data);
-        return data.data;
-    };
+    const getData = data => data.data;
 
     SearchFactory.getRepoByUser = userId => {
         return $http.get('/api/users/' + userId + '/github/repos/')

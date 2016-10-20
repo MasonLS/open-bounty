@@ -1,26 +1,29 @@
-app.controller('NewProjectCtrl', function($scope, userRepos, ProjectsFactory, $state) {
+'use strict';
+
+app.controller('NewProjectCtrl', ($scope, $log, $state, userRepos, ProjectsFactory) => {
 
     $scope.userRepos = userRepos;
     $scope.typeAheadDisabled = false;
 
-    $scope.onSelect = function () {
-      $scope.typeAheadDisabled = true;
+    $scope.onSelect = () => {
+        $scope.typeAheadDisabled = true;
     };
 
-    $scope.clearSearch = function() {
-      $scope.typeAheadDisabled = false;
-      $scope.searchRepo = null;
+    $scope.clearSearch = () => {
+        $scope.typeAheadDisabled = false;
+        $scope.searchRepo = null;
     };
 
-    $scope.addProject = function() {
-      ProjectsFactory.addProject($scope.searchRepo, $scope.submitProject.projectDescription)
-        .then(function (project) {
-          $scope.$parent.userProjects.push(project);
-          $state.go('user.singleProject', {projectId: project.id});
-        })
-        .catch(function (project) {
-          $state.go('addProjectKO');
-        })
+    $scope.addProject = () => {
+        ProjectsFactory.addProject($scope.searchRepo, $scope.submitProject.projectDescription)
+            .then(project => {
+                $scope.$parent.userProjects.push(project);
+                $state.go('user.singleProject', { projectId: project.id });
+            })
+            .catch((error) => {
+                $log.error(error);
+                $state.go('addProjectKO');
+            });
     };
 
 });

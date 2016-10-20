@@ -1,3 +1,5 @@
+'use strict';
+
 app.controller('AddBountyCtrl', ($scope, project, issues, $uibModal, ProjectsFactory, BountyFactory, $state) => {
 
     /**
@@ -18,7 +20,7 @@ app.controller('AddBountyCtrl', ($scope, project, issues, $uibModal, ProjectsFac
      */
     function openErrorWindow(message, windowType) {
         $uibModal.open({
-            template: `<h1 class='error-title'>${message}</h1>`,
+            template: `<h1 class="error-title">${message}</h1>`,
             windowClass: windowType
         });
     }

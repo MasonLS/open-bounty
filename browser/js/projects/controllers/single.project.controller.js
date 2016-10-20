@@ -8,7 +8,7 @@ app.controller('SingleProjectCtrl', ($scope, project, BountyFactory, donationHis
 
     $scope.trackBounty = function(bountyId) {
         return BountyFactory.track(bountyId)
-            .then(_ => {
+            .then(() => {
                 $scope.userBountyIds.push(bountyId);
             });
     }
@@ -17,5 +17,3 @@ app.controller('SingleProjectCtrl', ($scope, project, BountyFactory, donationHis
         return $scope.project.ownerId !== $scope.user.id && !$scope.userBountyIds.includes(bountyId);
     }
 });
-
-

@@ -1,3 +1,5 @@
+'use strict';
+
 app.directive('navbar', function($rootScope, AuthService, AUTH_EVENTS, $state) {
 
     return {
@@ -11,10 +13,6 @@ app.directive('navbar', function($rootScope, AuthService, AUTH_EVENTS, $state) {
                 { label: 'Fund your project', state: 'fundProject' },
             ];
 
-            // scope.privateItems = [
-            //     { label: 'Manage Projects', state: 'projects', auth: true }
-            // ]
-
             scope.user = null;
 
             scope.isLoggedIn = () => {
@@ -27,14 +25,14 @@ app.directive('navbar', function($rootScope, AuthService, AUTH_EVENTS, $state) {
                 });
             };
 
-            var setUser = () => {
+            let setUser = () => {
                 AuthService.getLoggedInUser().then(function(user) {
                     scope.user = user;
                     $rootScope.user = user;
                 });
             };
 
-            var removeUser = () => {
+            let removeUser = () => {
                 scope.user = null;
             };
 

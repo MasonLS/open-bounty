@@ -1,6 +1,6 @@
 'use strict';
 
-app.config(function($stateProvider) {
+app.config($stateProvider => {
 
     $stateProvider.state('user', {
         url: '/user',
@@ -63,7 +63,7 @@ app.config(function($stateProvider) {
     $stateProvider.state('user.searchProjects', {
         url: '/search/:searchTerm',
         templateUrl: 'js/user/templates/search.html',
-        controller: function ($scope, projectResults) {
+        controller: function($scope, projectResults) {
             $scope.projects = _.chunk(projectResults, 3);
         },
         resolve: {

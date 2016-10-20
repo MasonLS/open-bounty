@@ -1,3 +1,5 @@
+'use strict';
+
 const router = require('express').Router();
 const path = require('path');
 const Project = require(path.join(__dirname, '../../../db/models/project'));

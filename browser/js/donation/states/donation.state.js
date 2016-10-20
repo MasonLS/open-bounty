@@ -1,4 +1,6 @@
-app.config(function ($stateProvider) {
+'use strict';
+
+app.config(($stateProvider) => {
 
     $stateProvider.state('donate', {
         url: '/donate',

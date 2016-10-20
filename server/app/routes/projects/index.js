@@ -35,7 +35,7 @@ function getBounties(project) {
         });
 }
 
-// get all projects for user with repos and bounties 
+// get all projects for user with repos and bounties
 router.get('/', (req, res, next) => {
     Project.findAll({
             where: {
@@ -62,12 +62,12 @@ router.post('/', (req, res, next) => {
         repo: projectData.name,
         name: 'OpenBounty',
         color: '337ab7'
-    }, function (err, response) {
-	if (err) {
-	    console.log('creating label failed:', err)
-	} else {
-	    console.log('creating label successful:', response)
-	}
+    }, function(err, response) {
+        if (err) {
+            console.log('creating label failed:', err)
+        } else {
+            console.log('creating label successful:', response)
+        }
     });
     const gettingRepo = req.github.repos.get({
         user: req.user.githubName,
@@ -83,7 +83,7 @@ router.post('/', (req, res, next) => {
         })
 });
 
-//search projects 
+//search projects
 router.get('/search/:searchTerm', (req, res, next) => {
     Project.findAll({
             where: {
@@ -118,6 +118,7 @@ router.get('/featured', (req, res, next) => {
             })
         })))
         .then(projectWithRepoAndBounties => res.send(projectWithRepoAndBounties))
+        .catch(next);
 });
 
 // put project with repo and bounties on req object
