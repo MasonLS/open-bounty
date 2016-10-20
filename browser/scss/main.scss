@@ -324,10 +324,17 @@ li {
     padding-top: 40px;
     padding-bottom: 0;
 }
+.language-search {
+    margin-top: 20px;
+}
+.language-tag {
+    margin-right: 3px;
+}
 
 .featured-project-row {
     padding-bottom: 20px;
 }
+
 
 @import 'directives/main';
 @import 'home/main';
