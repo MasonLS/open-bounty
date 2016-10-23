@@ -38,7 +38,7 @@ module.exports = db.define('user', {
     },
     githubUrl: {
         type: Sequelize.STRING,
-        valide: {
+        validate: {
             isUrl: true
         }
     },

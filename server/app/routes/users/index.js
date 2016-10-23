@@ -2,7 +2,6 @@
 const router = require('express').Router(); // eslint-disable-line new-cap
 const db = require('../../../db');
 const User = db.model('user');
-const request = require('request');
 const Project = db.model('project');
 const Promise = require('bluebird');
 module.exports = router;
