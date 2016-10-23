@@ -8,10 +8,12 @@ const Promise = require('bluebird');
 
 module.exports = db.define('bounty', {
     issueNumber: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        allowNull: false
     },
     issueId: {
         type: Sequelize.INTEGER,
+        allowNull: false,
         unique: true
     },
     issueTitle: {
@@ -67,14 +69,14 @@ module.exports = db.define('bounty', {
                     amount: newAmount
                 })
                 .then(updatedBounty => {
-                    return updatedBounty.getProject()
+                    return updatedBounty.getProject();
                 })
                 .then(bountyProject => {
-                    const newFundsOnHold = Number(bountyProject.fundsOnHold) - Number(oldAmount) + Number(newAmount);
+                    const newFundsOnHold = bountyProject.fundsOnHold - oldAmount + newAmount;
                     return bountyProject.update({
                         fundsOnHold: newFundsOnHold
                     });
-                })
+                });
         }
     },
     classMethods: {

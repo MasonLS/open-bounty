@@ -22,15 +22,24 @@ module.exports = db.define('project', {
     },
     fundsOnHold: {
         type: Sequelize.FLOAT,
-        defaultValue: 0.00
+        defaultValue: 0.00,
+        validate: {
+            min: 0.00
+        }
     },
     raised: {
         type: Sequelize.FLOAT,
-        defaultValue: 0.00
+        defaultValue: 0.00,
+        validate: {
+            min: 0.00
+        }
     },
     paidOut: {
         type: Sequelize.FLOAT,
-        defaultValue: 0.00
+        defaultValue: 0.00,
+        validate: {
+            min: 0.00
+        }
     }
 }, {
     instanceMethods: {
@@ -42,7 +51,7 @@ module.exports = db.define('project', {
                 .then(repo => {
                     this.setDataValue('repo', repo);
                     return this;
-                })
+                });
         },
         attachBounties: function(githubClient, githubName) {
             return this.getBounties()
@@ -54,7 +63,7 @@ module.exports = db.define('project', {
                 .then(bountiesWithIssue => {
                     this.setDataValue('bounties', bountiesWithIssue);
                     return this;
-                })
+                });
 
         },
         attachRepoAndBounties: function(githubClient, githubName) {
